@@ -9,7 +9,7 @@ import FormField from "../../../_components/FormField";
 import SectionMain from "../../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
 import { getPageTitle } from "../../../_lib/config";
-import FormGrid from "../../_components/layout/form/FormGrid";
+import FormGrid from "../../../_components/FormField/FormGrid";
 
 export default function FormsPage() {
     const handleSubmit = (values, { setSubmitting }) => {

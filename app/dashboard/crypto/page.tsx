@@ -1,17 +1,21 @@
 "use client";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch ,  RootState} from "../../_stores/store";
+import { AppDispatch, RootState } from "../../_stores/store";
 import { fetchCryptoAction } from "../../_stores/crypto/cryptoSlice";
 import { mdiBitcoin } from "@mdi/js";
 import CardBox from "../../_components/CardBox";
 import SectionMain from "../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../_components/Section/TitleLineWithButton";
 import GenericTable from "../../_components/Table/Table";
+import FormSearch from "../../_components/FormField/FormSearch";
+import FormField from "../../_components/FormField";
+import { Field } from "formik";
+import FormGrid from "../../_components/FormField/FormGrid";
 
 const columns = [
   { key: "name", label: "Name" },
-  { key: "image", label: "Icon" , kind : "image" },
+  { key: "image", label: "Icon", kind: "image" },
   { key: "symbol", label: "Symbol" },
   { key: "current_price", label: "Current Price ($)" },
   { key: "market_cap", label: "Market Cap ($)" },
@@ -22,6 +26,14 @@ export default function CryptoPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.crypto);
 
+  // Đảm bảo tất cả các Field đều có giá trị mặc định
+  const initdata = { symbol: "", volume: "", regDate: "" };
+
+  const handleSubmit = (values) => {
+    console.log("Submitted values:", values);
+    
+  };
+
   useEffect(() => {
     dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
   }, [dispatch]);
@@ -29,8 +41,51 @@ export default function CryptoPage() {
   return (
     <SectionMain>
       <SectionTitleLineWithButton icon={mdiBitcoin} title="Crypto Price" main />
+      <CardBox>
+        <FormSearch initdata={initdata} handleSubmit={handleSubmit}>
+          <FormGrid columns={3}>
+            <FormField label="Reg Date" labelFor="regDate" icon={mdiBitcoin}>
+              {({ className }) => (
+                <Field
+                  name="regDate"
+                  id="regDate"
+                  type="date"
+                  className={className}
+                />
+              )}
+            </FormField>
+            <FormField label="Symbol" labelFor="symbol" icon={mdiBitcoin}>
+              {({ className }) => (
+                <Field
+                  name="symbol"
+                  id="symbol"
+                  placeholder="Symbol search ..."
+                  className={className}
+                />
+              )}
+            </FormField>
+            <FormField label="Volume" labelFor="volume" icon={mdiBitcoin}>
+              {({ className }) => (
+                <Field
+                  name="volume"
+                  id="volume"
+                  placeholder="Volume search ..."
+                  className={className}
+                />
+              )}
+            </FormField>
+          </FormGrid>
+        </FormSearch>
+      </CardBox>
+
       <CardBox className="mb-6" hasTable>
-        <GenericTable data={items} columns={columns} showPaging={true} perPage={5}  loading = {!loading} />
+        <GenericTable
+          data={items}
+          columns={columns}
+          showPaging={true}
+          perPage={5}
+          loading={!loading}
+        />
       </CardBox>
     </SectionMain>
   );

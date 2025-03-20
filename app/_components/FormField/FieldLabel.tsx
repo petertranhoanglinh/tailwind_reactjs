@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 
-type Props = {
-  htmlFor?: string;
-  children: ReactNode;
-  className?: string;
-};
+  type Props = {
+    htmlFor?: string;
+    children: ReactNode;
+    className?: string;
+  };
 
 const FieldLabel = ({ htmlFor, children, ...props }: Props) => {
   return (
