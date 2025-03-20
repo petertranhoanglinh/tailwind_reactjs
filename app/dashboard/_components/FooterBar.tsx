@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { containerMaxW } from "../../_lib/config";
-import JustboilLogo from "../../_components/JustboilLogo";
+import  { WowcnsLogo } from "../../_components/JustboilLogo";
 
 type Props = {
   children: ReactNode;
@@ -16,7 +16,7 @@ export default function FooterBar({ children }: Props) {
           <b>
             &copy;{year},{` `}
             <a href="https://justboil.me/" rel="noreferrer" target="_blank">
-              JustBoil.me
+              WOWCNS DEMO
             </a>
             .
           </b>
@@ -25,7 +25,7 @@ export default function FooterBar({ children }: Props) {
         </div>
         <div className="md:py-2">
           <a href="https://justboil.me" rel="noreferrer" target="_blank">
-            <JustboilLogo className="w-auto h-8 md:h-6 mx-auto" />
+            <WowcnsLogo className="w-auto h-8 md:h-6 mx-auto" />
           </a>
         </div>
       </div>

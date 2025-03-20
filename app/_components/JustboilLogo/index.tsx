@@ -18,3 +18,8 @@ export default function JustboilLogo({ className = "" }: Props) {
     </svg>
   );
 }
+export function WowcnsLogo({ className = "" }: Props) {
+  return (
+    <img src="http://www.wowcns.net/img/logo.svg" alt="Wowcns Logo" className={className} />
+  );
+}
