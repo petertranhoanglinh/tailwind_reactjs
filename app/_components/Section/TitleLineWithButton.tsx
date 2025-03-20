@@ -1,6 +1,5 @@
-import { mdiCog } from "@mdi/js";
-import React, { Children, ReactNode } from "react";
-import Button from "../Button";
+
+import React, {  ReactNode } from "react";
 import Icon from "../Icon";
 import IconRounded from "../Icon/Rounded";
 
@@ -17,7 +16,7 @@ export default function SectionTitleLineWithButton({
   main = false,
   children,
 }: Props) {
-  const hasChildren = !!Children.count(children);
+  // const hasChildren = !!Children.count(children);
 
   return (
     <section
@@ -33,7 +32,7 @@ export default function SectionTitleLineWithButton({
         </h1>
       </div>
       {children}
-      {!hasChildren && <Button icon={mdiCog} color="whiteDark" />}
+      {/* {!hasChildren && <Button icon={mdiCog} color="whiteDark" />} */}
     </section>
   );
 }
