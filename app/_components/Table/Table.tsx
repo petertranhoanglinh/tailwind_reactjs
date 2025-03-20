@@ -2,12 +2,15 @@
 
 import React, { useState } from "react";
 import Pagination from "./_component/Pagination";
+import CardBox from "../CardBox";
+import CardBoxComponentEmpty from "../CardBox/Component/Empty";
 
 interface TableColumn<T> {
   key: keyof T;
   label: string;
   kind?: string;
   render?: (item: T) => React.ReactNode;
+
 }
 
 interface TableProps<T> {
@@ -15,16 +18,22 @@ interface TableProps<T> {
   columns: TableColumn<T>[];
   showPaging?: boolean;
   perPage?: number;
+  loading: boolean ;
 }
 
-const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5 }: TableProps<T>) => {
+const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5 , loading }: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1); // Bắt đầu từ trang 1
   const numPages = Math.ceil(data.length / perPage);
   const paginatedData = data.slice(perPage * (currentPage - 1), perPage * currentPage);
 
   return (
     <>
-      <table>
+     {!loading && (
+        <CardBox>
+         <CardBoxComponentEmpty />
+        </CardBox>
+     )}
+    {loading && (<table>
         <thead>
           <tr>
             {columns.map((column) => (
@@ -49,7 +58,8 @@ const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5 }: Tab
             </tr>
           ))}
         </tbody>
-      </table>
+      </table>)}
+      
 
       {showPaging && numPages > 1 && (
         <Pagination numPages={numPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />

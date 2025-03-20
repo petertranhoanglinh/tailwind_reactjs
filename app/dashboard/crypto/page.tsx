@@ -20,7 +20,7 @@ const columns = [
 
 export default function CryptoPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const { items, loading, error } = useSelector((state: RootState) => state.crypto);
+  const { items, loading } = useSelector((state: RootState) => state.crypto);
 
   useEffect(() => {
     dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
@@ -29,10 +29,8 @@ export default function CryptoPage() {
   return (
     <SectionMain>
       <SectionTitleLineWithButton icon={mdiBitcoin} title="Crypto Price" main />
-      {loading && <p>Loading...</p>}
-      {error && <p className="text-red-500">Error: {error}</p>}
       <CardBox className="mb-6" hasTable>
-        <GenericTable data={items} columns={columns} showPaging={true} perPage={5} />
+        <GenericTable data={items} columns={columns} showPaging={true} perPage={5}  loading = {!loading} />
       </CardBox>
     </SectionMain>
   );
