@@ -38,40 +38,34 @@ export default function CryptoPage() {
     <SectionMain>
       <SectionTitleLineWithButton icon={mdiBitcoin} title="Crypto Price" main />
         <CardBox>
-          <FormSearch initdata={initdata} handleSubmit={handleSubmit}>
+        <FormSearch initdata={initdata} handleSubmit={handleSubmit} hideFields={{ regDate: false, symbol: false, volume: true }}>
+          {(hiddenFields) => (
             <FormGrid columns={3}>
+              {!hiddenFields.regDate && (
                 <FormField label="Reg Date" labelFor="regDate" icon={mdiCalendarAlert}>
                   {({ className }) => (
-                    <Field
-                      name="regDate"
-                      id="regDate"
-                      type="date"
-                      className={className}
-                    />
+                    <Field name="regDate" id="regDate" type="date" className={className} />
                   )}
-               </FormField>
+                </FormField>
+              )}
+              {!hiddenFields.symbol && (
                 <FormField label="Symbol" labelFor="symbol" icon={mdiBitcoin}>
                   {({ className }) => (
-                    <Field
-                      name="symbol"
-                      id="symbol"
-                      placeholder="Symbol search ..."
-                      className={className}
-                    />
+                    <Field name="symbol" id="symbol" placeholder="Symbol search ..." className={className} />
                   )}
                 </FormField>
+              )}
+              {!hiddenFields.volume && (
                 <FormField label="Volume" labelFor="volume" icon={mdiCashMultiple}>
                   {({ className }) => (
-                    <Field
-                      name="volume"
-                      id="volume"
-                      placeholder="Volume search ..."
-                      className={className}
-                    />
+                    <Field name="volume" id="volume" placeholder="Volume search ..." className={className} />
                   )}
                 </FormField>
+              )}
             </FormGrid>
-          </FormSearch>
+          )}
+        </FormSearch>
+
         </CardBox>
       <CardBox className="mb-6" hasTable>
         <GenericTable
