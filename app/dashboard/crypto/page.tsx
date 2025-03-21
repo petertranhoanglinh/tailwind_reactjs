@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../_stores/store";
 import { fetchCryptoAction } from "../../_stores/crypto/cryptoSlice";
@@ -26,10 +26,16 @@ export default function CryptoPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.crypto);
   const initdata = { symbol: "", volume: "", regDate: "" };
+  const [hideFields] = useState<Record<string, boolean>>({
+    isRegDate: false,
+    isSymbol: false,
+    isVolume: false,
+  });
+
   const handleSubmit = (values) => {
     console.log("Submitted values:", values);
-    
   };
+
   useEffect(() => {
     dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
   }, [dispatch]);
@@ -37,8 +43,12 @@ export default function CryptoPage() {
   return (
     <SectionMain>
       <SectionTitleLineWithButton icon={mdiBitcoin} title="Crypto Price" main />
-        <CardBox>
-        <FormSearch initdata={initdata} handleSubmit={handleSubmit} hideFields={{ regDate: false, symbol: false, volume: true }}>
+      <CardBox>
+        <FormSearch
+          initdata={initdata}
+          handleSubmit={handleSubmit}
+          hideFields={hideFields}
+        >
           {(hiddenFields) => (
             <FormGrid columns={3}>
               {!hiddenFields.regDate && (
@@ -65,8 +75,7 @@ export default function CryptoPage() {
             </FormGrid>
           )}
         </FormSearch>
-
-        </CardBox>
+      </CardBox>
       <CardBox className="mb-6" hasTable>
         <GenericTable
           data={items}

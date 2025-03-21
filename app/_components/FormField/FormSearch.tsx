@@ -1,40 +1,48 @@
 "use client";
 import { Form, Formik } from "formik";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import Buttons from "../Buttons";
 import Button from "../Button";
 import { mdiCog } from "@mdi/js";
 import FormCheckRadioGroup from "./CheckRadioGroup";
 import FormCheckRadio from "./CheckRadio";
 import { Field } from "formik";
-
 type Props = {
   initdata;
   handleSubmit: (values) => void;
-  hideFields?: Record<string, boolean>; // Kiểu dữ liệu rõ ràng
+  hideFields?: Record<string, boolean>;
   children?: (hideFields: Record<string, boolean>) => ReactNode;
 };
-
 export default function FormSearch({ initdata, handleSubmit, hideFields = {}, children }: Props) {
+  const [showOptions, setShowOptions] = useState(false);
+  const toggleOptions = () => setShowOptions(!showOptions);
   return (
-    <Formik initialValues={initdata} onSubmit={handleSubmit}>
-      {() => (
+    <Formik
+      initialValues={{ ...initdata, ...hideFields }}
+      onSubmit={handleSubmit}
+    >
+      {({ values, setFieldValue }) => (
         <Form>
           <div className="flex justify-end">
-            <Button icon={mdiCog} color="whiteDark" />
+            <Button icon={mdiCog} color="whiteDark" onClick={toggleOptions} />
           </div>
 
-          {/* Kiểm tra và render children */}
-          {children && children(hideFields)}
+          {children && children(values)}
 
-          {/* Render danh sách checkbox từ visibleFields */}
-          <FormCheckRadioGroup>
-            {Object.keys(hideFields).map((key) => (
-              <FormCheckRadio key={key} type="switch" label={key} isGrouped>
-                <Field type="checkbox" name={key} />
-              </FormCheckRadio>
-            ))}
-          </FormCheckRadioGroup>
+          {showOptions && (
+            <FormCheckRadioGroup>
+              {Object.keys(hideFields).map((key) => (
+                <FormCheckRadio key={key} type="switch" label={key} isGrouped>
+                  <Field
+                    type="checkbox"
+                    name={key}
+                    checked={!values[key]} // Đảo ngược vì hideFields là boolean
+                    onChange={() => setFieldValue(key, !values[key])}
+                  />
+                </FormCheckRadio>
+              ))}
+            </FormCheckRadioGroup>
+          )}
 
           <div className="flex justify-end mt-4">
             <Buttons>

@@ -22,7 +22,7 @@ interface TableProps<T> {
 }
 
 const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5 , loading }: TableProps<T>) => {
-  const [currentPage, setCurrentPage] = useState(1); // Bắt đầu từ trang 1
+  const [currentPage, setCurrentPage] = useState(1); 
   const numPages = Math.ceil(data.length / perPage);
   const paginatedData = data.slice(perPage * (currentPage - 1), perPage * currentPage);
 
