@@ -11,9 +11,7 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiVuejs,
-  mdiBitcoin,
-
-  mdiSignText
+  mdiBitcoin
 } from "@mdi/js";
 import { MenuAsideItem } from "../../_interfaces";
 
@@ -38,10 +36,20 @@ const menuAside: MenuAsideItem[] = [
     label: "Forms",
     icon: mdiSquareEditOutline,
   },
+
   {
-    href: "/dashboard/member/member_form",
-    label: "Add Member",
-    icon: mdiSignText,
+    label: "Member",
+    icon: mdiViewList,
+    menu: [
+      {
+        label: "Member_register",
+        href: "/dashboard/member/member_form",
+      },
+      {
+        label: "Member_search",
+        href: "/dashboard/member/member_search",
+      },
+    ],
   },
   {
     href: "/dashboard/ui",

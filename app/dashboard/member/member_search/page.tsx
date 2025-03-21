@@ -1,17 +1,17 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../_stores/store";
-import { fetchCryptoAction } from "../../_stores/crypto/cryptoSlice";
-import { mdiBitcoin, mdiCalendarAlert, mdiCashMultiple } from "@mdi/js";
-import CardBox from "../../_components/CardBox";
-import SectionMain from "../../_components/Section/Main";
-import SectionTitleLineWithButton from "../../_components/Section/TitleLineWithButton";
-import GenericTable from "../../_components/Table/Table";
-import FormSearch from "../../_components/FormField/FormSearch";
-import FormField from "../../_components/FormField";
+import { AppDispatch, RootState } from "../../../_stores/store";
+import { fetchCryptoAction } from "../../../_stores/crypto/cryptoSlice";
+import { mdiAccount, mdiBitcoin, mdiCalendarAlert, mdiCashMultiple, mdiEmber } from "@mdi/js";
+import CardBox from "../../../_components/CardBox";
+import SectionMain from "../../../_components/Section/Main";
+import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
+import GenericTable from "../../../_components/Table/Table";
+import FormSearch from "../../../_components/FormField/FormSearch";
+import FormField from "../../../_components/FormField";
 import { Field } from "formik";
-import FormGrid from "../../_components/FormField/FormGrid";
+import FormGrid from "../../../_components/FormField/FormGrid";
 
 const columns = [
   { key: "name", label: "Name" },
@@ -42,7 +42,7 @@ export default function CryptoPage() {
 
   return (
     <SectionMain>
-      <SectionTitleLineWithButton icon={mdiBitcoin} title="Crypto Price" main />
+      <SectionTitleLineWithButton icon={mdiAccount} title="Member Search" main />
       <CardBox>
         <FormSearch
           initdata={initdata}
