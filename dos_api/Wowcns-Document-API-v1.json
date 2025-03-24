@@ -15,35 +15,40 @@
                         "type": "text",
                         "required": "required",
                         "length": 8,
-                        "remarks": "Company ID"
+                        "remarks": "Company ID" ,
+                        "example": "REIZ"
                     },
                     {
                         "name": "userid",
                         "type": "text",
                         "required": "required",
                         "length": 10,
-                        "remarks": "User ID"
+                        "remarks": "User ID",
+                        "example":"0124080002"
                     },
                     {
                         "name": "type",
                         "type": "text",
                         "required": "required",
                         "length": 1,
-                        "remarks": "1 (retrieve data from Pay_Calc_1 for monthly summary), 2 (retrieve data from Pay_Calc_2 for yearly summary)"
+                        "remarks": "1 (retrieve data from Pay_Calc_1 for monthly summary), 2 (retrieve data from Pay_Calc_2 for yearly summary)",
+                        "example":"1"
                     },
                     {
                         "name": "date1",
                         "type": "text",
                         "required": "optional",
                         "length": 10,
-                        "remarks": "Start date for search with format YYYYMMDD (Ex: 20251230)"
+                        "remarks": "Start date for search with format YYYYMMDD (Ex: 20251230)",
+                        "example":"20251230"
                     },
                     {
                         "name": "date2",
                         "type": "text",
                         "required": "optional",
                         "length": 10,
-                        "remarks": "End date for search with format YYYYMMDD (Ex: 20251230)"
+                        "remarks": "End date for search with format YYYYMMDD (Ex: 20251230)",
+                        "example":"20251230"
                     },
                     {
                         "name": "page",
@@ -68,7 +73,7 @@
             "description": "Information about the bonus benefit details.",
             "success": {
                 "status": "Ok",
-                "message": "Bonus benefit details retrieved successfully",
+                "message": "BenefitDetailInquiryDto []",
                 "fields": [
                     {
                         "name": "paydate",
@@ -90,20 +95,7 @@
                     }
                 ]
             },
-            "error": [
-                {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
-                },
-                {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
-                },
-                {
-                    "error-code": "500",
-                    "message": "Internal server error."
-                }
-            ]
+            "error": "Null"
         }
     },
     {
@@ -122,35 +114,40 @@
                         "type": "text",
                         "required": "required",
                         "length": 8,
-                        "remarks": "Company ID for the query"
+                        "remarks": "Company ID for the query",
+                        "example":"REIZ"
                     },
                     {
                         "name": "userid",
                         "type": "text",
                         "required": "required",
                         "length": 8,
-                        "remarks": "User ID for whom the data is retrieved"
+                        "remarks": "User ID for whom the data is retrieved",
+                        "example":"0124080002"
                     },
                     {
                         "name": "date1",
                         "type": "text",
                         "required": "required",
                         "length": 10,
-                        "remarks": "Start date (YYYYMMDD format)"
+                        "remarks": "Start date (YYYYMMDD format)",
+                        "example":"20250531"
                     },
                     {
                         "name": "date2",
                         "type": "text",
                         "required": "required",
                         "length": 10,
-                        "remarks": "End date (YYYYMMDD format)"
+                        "remarks": "End date (YYYYMMDD format)",
+                        "example":"20250531"
                     },
                     {
                         "name": "chkDate",
                         "type": "integer",
                         "required": "required",
                         "length": 1,
-                        "remarks": "1 (summarize by month), 2 (summarize by year)"
+                        "remarks": "1 (summarize by month), 2 (summarize by year)",
+                        "example":"1"
                     },
                     {
                         "name": "page",
@@ -175,7 +172,7 @@
             "description": "Bonus monthly search results displaying payment dates and total amounts based on the selected criteria.",
             "success": {
                 "status": "Ok",
-                "message": "Query executed successfully",
+                "message": "BenefitDetailInquiryDto []",
                 "fields": [
                     {
                         "name": "paydate",
@@ -194,20 +191,7 @@
                     }
                 ]
             },
-            "error": [
-                {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
-                },
-                {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
-                },
-                {
-                    "error-code": "500",
-                    "message": "Internal server error."
-                }
-            ]
+            "error": "Null"
         }
     },
     {
@@ -225,21 +209,24 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query"
+                    "remarks": "Company ID for the query",
+                    "example" :"REIZ"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
+                    "remarks": "User ID for whom the data is retrieved",
+                    "example":"0124080002"
                 },
                 {
                     "name": "yyyymm",
                     "type": "text",
                     "required": "required",
                     "length": 6,
-                    "remarks": "Year and month in YYYYMM format"
+                    "remarks": "Year and month in YYYYMM format",
+                    "example":"202505"
                 }
             ]
         },
@@ -247,7 +234,7 @@
             "description": "The getBenefitCalendar API is a JSON object containing benefit-related information for a specific user, company, and month. ",
             "success": {
                 "status": "Ok",
-                "message": "Query executed successfully",
+                "message": "BenefitCalendarDto []",
                 "fields": [
                     {
                         "name": "payDate",
@@ -276,20 +263,7 @@
                     }
                 ]
             },
-            "error": [
-                {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
-                },
-                {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
-                },
-                {
-                    "error-code": "500",
-                    "message": "Internal server error."
-                }
-            ]
+            "error":"Null"
         }
     },
     {
@@ -307,28 +281,32 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID associated with the user."
+                    "remarks": "Company ID associated with the user.",
+                    "example":"REIZ"
                 },
                 {
                     "name": "lang",
                     "type": "text",
                     "required": "required",
                     "length": 3,
-                    "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP')."
+                    "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP').",
+                    "example":"US"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the bonus data is retrieved."
+                    "remarks": "User ID for whom the bonus data is retrieved.",
+                    "example":"0124080002"
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "The year for which the bonus analysis is retrieved (format: YYYY)."
+                    "remarks": "The year for which the bonus analysis is retrieved (format: YYYY).",
+                    "example":"2025"
                 }
             ]
         },
@@ -336,7 +314,7 @@
             "description": "The bonusAnalysicGird API returns a JSON object containing bonus-related information for a specific user and year, grouped by month.",
             "success": {
                 "status": "success",
-                "message": "Query executed successfully",
+                "message": "BenefitDetailInquiryDto []",
                 "fields": [
                     {
                         "name": "giveDate",
@@ -355,20 +333,7 @@
                     }
                 ]
             },
-            "error": [
-                {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
-                },
-                {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
-                },
-                {
-                    "error-code": "500",
-                    "message": "Internal server error."
-                }
-            ]
+            "error": "Null"
         }
     },
     {
@@ -386,21 +351,24 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query"
+                    "remarks": "Company ID for the query",
+                    "example":"REIZ"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
+                    "remarks": "User ID for whom the data is retrieved",
+                    "example":"0124080002"
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "Year in YYYY format"
+                    "remarks": "Year in YYYY format",
+                    "example" : "2025"
                 }
             ]
         },
@@ -408,7 +376,7 @@
             "description": "The bonusAnalysicGirdSum API returns a JSON object containing the total bonus amounts for different categories.",
             "success": {
                 "status": "Ok",
-                "message": "Query executed successfully",
+                "message": "BenefitDetailInquiryDto[]",
                 "fields": [
                     {
                         "name": "amt1 - amt15",
@@ -422,20 +390,7 @@
                     }
                 ]
             },
-            "error": [
-                {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
-                },
-                {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
-                },
-                {
-                    "error-code": "500",
-                    "message": "Internal server error."
-                }
-            ]
+            "error": "Null"
         }
     },
     {
@@ -453,21 +408,24 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query"
+                    "remarks": "Company ID for the query" ,
+                    "example": "REIZ"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
+                    "remarks": "User ID for whom the data is retrieved",
+                    "example":"0124080002"
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "Year in YYYY format"
+                    "remarks": "Year in YYYY format",
+                    "example":"2025"
                 }
             ]
         },
@@ -475,7 +433,7 @@
             "description": "The bonusAnalysicChart1 API returns a JSON object containing the distribution of bonus amounts by category.",
             "success": {
                 "status": "Ok",
-                "message": "Query executed successfully",
+                "message": "BenefitDetailInquiryDto []",
                 "fields": [
                     {
                         "name": "payCD",
@@ -493,36 +451,13 @@
                         "remarks": "Total amount for the category"
                     },
                     {
-                        "name": "Max_Tg_Amt",
-                        "type": "number",
-                        "remarks": "Maximum target amount across all categories"
-                    },
-                    {
                         "name": "rate",
                         "type": "number",
                         "remarks": "Percentage contribution of this category to total bonuses"
-                    },
-                    {
-                        "name": "Rno",
-                        "type": "number",
-                        "remarks": "Row number in the result set"
-                    }
+                    }  
                 ]
             },
-            "error": [
-                {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
-                },
-                {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
-                },
-                {
-                    "error-code": "500",
-                    "message": "Internal server error."
-                }
-            ]
+            "error": "Null"
         }
     },
     {
@@ -540,21 +475,24 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query"
+                    "remarks": "Company ID for the query" ,
+                     "example": "REIZ"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
+                    "remarks": "User ID for whom the data is retrieved",
+                    "example": "0124080002"
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "Year in YYYY format"
+                    "remarks": "Year in YYYY format" ,
+                    "example": "2025"
                 }
             ]
         },
@@ -562,7 +500,7 @@
             "description": "The bonusAnalysicChart3 API returns a JSON object containing the monthly bonus amounts and related data.",
             "success": {
                 "status": "Ok",
-                "message": "Query executed successfully",
+                "message": "BenefitDetailInquiryDto[]",
                 "fields": [
                     {
                         "name": "regdate",
@@ -581,23 +519,56 @@
                     }
                 ]
             },
-            "error": [
-                {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
-                },
-                {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
-                },
-                {
-                    "error-code": "500",
-                    "message": "Internal server error."
-                }
-            ]
+            "error": "Null"
         }
     },
-    // member
+
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "TitlePay",
+        "menu-desc": "Retrieves the list of available pay titles for a given company.",
+        "input": {
+            "description": "The TitlePay API fetches the pay names and codes associated with a company.",
+            "url": "api/bonus/titlePay",
+            "method": "GET",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the query" ,
+                    "example": "REIZ"
+                }
+            ]
+        },
+        "output": {
+            "description": "The TitlePay API returns a JSON object containing a list of pay titles with their corresponding details.",
+            "success": {
+                "status": "Ok",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "Num",
+                        "type": "text",
+                        "remarks": "Numeric representation of the pay code"
+                    },
+                    {
+                        "name": "PayName",
+                        "type": "text",
+                        "remarks": "Name of the pay title"
+                    },
+                    {
+                        "name": "PayCd",
+                        "type": "text",
+                        "remarks": "Pay code identifier"
+                    }
+                ]
+            },
+            "error": "Null"
+        }
+    },    
     {
         "menu-parent": "Member",
         "menu-name": "FindMember",
@@ -638,7 +609,7 @@
             "description": "The API returns a JSON object containing detailed member information.",
             "success": {
                 "status": "Ok",
-                "message": "Query executed successfully",
+                "message": "MemberDto {}",
                 "fields": [
                     {
                         "name": "userid",
@@ -792,20 +763,195 @@
                     }
                 ]
             },
-            "error": [
+            "error": "Null"
+        }
+    },
+    {
+        "menu-parent": "Member",
+        "menu-name": "ChangeInformation",
+        "menu-desc": "Updates member information including contact details, address, and important dates.",
+        "input": {
+            "description": "This API updates member details for a specific company.",
+            "url": "api/member/update-infor",
+            "method": "POST",
+            "content-type": "application/json",
+            "parameters": [
                 {
-                    "error-code": "401",
-                    "message": "Unauthorized access."
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID associated with the member",
+                    "example": "REIZ"
                 },
                 {
-                    "error-code": "400",
-                    "message": "Invalid input parameters."
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID of the member",
+                    "example": "0124080002"
                 },
                 {
-                    "error-code": "500",
-                    "message": "Internal server error."
+                    "name": "updDate",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Update date in YYYYMMDD format",
+                    "example": "20240324"
+                },
+                {
+                    "name": "updReason",
+                    "type": "text",
+                    "required": "required",
+                    "length": 255,
+                    "remarks": "Reason for updating information",
+                    "example": "User requested change of address"
+                },
+                {
+                    "name": "tel",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 20,
+                    "remarks": "Updated telephone number",
+                    "example": "+82-2-1234-5678"
+                },
+                {
+                    "name": "mobile",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 20,
+                    "remarks": "Updated mobile number",
+                    "example": "+82-10-9876-5432"
+                },
+                {
+                    "name": "email",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 60,
+                    "remarks": "Updated email address",
+                    "example": "user@example.com"
+                },
+                {
+                    "name": "birthday",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 8,
+                    "remarks": "Birthday in YYYYMMDD format",
+                    "example": "19900101"
+                },
+                {
+                    "name": "post",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 8,
+                    "remarks": "Postal code",
+                    "example": "04547"
+                },
+                {
+                    "name": "state",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 30,
+                    "remarks": "State of residence",
+                    "example": "Seoul"
+                },
+                {
+                    "name": "city",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 30,
+                    "remarks": "City of residence",
+                    "example": "Gangnam"
+                },
+                {
+                    "name": "country",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 2,
+                    "remarks": "Country of residence",
+                    "example": "KR"
+                },
+                {
+                    "name": "addr1",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 90,
+                    "remarks": "Primary address line",
+                    "example": "123 Gangnam-daero"
+                },
+                {
+                    "name": "addr2",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 90,
+                    "remarks": "Secondary address line",
+                    "example": "Apt 304"
+                },
+                {
+                    "name": "okDateSMS",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 8,
+                    "remarks": "Date of SMS consent",
+                    "example": "20230101"
+                },
+                {
+                    "name": "okDateEmail",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 8,
+                    "remarks": "Date of Email consent",
+                    "example": "20230215"
+                },
+                {
+                    "name": "notice",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 300,
+                    "remarks": "Additional notes",
+                    "example": "User prefers communication via email."
+                },
+                {
+                    "name": "workUser",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 50,
+                    "remarks": "User who performed the update",
+                    "example": "admin_01"
+                },
+                {
+                    "name": "logIpAddr",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 50,
+                    "remarks": "IP address of the user",
+                    "example": "192.168.1.100"
                 }
             ]
+        },
+        "output": {
+            "description": "The UpdateMemberInfo API returns a JSON object containing the update status.",
+            "success": {
+                "status": "Ok",
+                "message": "ResultProcDto {}",
+                "fields": [
+                    {
+                        "name": "retCode",
+                        "type": "text",
+                        "remarks": "Return code indicating success or failure",
+                        "example": "OK"
+                    },
+                    {
+                        "name": "retStr",
+                        "type": "text",
+                        "remarks": "Message describing the update result",
+                        "example": "Update successful"
+                    }
+                ]
+            },
+            "error": "Null"
         }
     }
+    
 ]
