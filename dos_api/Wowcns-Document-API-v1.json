@@ -1126,5 +1126,79 @@
                 "message": "Password update failed"
             }
         }
+    },
+    {
+        "menu-parent": "Member",
+        "menu-name": "UpdatePin",
+        "menu-desc": "Updates the PIN of a member based on company ID and user ID.",
+        "input": {
+            "description": "This API updates the PIN of a member based on company ID and user ID.",
+            "url": "api/member/update-pin",
+            "method": "POST",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the query",
+                    "example": "REIZ"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the PIN is updated",
+                    "example": "0124080002"
+                },
+                {
+                    "name": "nickname",
+                    "type": "text",
+                    "required": "required",
+                    "length": 50,
+                    "remarks": "New nickname to be updated",
+                    "example": "newNickname"
+                }
+            ]
+        },
+        "output": {
+            "description": "The API returns a JSON object indicating the success or failure of the operation.",
+            "success": {
+                "status": "Ok",
+                "message": "SUCCESS",
+                "fields": [
+                    {
+                        "name": "retCode",
+                        "type": "text",
+                        "remarks": "Return code indicating success or failure"
+                    },
+                    {
+                        "name": "retStr",
+                        "type": "text",
+                        "remarks": "Return message with details"
+                    }
+                ]
+            },
+            "error": {
+                "status": "Error",
+                "message": "ERROR",
+                "fields": [
+                    {
+                        "name": "retCode",
+                        "type": "text",
+                        "remarks": "Error code if the update fails"
+                    },
+                    {
+                        "name": "retStr",
+                        "type": "text",
+                        "remarks": "Error message describing the issue"
+                    }
+                ]
+            }
+        }
     }
+    
+    
 ]
