@@ -1,0 +1,40 @@
+"success": {
+    "status": "Ok",
+    "message": "Members created successfully",
+    "fields ": [
+        {
+            "name": "retCode",
+            "type": "text",
+            "required": "",
+            "length": 50,
+            "remarks": "Result code(If successful the code will be 'OK')",
+            "example":"OK"
+        },
+        {
+            "name": "keyValue",
+            "type": "text",
+            "required": "",
+            "length": 50,
+            "remarks": "Member Id",
+            "example":"0100000000"
+        }
+    ]
+},
+"error": [
+    {
+        "name": "retCode",
+        "type": "text",
+        "required": "",
+        "length": 50,
+        "remarks": "Result code(If fail the code will be 'ERROR')",
+        "example":"ERROR"              
+    },
+    {
+        "name": "retStr",
+        "type": "text",
+        "required": "",
+        "length": 50,
+        "remarks": "Error message",
+        "example":"error message...."              
+    },
+]

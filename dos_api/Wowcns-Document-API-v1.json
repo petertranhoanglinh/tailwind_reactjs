@@ -930,26 +930,46 @@
             ]
         },
         "output": {
-            "description": "The UpdateMemberInfo API returns a JSON object containing the update status.",
+            "description": "The API returns a JSON object indicating the success or failure of the operation.",
             "success": {
                 "status": "Ok",
-                "message": "ResultProcDto {}",
-                "fields": [
+                "message": "SUCCESS",
+                "fields ": [
                     {
                         "name": "retCode",
                         "type": "text",
-                        "remarks": "Return code indicating success or failure",
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Result code(If successful the code will be 'OK')",
                         "example": "OK"
                     },
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Message describing the update result",
-                        "example": "Update successful"
+                        "remarks": "Return message of the operation",
+                        "length": 200,
+                        "example": ""
                     }
                 ]
             },
-            "error": "Null"
+            "error": [
+                {
+                    "name": "retCode",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Result code(If fail the code will be 'ERROR')",
+                    "example": "ERROR"
+                },
+                {
+                    "name": "retStr",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Error message",
+                    "example": "error message...."
+                }
+            ]
         }
     },
     {
@@ -1045,26 +1065,46 @@
             ]
         },
         "output": {
-            "description": "The ChangeBankAccount API returns a JSON object containing the update status.",
+            "description": "The API returns a JSON object indicating the success or failure of the operation.",
             "success": {
                 "status": "Ok",
-                "message": "Bank account updated successfully",
-                "fields": [
+                "message": "SUCCESS",
+                "fields ": [
                     {
                         "name": "retCode",
                         "type": "text",
-                        "remarks": "Return code indicating success or failure",
-                        "example": "0000"
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Result code(If successful the code will be 'OK')",
+                        "example": "OK"
                     },
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Message describing the update result",
-                        "example": "Update successful"
+                        "remarks": "Return message of the operation",
+                        "length": 200,
+                        "example": ""
                     }
                 ]
             },
-            "error": "Null"
+            "error": [
+                {
+                    "name": "retCode",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Result code(If fail the code will be 'ERROR')",
+                    "example": "ERROR"
+                },
+                {
+                    "name": "retStr",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Error message",
+                    "example": "error message...."
+                }
+            ]
         }
     },
     {
@@ -1104,27 +1144,46 @@
             ]
         },
         "output": {
-            "description": "The API returns a JSON object indicating the success or failure of the password update.",
+            "description": "The API returns a JSON object indicating the success or failure of the operation.",
             "success": {
                 "status": "Ok",
-                "message": "Password updated successfully",
-                "fields": [
+                "message": "SUCCESS",
+                "fields ": [
                     {
                         "name": "retCode",
                         "type": "text",
-                        "remarks": "Return code of the operation"
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Result code(If successful the code will be 'OK')",
+                        "example": "OK"
                     },
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Return message of the operation"
+                        "remarks": "Return message of the operation",
+                        "length": 200,
+                        "example": ""
                     }
                 ]
             },
-            "error": {
-                "status": "Error",
-                "message": "Password update failed"
-            }
+            "error": [
+                {
+                    "name": "retCode",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Result code(If fail the code will be 'ERROR')",
+                    "example": "ERROR"
+                },
+                {
+                    "name": "retStr",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Error message",
+                    "example": "error message...."
+                }
+            ]
         }
     },
     {
@@ -1168,37 +1227,42 @@
             "success": {
                 "status": "Ok",
                 "message": "SUCCESS",
-                "fields": [
+                "fields ": [
                     {
                         "name": "retCode",
                         "type": "text",
-                        "remarks": "Return code indicating success or failure"
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Result code(If successful the code will be 'OK')",
+                        "example": "OK"
                     },
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Return message with details"
+                        "remarks": "Return message of the operation",
+                        "length": 200,
+                        "example": ""
                     }
                 ]
             },
-            "error": {
-                "status": "Error",
-                "message": "ERROR",
-                "fields": [
-                    {
-                        "name": "retCode",
-                        "type": "text",
-                        "remarks": "Error code if the update fails"
-                    },
-                    {
-                        "name": "retStr",
-                        "type": "text",
-                        "remarks": "Error message describing the issue"
-                    }
-                ]
-            }
+            "error": [
+                {
+                    "name": "retCode",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Result code(If fail the code will be 'ERROR')",
+                    "example": "ERROR"
+                },
+                {
+                    "name": "retStr",
+                    "type": "text",
+                    "required": "",
+                    "length": 50,
+                    "remarks": "Error message",
+                    "example": "error message...."
+                }
+            ]
         }
     }
-    
-    
 ]
