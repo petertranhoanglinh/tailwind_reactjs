@@ -1,0 +1,811 @@
+[
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "SearchBonusDetail",
+        "menu-desc": "Retrieves bonus benefit details based on the given criteria.",
+        "input": {
+            "description": "User must be authenticated to search for bonus benefit details.",
+            "url": "api/bonus/BenefitDetailInquiry/search",
+            "method": "POST",
+            "content-type": "application/json",
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID"
+                    },
+                    {
+                        "name": "type",
+                        "type": "text",
+                        "required": "required",
+                        "length": 1,
+                        "remarks": "1 (retrieve data from Pay_Calc_1 for monthly summary), 2 (retrieve data from Pay_Calc_2 for yearly summary)"
+                    },
+                    {
+                        "name": "date1",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 10,
+                        "remarks": "Start date for search with format YYYYMMDD (Ex: 20251230)"
+                    },
+                    {
+                        "name": "date2",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 10,
+                        "remarks": "End date for search with format YYYYMMDD (Ex: 20251230)"
+                    },
+                    {
+                        "name": "page",
+                        "type": "int",
+                        "required": "Optional",
+                        "length": 100,
+                        "remarks": "number of pages of list(default 0)",
+                        "example": 0
+                    },
+                    {
+                        "name": "len",
+                        "type": "int",
+                        "required": "Optional",
+                        "length": 100,
+                        "remarks": "number of length of list(default 10)",
+                        "example": 10
+                    }
+                ]
+            }
+        },
+        "output": {
+            "description": "Information about the bonus benefit details.",
+            "success": {
+                "status": "Ok",
+                "message": "Bonus benefit details retrieved successfully",
+                "fields": [
+                    {
+                        "name": "paydate",
+                        "type": "text",
+                        "required": "required",
+                        "remarks": "Payment date with format YYYYMMDD (Ex: 20251230)"
+                    },
+                    {
+                        "name": "rankName",
+                        "type": "text",
+                        "required": "required",
+                        "remarks": "User rank name"
+                    },
+                    {
+                        "name": "totalAmt",
+                        "type": "number",
+                        "required": "required",
+                        "remarks": "Total amount"
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    },
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "BonusMonthlySearch",
+        "menu-desc": "Displays bonus payment details by month based on the selected criteria for a specific user",
+        "input": {
+            "description": "The screen displays a 'Bonus Monthly Search' page where users can filter and search for bonus payments by selecting a date range and step type (Monthly or Yearly).",
+            "url": "api/bonus/accountingInquiry/search",
+            "method": "POST",
+            "content-type": "application/json",
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "User ID for whom the data is retrieved"
+                    },
+                    {
+                        "name": "date1",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "Start date (YYYYMMDD format)"
+                    },
+                    {
+                        "name": "date2",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "End date (YYYYMMDD format)"
+                    },
+                    {
+                        "name": "chkDate",
+                        "type": "integer",
+                        "required": "required",
+                        "length": 1,
+                        "remarks": "1 (summarize by month), 2 (summarize by year)"
+                    },
+                    {
+                        "name": "page",
+                        "type": "int",
+                        "required": "Optional",
+                        "length": 100,
+                        "remarks": "number of pages of list(default 0)",
+                        "example": 0
+                    },
+                    {
+                        "name": "len",
+                        "type": "int",
+                        "required": "Optional",
+                        "length": 100,
+                        "remarks": "number of length of list(default 10)",
+                        "example": 10
+                    }
+                ]
+            }
+        },
+        "output": {
+            "description": "Bonus monthly search results displaying payment dates and total amounts based on the selected criteria.",
+            "success": {
+                "status": "Ok",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "paydate",
+                        "type": "text",
+                        "remarks": "Payment date in YYYYMM format"
+                    },
+                    {
+                        "name": "amt1 - amt15",
+                        "type": "number",
+                        "remarks": "Amount pay name 1 -> 15 (Visibility controlled by Bonus settings)"
+                    },
+                    {
+                        "name": "totalAmt",
+                        "type": "number",
+                        "remarks": "Total amount calculated"
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    },
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "BonusCalendar",
+        "menu-desc": "Retrieves benefit calendar details for a specific company and user.",
+        "input": {
+            "description": "The getBenefitCalendar API retrieves benefit-related data for a user based on the specified company, user ID, and month. This API is used to populate the benefit calendar with relevant information.",
+            "url": "api/bonus/getBenefitCalendar",
+            "method": "GET",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the query"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the data is retrieved"
+                },
+                {
+                    "name": "yyyymm",
+                    "type": "text",
+                    "required": "required",
+                    "length": 6,
+                    "remarks": "Year and month in YYYYMM format"
+                }
+            ]
+        },
+        "output": {
+            "description": "The getBenefitCalendar API is a JSON object containing benefit-related information for a specific user, company, and month. ",
+            "success": {
+                "status": "Ok",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "payDate",
+                        "type": "text",
+                        "remarks": "Payment date in YYYYMMDD format"
+                    },
+                    {
+                        "name": "payDay",
+                        "type": "text",
+                        "remarks": "Day of the month for the payment"
+                    },
+                    {
+                        "name": "totalAmt",
+                        "type": "number",
+                        "remarks": "Total amount calculated"
+                    },
+                    {
+                        "name": "taxAmt",
+                        "type": "number",
+                        "remarks": "Total tax amount deducted"
+                    },
+                    {
+                        "name": "trueAmt",
+                        "type": "number",
+                        "remarks": "Actual amount received after tax deductions"
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    },
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "BonusAnalysis",
+        "menu-desc": "Retrieves bonus analysis details for a specific company, user, and year.",
+        "input": {
+            "description": "The bonusAnalysicGird API retrieves a detailed breakdown of bonuses received by a user for a given year, categorized by different bonus types.",
+            "url": "api/bonus/bonusAnalysicGird",
+            "method": "GET",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID associated with the user."
+                },
+                {
+                    "name": "lang",
+                    "type": "text",
+                    "required": "required",
+                    "length": 3,
+                    "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP')."
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the bonus data is retrieved."
+                },
+                {
+                    "name": "year",
+                    "type": "text",
+                    "required": "required",
+                    "length": 4,
+                    "remarks": "The year for which the bonus analysis is retrieved (format: YYYY)."
+                }
+            ]
+        },
+        "output": {
+            "description": "The bonusAnalysicGird API returns a JSON object containing bonus-related information for a specific user and year, grouped by month.",
+            "success": {
+                "status": "success",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "giveDate",
+                        "type": "text",
+                        "remarks": "The bonus distribution month in YYYYMM format."
+                    },
+                    {
+                        "name": "amt1 - amt15",
+                        "type": "number",
+                        "remarks": "Amount pay name 1 -> 15 (Visibility controlled by Bonus settings)"
+                    },
+                    {
+                        "name": "totalAmt",
+                        "type": "number",
+                        "remarks": "Total bonus amount for the corresponding month."
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    },
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "BonusAnalysis",
+        "menu-desc": "Retrieves a summary of bonus amounts for a specific company and user.",
+        "input": {
+            "description": "The bonusAnalysicGirdSum API retrieves the total bonus amounts categorized by different types for a user in a given year.",
+            "url": "api/bonus/bonusAnalysicGirdSum",
+            "method": "GET",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the query"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the data is retrieved"
+                },
+                {
+                    "name": "year",
+                    "type": "text",
+                    "required": "required",
+                    "length": 4,
+                    "remarks": "Year in YYYY format"
+                }
+            ]
+        },
+        "output": {
+            "description": "The bonusAnalysicGirdSum API returns a JSON object containing the total bonus amounts for different categories.",
+            "success": {
+                "status": "Ok",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "amt1 - amt15",
+                        "type": "number",
+                        "remarks": "Total Amount pay name 1 -> 15 (Visibility controlled by Bonus settings)"
+                    },
+                    {
+                        "name": "totalAmt",
+                        "type": "number",
+                        "remarks": "Total amount across all categories"
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    },
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "BonusAnalysis",
+        "menu-desc": "Retrieves bonus distribution data for a specific company and user in a given year.",
+        "input": {
+            "description": "The bonusAnalysicChart1 API retrieves the distribution of bonus amounts categorized by different types for a user in a given year.",
+            "url": "api/bonus/bonusAnalysicChart1",
+            "method": "GET",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the query"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the data is retrieved"
+                },
+                {
+                    "name": "year",
+                    "type": "text",
+                    "required": "required",
+                    "length": 4,
+                    "remarks": "Year in YYYY format"
+                }
+            ]
+        },
+        "output": {
+            "description": "The bonusAnalysicChart1 API returns a JSON object containing the distribution of bonus amounts by category.",
+            "success": {
+                "status": "Ok",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "payCD",
+                        "type": "text",
+                        "remarks": "Payment category code"
+                    },
+                    {
+                        "name": "payName",
+                        "type": "text",
+                        "remarks": "Payment category name"
+                    },
+                    {
+                        "name": "totalAmt",
+                        "type": "number",
+                        "remarks": "Total amount for the category"
+                    },
+                    {
+                        "name": "Max_Tg_Amt",
+                        "type": "number",
+                        "remarks": "Maximum target amount across all categories"
+                    },
+                    {
+                        "name": "rate",
+                        "type": "number",
+                        "remarks": "Percentage contribution of this category to total bonuses"
+                    },
+                    {
+                        "name": "Rno",
+                        "type": "number",
+                        "remarks": "Row number in the result set"
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    },
+    {
+        "menu-parent": "Bonus",
+        "menu-name": "BonusAnalysis",
+        "menu-desc": "Retrieves monthly bonus distribution for a specific company and user in a given year.",
+        "input": {
+            "description": "The bonusAnalysicChart3 API retrieves the distribution of bonuses per month for a user in a given year.",
+            "url": "api/bonus/bonusAnalysicChart3",
+            "method": "GET",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the query"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the data is retrieved"
+                },
+                {
+                    "name": "year",
+                    "type": "text",
+                    "required": "required",
+                    "length": 4,
+                    "remarks": "Year in YYYY format"
+                }
+            ]
+        },
+        "output": {
+            "description": "The bonusAnalysicChart3 API returns a JSON object containing the monthly bonus amounts and related data.",
+            "success": {
+                "status": "Ok",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "regdate",
+                        "type": "text",
+                        "remarks": "Month in YYYYMM format"
+                    },
+                    {
+                        "name": "totalAmt",
+                        "type": "number",
+                        "remarks": "Total bonus amount for the month"
+                    },
+                    {
+                        "name": "Max_Amt",
+                        "type": "number",
+                        "remarks": "Maximum bonus amount across all months"
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    },
+    // member
+    {
+        "menu-parent": "Member",
+        "menu-name": "FindMember",
+        "menu-desc": "Retrieves member details based on company ID and user ID.",
+        "input": {
+            "description": "This API retrieves detailed member information based on company ID and user ID.",
+            "url": "api/member/find-id",
+            "method": "GET",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the query",
+                    "example": "REIZ"
+                },
+                {
+                    "name": "lang",
+                    "type": "text",
+                    "required": "required",
+                    "length": 2,
+                    "remarks": "Language code (e.g., EN, KR)",
+                    "example": "KR"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the data is retrieved",
+                    "example": "0124080002"
+                }
+            ]
+        },
+        "output": {
+            "description": "The API returns a JSON object containing detailed member information.",
+            "success": {
+                "status": "Ok",
+                "message": "Query executed successfully",
+                "fields": [
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "remarks": "User ID"
+                    },
+                    {
+                        "name": "username",
+                        "type": "text",
+                        "remarks": "User Name"
+                    },
+                    {
+                        "name": "usernameEng",
+                        "type": "text",
+                        "remarks": "English User Name"
+                    },
+                    {
+                        "name": "regDate",
+                        "type": "text",
+                        "remarks": "Registration Date"
+                    },
+                    {
+                        "name": "cntCd",
+                        "type": "text",
+                        "remarks": "Country Code"
+                    },
+                    {
+                        "name": "cntName",
+                        "type": "text",
+                        "remarks": "Country Name"
+                    },
+                    {
+                        "name": "pId",
+                        "type": "text",
+                        "remarks": "Parent ID"
+                    },
+                    {
+                        "name": "pName",
+                        "type": "text",
+                        "remarks": "Parent Name"
+                    },
+                    {
+                        "name": "rId",
+                        "type": "text",
+                        "remarks": "Recommender ID"
+                    },
+                    {
+                        "name": "rName",
+                        "type": "text",
+                        "remarks": "Recommender Name"
+                    },
+                    {
+                        "name": "rankCd",
+                        "type": "text",
+                        "remarks": "Rank Code"
+                    },
+                    {
+                        "name": "rankName",
+                        "type": "text",
+                        "remarks": "Rank Name"
+                    },
+                    {
+                        "name": "juminNo",
+                        "type": "text",
+                        "remarks": "Resident Number"
+                    },
+                    {
+                        "name": "birthday",
+                        "type": "text",
+                        "remarks": "Birthday"
+                    },
+                    {
+                        "name": "tel",
+                        "type": "text",
+                        "remarks": "Telephone"
+                    },
+                    {
+                        "name": "mobile",
+                        "type": "text",
+                        "remarks": "Mobile Number"
+                    },
+                    {
+                        "name": "eMail",
+                        "type": "text",
+                        "remarks": "Email Address"
+                    },
+                    {
+                        "name": "addr1",
+                        "type": "text",
+                        "remarks": "Address Line 1"
+                    },
+                    {
+                        "name": "addr2",
+                        "type": "text",
+                        "remarks": "Address Line 2"
+                    },
+                    {
+                        "name": "userKind",
+                        "type": "text",
+                        "remarks": "User Type"
+                    },
+                    {
+                        "name": "bankName",
+                        "type": "text",
+                        "remarks": "Bank Name"
+                    },
+                    {
+                        "name": "bankCd",
+                        "type": "text",
+                        "remarks": "Bank Code"
+                    },
+                    {
+                        "name": "deAccNo",
+                        "type": "text",
+                        "remarks": "Decrypted Account Number"
+                    },
+                    {
+                        "name": "gender",
+                        "type": "text",
+                        "remarks": "Gender"
+                    },
+                    {
+                        "name": "country",
+                        "type": "text",
+                        "remarks": "Country"
+                    },
+                    {
+                        "name": "city",
+                        "type": "text",
+                        "remarks": "City"
+                    },
+                    {
+                        "name": "county",
+                        "type": "text",
+                        "remarks": "County"
+                    },
+                    {
+                        "name": "nickname",
+                        "type": "text",
+                        "remarks": "Nickname"
+                    },
+                    {
+                        "name": "status",
+                        "type": "text",
+                        "remarks": "Account Status"
+                    },
+                    {
+                        "name": "statusName",
+                        "type": "text",
+                        "remarks": "Account Status Name"
+                    }
+                ]
+            },
+            "error": [
+                {
+                    "error-code": "401",
+                    "message": "Unauthorized access."
+                },
+                {
+                    "error-code": "400",
+                    "message": "Invalid input parameters."
+                },
+                {
+                    "error-code": "500",
+                    "message": "Internal server error."
+                }
+            ]
+        }
+    }
+]
