@@ -15,7 +15,7 @@
                         "type": "text",
                         "required": "required",
                         "length": 8,
-                        "remarks": "Company ID" ,
+                        "remarks": "Company ID",
                         "example": "REIZ"
                     },
                     {
@@ -24,7 +24,7 @@
                         "required": "required",
                         "length": 10,
                         "remarks": "User ID",
-                        "example":"0124080002"
+                        "example": "0124080002"
                     },
                     {
                         "name": "type",
@@ -32,7 +32,7 @@
                         "required": "required",
                         "length": 1,
                         "remarks": "1 (retrieve data from Pay_Calc_1 for monthly summary), 2 (retrieve data from Pay_Calc_2 for yearly summary)",
-                        "example":"1"
+                        "example": "1"
                     },
                     {
                         "name": "date1",
@@ -40,7 +40,7 @@
                         "required": "optional",
                         "length": 10,
                         "remarks": "Start date for search with format YYYYMMDD (Ex: 20251230)",
-                        "example":"20251230"
+                        "example": "20251230"
                     },
                     {
                         "name": "date2",
@@ -48,7 +48,7 @@
                         "required": "optional",
                         "length": 10,
                         "remarks": "End date for search with format YYYYMMDD (Ex: 20251230)",
-                        "example":"20251230"
+                        "example": "20251230"
                     },
                     {
                         "name": "page",
@@ -115,7 +115,7 @@
                         "required": "required",
                         "length": 8,
                         "remarks": "Company ID for the query",
-                        "example":"REIZ"
+                        "example": "REIZ"
                     },
                     {
                         "name": "userid",
@@ -123,7 +123,7 @@
                         "required": "required",
                         "length": 8,
                         "remarks": "User ID for whom the data is retrieved",
-                        "example":"0124080002"
+                        "example": "0124080002"
                     },
                     {
                         "name": "date1",
@@ -131,7 +131,7 @@
                         "required": "required",
                         "length": 10,
                         "remarks": "Start date (YYYYMMDD format)",
-                        "example":"20250531"
+                        "example": "20250531"
                     },
                     {
                         "name": "date2",
@@ -139,7 +139,7 @@
                         "required": "required",
                         "length": 10,
                         "remarks": "End date (YYYYMMDD format)",
-                        "example":"20250531"
+                        "example": "20250531"
                     },
                     {
                         "name": "chkDate",
@@ -147,7 +147,7 @@
                         "required": "required",
                         "length": 1,
                         "remarks": "1 (summarize by month), 2 (summarize by year)",
-                        "example":"1"
+                        "example": "1"
                     },
                     {
                         "name": "page",
@@ -210,7 +210,7 @@
                     "required": "required",
                     "length": 8,
                     "remarks": "Company ID for the query",
-                    "example" :"REIZ"
+                    "example": "REIZ"
                 },
                 {
                     "name": "userid",
@@ -218,7 +218,7 @@
                     "required": "required",
                     "length": 10,
                     "remarks": "User ID for whom the data is retrieved",
-                    "example":"0124080002"
+                    "example": "0124080002"
                 },
                 {
                     "name": "yyyymm",
@@ -226,7 +226,7 @@
                     "required": "required",
                     "length": 6,
                     "remarks": "Year and month in YYYYMM format",
-                    "example":"202505"
+                    "example": "202505"
                 }
             ]
         },
@@ -263,7 +263,7 @@
                     }
                 ]
             },
-            "error":"Null"
+            "error": "Null"
         }
     },
     {
@@ -282,7 +282,7 @@
                     "required": "required",
                     "length": 8,
                     "remarks": "Company ID associated with the user.",
-                    "example":"REIZ"
+                    "example": "REIZ"
                 },
                 {
                     "name": "lang",
@@ -290,7 +290,7 @@
                     "required": "required",
                     "length": 3,
                     "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP').",
-                    "example":"US"
+                    "example": "US"
                 },
                 {
                     "name": "userid",
@@ -298,7 +298,7 @@
                     "required": "required",
                     "length": 10,
                     "remarks": "User ID for whom the bonus data is retrieved.",
-                    "example":"0124080002"
+                    "example": "0124080002"
                 },
                 {
                     "name": "year",
@@ -306,7 +306,7 @@
                     "required": "required",
                     "length": 4,
                     "remarks": "The year for which the bonus analysis is retrieved (format: YYYY).",
-                    "example":"2025"
+                    "example": "2025"
                 }
             ]
         },
@@ -352,7 +352,7 @@
                     "required": "required",
                     "length": 8,
                     "remarks": "Company ID for the query",
-                    "example":"REIZ"
+                    "example": "REIZ"
                 },
                 {
                     "name": "userid",
@@ -360,7 +360,7 @@
                     "required": "required",
                     "length": 10,
                     "remarks": "User ID for whom the data is retrieved",
-                    "example":"0124080002"
+                    "example": "0124080002"
                 },
                 {
                     "name": "year",
@@ -368,7 +368,7 @@
                     "required": "required",
                     "length": 4,
                     "remarks": "Year in YYYY format",
-                    "example" : "2025"
+                    "example": "2025"
                 }
             ]
         },
@@ -408,7 +408,7 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query" ,
+                    "remarks": "Company ID for the query",
                     "example": "REIZ"
                 },
                 {
@@ -417,7 +417,7 @@
                     "required": "required",
                     "length": 10,
                     "remarks": "User ID for whom the data is retrieved",
-                    "example":"0124080002"
+                    "example": "0124080002"
                 },
                 {
                     "name": "year",
@@ -425,7 +425,7 @@
                     "required": "required",
                     "length": 4,
                     "remarks": "Year in YYYY format",
-                    "example":"2025"
+                    "example": "2025"
                 }
             ]
         },
@@ -454,7 +454,7 @@
                         "name": "rate",
                         "type": "number",
                         "remarks": "Percentage contribution of this category to total bonuses"
-                    }  
+                    }
                 ]
             },
             "error": "Null"
@@ -475,8 +475,8 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query" ,
-                     "example": "REIZ"
+                    "remarks": "Company ID for the query",
+                    "example": "REIZ"
                 },
                 {
                     "name": "userid",
@@ -491,7 +491,7 @@
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "Year in YYYY format" ,
+                    "remarks": "Year in YYYY format",
                     "example": "2025"
                 }
             ]
@@ -522,7 +522,6 @@
             "error": "Null"
         }
     },
-
     {
         "menu-parent": "Bonus",
         "menu-name": "TitlePay",
@@ -538,7 +537,7 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query" ,
+                    "remarks": "Company ID for the query",
                     "example": "REIZ"
                 }
             ]
@@ -568,7 +567,7 @@
             },
             "error": "Null"
         }
-    },    
+    },
     {
         "menu-parent": "Member",
         "menu-name": "FindMember",
@@ -952,6 +951,180 @@
             },
             "error": "Null"
         }
+    },
+    {
+        "menu-parent": "Member",
+        "menu-name": "ChangeBankAccount",
+        "menu-desc": "Changes the bank account details of a member.",
+        "input": {
+            "description": "This API allows members to update their bank account details.",
+            "url": "api/member/changeBankAccount",
+            "method": "POST",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID associated with the member",
+                    "example": "REIZ"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID of the member",
+                    "example": "0124080002"
+                },
+                {
+                    "name": "updDate",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Update date in YYYYMMDD format",
+                    "example": "20240324"
+                },
+                {
+                    "name": "updReason",
+                    "type": "text",
+                    "required": "required",
+                    "length": 255,
+                    "remarks": "Reason for updating the bank details",
+                    "example": "Bank account changed due to new payroll requirements"
+                },
+                {
+                    "name": "bankCd",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "Bank Code",
+                    "example": "KDB"
+                },
+                {
+                    "name": "accNo",
+                    "type": "text",
+                    "required": "required",
+                    "length": 20,
+                    "remarks": "Account Number",
+                    "example": "123456789012"
+                },
+                {
+                    "name": "depositor",
+                    "type": "text",
+                    "required": "required",
+                    "length": 50,
+                    "remarks": "Name of the account holder",
+                    "example": "John Doe"
+                },
+                {
+                    "name": "accDate",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Account registration date in YYYYMMDD format",
+                    "example": "20240101"
+                },
+                {
+                    "name": "workUser",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 50,
+                    "remarks": "User performing the update",
+                    "example": "admin123"
+                },
+                {
+                    "name": "logIpAddr",
+                    "type": "text",
+                    "required": "optional",
+                    "length": 50,
+                    "remarks": "IP address of the user",
+                    "example": "192.168.1.100"
+                }
+            ]
+        },
+        "output": {
+            "description": "The ChangeBankAccount API returns a JSON object containing the update status.",
+            "success": {
+                "status": "Ok",
+                "message": "Bank account updated successfully",
+                "fields": [
+                    {
+                        "name": "retCode",
+                        "type": "text",
+                        "remarks": "Return code indicating success or failure",
+                        "example": "0000"
+                    },
+                    {
+                        "name": "retStr",
+                        "type": "text",
+                        "remarks": "Message describing the update result",
+                        "example": "Update successful"
+                    }
+                ]
+            },
+            "error": "Null"
+        }
+    },
+    {
+        "menu-parent": "Member",
+        "menu-name": "UpdatePassword",
+        "menu-desc": "Updates the password of a member in the system.",
+        "input": {
+            "description": "This API updates the password of a member based on their company ID and user ID.",
+            "url": "api/member/update-pass",
+            "method": "POST",
+            "content-type": "application/json",
+            "parameters": [
+                {
+                    "name": "comId",
+                    "type": "text",
+                    "required": "required",
+                    "length": 8,
+                    "remarks": "Company ID for the update",
+                    "example": "REIZ"
+                },
+                {
+                    "name": "userid",
+                    "type": "text",
+                    "required": "required",
+                    "length": 10,
+                    "remarks": "User ID for whom the password is updated",
+                    "example": "0124080002"
+                },
+                {
+                    "name": "passwd",
+                    "type": "text",
+                    "required": "required",
+                    "length": 50,
+                    "remarks": "New password to be set",
+                    "example": "NewSecureP@ssw0rd"
+                }
+            ]
+        },
+        "output": {
+            "description": "The API returns a JSON object indicating the success or failure of the password update.",
+            "success": {
+                "status": "Ok",
+                "message": "Password updated successfully",
+                "fields": [
+                    {
+                        "name": "retCode",
+                        "type": "text",
+                        "remarks": "Return code of the operation"
+                    },
+                    {
+                        "name": "retStr",
+                        "type": "text",
+                        "remarks": "Return message of the operation"
+                    }
+                ]
+            },
+            "error": {
+                "status": "Error",
+                "message": "Password update failed"
+            }
+        }
     }
-    
 ]
