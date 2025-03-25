@@ -51,10 +51,10 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 interface PaginationProps {
-  totalCount: number;      // Tổng số mục
-  itemsPerPage: number;    // Số mục trên mỗi trang
+  totalCount: number;      
+  itemsPerPage: number;   
   currentPage: number;     
-  onPageChange: (page: number) => void; // Hàm xử lý khi đổi trang
+  onPageChange: (page: number) => void; 
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -63,7 +63,7 @@ const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   onPageChange,
 }) => {
-  const numPages = Math.ceil(totalCount / itemsPerPage); // Tính tổng số trang
+  const numPages = Math.ceil(totalCount / itemsPerPage);
 
   const getPageNumbers = () => {
     const pageNumbers: (number | string)[] = [];

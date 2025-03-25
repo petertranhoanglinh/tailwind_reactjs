@@ -26,6 +26,7 @@ const columns = [
 export default function CryptoPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.crypto);
+  const  totalCount = items.length;
   const formattedItems = items.map((item) => ({
     ...item,
     price: formatNumber(item.current_price),
@@ -39,14 +40,9 @@ export default function CryptoPage() {
     isSymbol: false,
     isVolume: false,
   });
-  
-
   const handleSubmit = (values) => {
     console.log("Submitted values:", values);
   };
-
-  const totalCount = items.length;
-
   useEffect(() => {
     dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
   }, [dispatch]);

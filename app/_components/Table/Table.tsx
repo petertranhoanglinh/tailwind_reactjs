@@ -28,7 +28,6 @@ const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5, loadi
   
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    alert(page);
   };
 
   const paginatedData = data.slice(perPage * (currentPage - 1), perPage * currentPage);

@@ -31,7 +31,6 @@ export default function MemberSearchPage() {
   });
 
   const handleSubmit = (values) => {
-    console.log(values);
     search(values.name);
   };
 
