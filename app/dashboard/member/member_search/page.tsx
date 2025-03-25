@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../_stores/store";
-import { fetchCryptoAction } from "../../../_stores/crypto/cryptoSlice";
-import { mdiAccount, mdiBitcoin, mdiCalendarAlert, mdiCashMultiple, mdiEmber } from "@mdi/js";
+import { searchMemberAction } from "../../../_stores/member/memberSearchSlice";
+import { mdiAccount, mdiCalendarAlert, mdiEmber } from "@mdi/js";
 import CardBox from "../../../_components/CardBox";
 import SectionMain from "../../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
@@ -14,30 +14,54 @@ import { Field } from "formik";
 import FormGrid from "../../../_components/FormField/FormGrid";
 
 const columns = [
-  { key: "name", label: "Name" },
-  { key: "image", label: "Icon", kind: "image" },
-  { key: "symbol", label: "Symbol" },
-  { key: "current_price", label: "Current Price ($)" },
-  { key: "market_cap", label: "Market Cap ($)" },
-  { key: "total_volume", label: "Total Volume ($)" },
+  { key: "userid", label: "ID" },
+  { key: "username", label: "Name" },
+  { key: "email", label: "Email" },
+  { key: "regDate", label: "Registration Date" },
 ];
 
-export default function CryptoPage() {
+export default function MemberSearchPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const { items, loading } = useSelector((state: RootState) => state.crypto);
-  const initdata = { symbol: "", volume: "", regDate: "" };
+  const { items, loading } = useSelector((state: RootState) => state.searchMember);
+  const initdata = { name: "", email: "", regDate: "" };
   const [hideFields] = useState<Record<string, boolean>>({
     isRegDate: false,
-    isSymbol: false,
-    isVolume: false,
+    isName: false,
+    isEmail: false,
   });
 
   const handleSubmit = (values) => {
-    console.log("Submitted values:", values);
+    search()
   };
 
+  const search = () =>{
+    const params = {
+      comId: "REIZ",
+      lang: "KR",
+      startDate: "",
+      endDate: "",
+      chkuserid: "",
+      userid: "0124090003",
+      status: "",
+      userKind: "",
+      rankCd: "",
+      rankMaxCd: "",
+      cntCd: "",
+      grpCd: "",
+      ctrCd: "",
+      chkCnt: "",
+      chkGrp: "",
+      chkValue: 0,
+      value: "",
+      workUser: "",
+      page: 0,
+      len: 10,
+    };
+    dispatch(searchMemberAction(params));
+  }
+
   useEffect(() => {
-    dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
+    search()
   }, [dispatch]);
 
   return (
@@ -58,17 +82,17 @@ export default function CryptoPage() {
                   )}
                 </FormField>
               )}
-              {!hiddenFields.isSymbol && (
-                <FormField label="Symbol" labelFor="symbol" icon={mdiBitcoin}>
+              {!hiddenFields.isName && (
+                <FormField label="Name" labelFor="name" icon={mdiEmber}>
                   {({ className }) => (
-                    <Field name="symbol" id="symbol" placeholder="Symbol search ..." className={className} />
+                    <Field name="name" id="name" placeholder="Name search ..." className={className} />
                   )}
                 </FormField>
               )}
-              {!hiddenFields.isVolume && (
-                <FormField label="Volume" labelFor="volume" icon={mdiCashMultiple}>
+              {!hiddenFields.isEmail && (
+                <FormField label="Email" labelFor="email" icon={mdiEmber}>
                   {({ className }) => (
-                    <Field name="volume" id="volume" placeholder="Volume search ..." className={className} />
+                    <Field name="email" id="email" placeholder="Email search ..." className={className} />
                   )}
                 </FormField>
               )}
@@ -82,7 +106,7 @@ export default function CryptoPage() {
           columns={columns}
           showPaging={true}
           perPage={5}
-          loading={!loading}
+          loading={true}
         />
       </CardBox>
     </SectionMain>
