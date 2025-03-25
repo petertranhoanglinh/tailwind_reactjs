@@ -15,58 +15,60 @@
                         "type": "text",
                         "required": "required",
                         "length": 8,
-                        "remarks": "Company ID",
-                        "example": "REIZ"
+                        "remarks": "Company ID"
                     },
                     {
                         "name": "userid",
                         "type": "text",
                         "required": "required",
                         "length": 10,
-                        "remarks": "User ID",
-                        "example": "0124080002"
+                        "remarks": "User ID"
                     },
                     {
                         "name": "type",
                         "type": "text",
                         "required": "required",
                         "length": 1,
-                        "remarks": "1 (retrieve data from Pay_Calc_1 for monthly summary), 2 (retrieve data from Pay_Calc_2 for yearly summary)",
-                        "example": "1"
+                        "remarks": "1 (retrieve data from Pay_Calc_1 for monthly summary), 2 (retrieve data from Pay_Calc_2 for yearly summary)"
                     },
                     {
                         "name": "date1",
                         "type": "text",
                         "required": "optional",
                         "length": 10,
-                        "remarks": "Start date for search with format YYYYMMDD",
-                        "example": "20251230"
+                        "remarks": "Start date for search with format YYYYMMDD"
                     },
                     {
                         "name": "date2",
                         "type": "text",
                         "required": "optional",
                         "length": 10,
-                        "remarks": "End date for search with format YYYYMMDD",
-                        "example": "20251230"
+                        "remarks": "End date for search with format YYYYMMDD"
                     },
                     {
                         "name": "page",
                         "type": "int",
                         "required": "Optional",
                         "length": 100,
-                        "remarks": "number of pages of list(default 0)",
-                        "example": 0
+                        "remarks": "number of pages of list(default 0)"
                     },
                     {
                         "name": "len",
                         "type": "int",
                         "required": "Optional",
                         "length": 100,
-                        "remarks": "number of length of list(default 10)",
-                        "example": 10
+                        "remarks": "number of length of list(default 10)"
                     }
-                ]
+                ],
+                "example": {
+                    "comId": "REIZ",
+                    "userid": "0124080002",
+                    "type": "1",
+                    "date1": "20251230",
+                    "date2": "20251230",
+                    "page": 0,
+                    "len": 10
+                }
             }
         },
         "output": {
@@ -114,58 +116,60 @@
                         "type": "text",
                         "required": "required",
                         "length": 8,
-                        "remarks": "Company ID for the query",
-                        "example": "REIZ"
+                        "remarks": "Company ID for the query"
                     },
                     {
                         "name": "userid",
                         "type": "text",
                         "required": "required",
                         "length": 8,
-                        "remarks": "User ID for whom the data is retrieved",
-                        "example": "0124080002"
+                        "remarks": "User ID for whom the data is retrieved"
                     },
                     {
                         "name": "date1",
                         "type": "text",
                         "required": "required",
                         "length": 10,
-                        "remarks": "Start date (YYYYMMDD format)",
-                        "example": "20250531"
+                        "remarks": "Start date (YYYYMMDD format)"
                     },
                     {
                         "name": "date2",
                         "type": "text",
                         "required": "required",
                         "length": 10,
-                        "remarks": "End date (YYYYMMDD format)",
-                        "example": "20250531"
+                        "remarks": "End date (YYYYMMDD format)"
                     },
                     {
                         "name": "chkDate",
                         "type": "integer",
                         "required": "required",
                         "length": 1,
-                        "remarks": "1 (summarize by month), 2 (summarize by year)",
-                        "example": "1"
+                        "remarks": "1 (summarize by month), 2 (summarize by year)"
                     },
                     {
                         "name": "page",
                         "type": "int",
                         "required": "Optional",
                         "length": 100,
-                        "remarks": "number of pages of list(default 0)",
-                        "example": 0
+                        "remarks": "number of pages of list(default 0)"
                     },
                     {
                         "name": "len",
                         "type": "int",
                         "required": "Optional",
                         "length": 100,
-                        "remarks": "number of length of list(default 10)",
-                        "example": 10
+                        "remarks": "number of length of list(default 10)"
                     }
-                ]
+                ],
+                "example": {
+                    "comId": "REIZ",
+                    "userid": "0124080002",
+                    "date1": "20250531",
+                    "date2": "20250531",
+                    "chkDate": 1,
+                    "page": 0,
+                    "len": 10
+                }
             }
         },
         "output": {
@@ -209,26 +213,28 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query",
-                    "example": "REIZ"
+                    "remarks": "Company ID for the query"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved",
-                    "example": "0124080002"
+                    "remarks": "User ID for whom the data is retrieved"
                 },
                 {
                     "name": "yyyymm",
                     "type": "text",
                     "required": "required",
                     "length": 6,
-                    "remarks": "Year and month in YYYYMM format",
-                    "example": "202505"
+                    "remarks": "Year and month in YYYYMM format"
                 }
-            ]
+            ],
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "yyyymm": "202505"
+            }
         },
         "output": {
             "description": "This API returns a JSON string containing benefit-related details for a specific user, company, and month. The response includes payment date, total amount, tax deductions.",
@@ -281,34 +287,36 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID associated with the user.",
-                    "example": "REIZ"
+                    "remarks": "Company ID associated with the user."
                 },
                 {
                     "name": "lang",
                     "type": "text",
                     "required": "required",
                     "length": 3,
-                    "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP').",
-                    "example": "US"
+                    "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP')."
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the bonus data is retrieved.",
-                    "example": "0124080002"
+                    "remarks": "User ID for whom the bonus data is retrieved."
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "The year for which the bonus analysis is retrieved (format: YYYY).",
-                    "example": "2025"
+                    "remarks": "The year for which the bonus analysis is retrieved (format: YYYY)."
                 }
-            ]
+            ],
+            "example": {
+                "comId": "REIZ",
+                "lang": "US",
+                "userid": "0124080002",
+                "year": "2025"
+            }
         },
         "output": {
             "description": "This API returns a JSON string containing benefit-related details for a specific user, company, and month. The response includes payment date, total amount, tax deductions, and the actual amount received after tax.",
@@ -351,26 +359,28 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query",
-                    "example": "REIZ"
+                    "remarks": "Company ID for the query"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved",
-                    "example": "0124080002"
+                    "remarks": "User ID for whom the data is retrieved"
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "Year in YYYY format",
-                    "example": "2025"
+                    "remarks": "Year in YYYY format"
                 }
-            ]
+            ],
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "year": "2025"
+            }
         },
         "output": {
             "description": "The bonusAnalysicGirdSum API returns a JSON object containing the total bonus amounts for different categories.",
@@ -408,26 +418,28 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query",
-                    "example": "REIZ"
+                    "remarks": "Company ID for the query"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved",
-                    "example": "0124080002"
+                    "remarks": "User ID for whom the data is retrieved"
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "Year in YYYY format",
-                    "example": "2025"
+                    "remarks": "Year in YYYY format"
                 }
-            ]
+            ],
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "year": "2025"
+            }
         },
         "output": {
             "description": "The bonusAnalysicChart1 API returns a JSON object containing the distribution of bonus amounts for a user in a given year, categorized by payment types. It includes the total amount for each category, the highest received amount, and the percentage share of each category.",
@@ -475,26 +487,28 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query",
-                    "example": "REIZ"
+                    "remarks": "Company ID for the query"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved",
-                    "example": "0124080002"
+                    "remarks": "User ID for whom the data is retrieved"
                 },
                 {
                     "name": "year",
                     "type": "text",
                     "required": "required",
                     "length": 4,
-                    "remarks": "Year in YYYY format",
-                    "example": "2025"
+                    "remarks": "Year in YYYY format"
                 }
-            ]
+            ],
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "year": "2025"
+            }
         },
         "output": {
             "description": "The bonusAnalysicChart3 API returns a JSON object containing the monthly bonus amounts and related data.",
@@ -537,10 +551,12 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query",
-                    "example": "REIZ"
+                    "remarks": "Company ID for the query"
                 }
-            ]
+            ],
+            "example": {
+                "comId": "REIZ"
+            }
         },
         "output": {
             "description": "The TitlePay API returns a JSON object containing a list of pay titles with their corresponding details.",
