@@ -1192,7 +1192,7 @@
                         "type": "text",
                         "remarks": "Return message of the operation",
                         "length": 200,
-                        "example": ""
+                        "example": "Save success"
                     }
                 ]
             },
