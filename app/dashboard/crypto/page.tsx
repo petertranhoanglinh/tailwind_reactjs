@@ -39,10 +39,13 @@ export default function CryptoPage() {
     isSymbol: false,
     isVolume: false,
   });
+  
 
   const handleSubmit = (values) => {
     console.log("Submitted values:", values);
   };
+
+  const totalCount = items.length;
 
   useEffect(() => {
     dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
@@ -91,6 +94,7 @@ export default function CryptoPage() {
           showPaging={true}
           perPage={5}
           loading={loading}
+          total={totalCount}
         />
       </CardBox>
     </SectionMain>

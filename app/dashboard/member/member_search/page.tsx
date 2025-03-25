@@ -31,10 +31,11 @@ export default function MemberSearchPage() {
   });
 
   const handleSubmit = (values) => {
-    search()
+    console.log(values);
+    search(values.name);
   };
 
-  const search = () =>{
+  const search = (username : string) =>{
     const params = {
       comId: "REIZ",
       lang: "KR",
@@ -52,7 +53,7 @@ export default function MemberSearchPage() {
       chkCnt: "",
       chkGrp: "",
       chkValue: 0,
-      value: "",
+      value: username,
       workUser: "",
       page: 0,
       len: 10,
@@ -61,7 +62,7 @@ export default function MemberSearchPage() {
   }
 
   useEffect(() => {
-    search()
+    search("")
   }, [dispatch]);
 
   return (

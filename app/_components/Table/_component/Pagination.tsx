@@ -51,22 +51,25 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 interface PaginationProps {
-  numPages: number;
-  currentPage: number;
-  setCurrentPage: (page: number) => void;
+  totalCount: number;      // Tổng số mục
+  itemsPerPage: number;    // Số mục trên mỗi trang
+  currentPage: number;     
+  onPageChange: (page: number) => void; // Hàm xử lý khi đổi trang
 }
 
 const Pagination: React.FC<PaginationProps> = ({
-  numPages,
+  totalCount,
+  itemsPerPage,
   currentPage,
-  setCurrentPage,
+  onPageChange,
 }) => {
+  const numPages = Math.ceil(totalCount / itemsPerPage); // Tính tổng số trang
+
   const getPageNumbers = () => {
     const pageNumbers: (number | string)[] = [];
     const siblingCount = 1;
     const totalPageNumbers = siblingCount + 5;
 
-    // Case 1: If the number of pages is less than the total page numbers we want to show
     if (numPages <= totalPageNumbers) {
       return Array.from({ length: numPages }, (_, i) => i + 1);
     }
@@ -77,14 +80,12 @@ const Pagination: React.FC<PaginationProps> = ({
     const shouldShowLeftDots = leftSiblingIndex > 2;
     const shouldShowRightDots = rightSiblingIndex < numPages - 2;
 
-    // Case 2: No left dots to show, but rights dots to be shown
     if (!shouldShowLeftDots && shouldShowRightDots) {
       const leftItemCount = 3 + 2 * siblingCount;
       const leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
       return [...leftRange, "...", numPages];
     }
 
-    // Case 3: No right dots to show, but left dots to be shown
     if (shouldShowLeftDots && !shouldShowRightDots) {
       const rightItemCount = 3 + 2 * siblingCount;
       const rightRange = Array.from(
@@ -94,7 +95,6 @@ const Pagination: React.FC<PaginationProps> = ({
       return [1, "...", ...rightRange];
     }
 
-    // Case 4: Both left and right dots to be shown
     if (shouldShowLeftDots && shouldShowRightDots) {
       const middleRange = Array.from(
         { length: rightSiblingIndex - leftSiblingIndex + 1 },
@@ -111,7 +111,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <Button
         label="<"
         disabled={currentPage === 1}
-        onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+        onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         color="whiteDark"
         small
       />
@@ -128,7 +128,7 @@ const Pagination: React.FC<PaginationProps> = ({
             active={page === currentPage}
             color={page === currentPage ? "lightDark" : "whiteDark"}
             small
-            onClick={() => setCurrentPage(page)}
+            onClick={() => onPageChange(page)}
           />
         )
       )}
@@ -136,7 +136,7 @@ const Pagination: React.FC<PaginationProps> = ({
       <Button
         label=">"
         disabled={currentPage === numPages}
-        onClick={() => setCurrentPage(Math.min(numPages, currentPage + 1))}
+        onClick={() => onPageChange(Math.min(numPages, currentPage + 1))}
         color="whiteDark"
         small
       />
