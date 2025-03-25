@@ -18,6 +18,9 @@ const columns = [
   { key: "username", label: "Name" },
   { key: "email", label: "Email" },
   { key: "regDate", label: "Registration Date" },
+  { key: "mobile", label: "Mobile" },
+  { key: "rName", label: "Sponsor" },
+  { key: "pName", label: "Placement" },
 ];
 
 export default function MemberSearchPage() {

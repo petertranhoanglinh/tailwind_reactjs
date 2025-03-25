@@ -46,7 +46,7 @@ const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5, loadi
           <thead>
             <tr>
               {columns.map((column) => (
-                <th key={String(column.key)}>{column.label}</th>
+                <th key={String(column.key)} scope="col">{column.label}</th>
               ))}
             </tr>
           </thead>

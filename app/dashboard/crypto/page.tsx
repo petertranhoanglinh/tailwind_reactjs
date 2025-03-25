@@ -43,6 +43,9 @@ export default function CryptoPage() {
   const handleSubmit = (values) => {
     console.log("Submitted values:", values);
   };
+  const handlePageChange = (newPage: number) => {
+    console.log(newPage);
+  };
   useEffect(() => {
     dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
   }, [dispatch]);
@@ -91,6 +94,7 @@ export default function CryptoPage() {
           perPage={5}
           loading={loading}
           total={totalCount}
+          onPageChange={handlePageChange} 
         />
       </CardBox>
     </SectionMain>
