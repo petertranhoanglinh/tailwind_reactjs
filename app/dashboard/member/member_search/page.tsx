@@ -106,7 +106,7 @@ export default function MemberSearchPage() {
           columns={columns}
           showPaging={true}
           perPage={5}
-          loading={true}
+          loading={loading}
         />
       </CardBox>
     </SectionMain>

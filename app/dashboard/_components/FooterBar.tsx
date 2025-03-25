@@ -25,7 +25,7 @@ export default function FooterBar({ children }: Props) {
         </div>
         <div className="md:py-2">
           <a href="https://justboil.me" rel="noreferrer" target="_blank">
-            <WowcnsLogo className="w-auto h-8 md:h-6 mx-auto" />
+            <WowcnsLogo className="w-auto h-8 md:h-6 mx-auto" />  
           </a>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import justboilLogoPath from "./logoPath";
+import Image from "next/image";
 
 type Props = {
   className?: string;
@@ -20,6 +21,6 @@ export default function JustboilLogo({ className = "" }: Props) {
 }
 export function WowcnsLogo({ className = "" }: Props) {
   return (
-    <img src="http://www.wowcns.net/img/logo.svg" alt="Wowcns Logo" className={className} />
+    <Image src="http://www.wowcns.net/img/logo.svg" width={30} height={30} alt="Wowcns Logo" className={className} />
   );
 }

@@ -12,6 +12,7 @@ import FormSearch from "../../_components/FormField/FormSearch";
 import FormField from "../../_components/FormField";
 import { Field } from "formik";
 import FormGrid from "../../_components/FormField/FormGrid";
+import { formatNumber , toUpperLower } from "../../_utils/formatUtils";
 
 const columns = [
   { key: "name", label: "Name" },
@@ -25,6 +26,13 @@ const columns = [
 export default function CryptoPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.crypto);
+  const formattedItems = items.map((item) => ({
+    ...item,
+    price: formatNumber(item.current_price),
+    total_volume : formatNumber(item.total_volume) ,
+    market_cap : formatNumber(item.market_cap),
+    symbol : toUpperLower(item.symbol , "upper"),
+  }));
   const initdata = { symbol: "", volume: "", regDate: "" };
   const [hideFields] = useState<Record<string, boolean>>({
     isRegDate: false,
@@ -78,7 +86,7 @@ export default function CryptoPage() {
       </CardBox>
       <CardBox className="mb-6" hasTable>
         <GenericTable
-          data={items}
+          data={formattedItems}
           columns={columns}
           showPaging={true}
           perPage={5}
