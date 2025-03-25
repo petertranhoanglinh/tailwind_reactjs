@@ -396,9 +396,9 @@
     {
         "menu-parent": "Bonus",
         "menu-name": "BonusAnalysis",
-        "menu-desc": "Retrieves bonus distribution data for a specific company and user in a given year.",
+        "menu-desc": "Retrieves a summary of bonus payments for a specific company and user in a given year, including payment types, total amounts, highest received payment, and percentage distribution.",
         "input": {
-            "description": "The bonusAnalysicChart1 API retrieves the distribution of bonus amounts categorized by different types for a user in a given year.",
+            "description": "The bonusAnalysicChart1 API retrieves the distribution of bonus amounts for a specific user in a given year, categorized by payment types. It provides total amounts, the highest received payment, and percentage distribution of each bonus type.",
             "url": "api/bonus/bonusAnalysicChart1",
             "method": "GET",
             "content-type": "application/json",
@@ -430,7 +430,7 @@
             ]
         },
         "output": {
-            "description": "The bonusAnalysicChart1 API returns a JSON object containing the distribution of bonus amounts by category.",
+            "description": "The bonusAnalysicChart1 API returns a JSON object containing the distribution of bonus amounts for a user in a given year, categorized by payment types. It includes the total amount for each category, the highest received amount, and the percentage share of each category.",
             "success": {
                 "status": "Ok",
                 "message": "BenefitDetailInquiryDto []",
@@ -463,9 +463,9 @@
     {
         "menu-parent": "Bonus",
         "menu-name": "BonusAnalysis",
-        "menu-desc": "Retrieves monthly bonus distribution for a specific company and user in a given year.",
+        "menu-desc": "Retrieves the highest monthly bonus amount for a specific company and user in a given year, ensuring all months are represented.",
         "input": {
-            "description": "The bonusAnalysicChart3 API retrieves the distribution of bonuses per month for a user in a given year.",
+            "description": "The bonusAnalysicChart3 API retrieves the highest bonus amount distributed per month for a user in a given year, ensuring all months are included in the response.",
             "url": "api/bonus/bonusAnalysicChart3",
             "method": "GET",
             "content-type": "application/json",
@@ -515,7 +515,7 @@
                     {
                         "name": "Max_Amt",
                         "type": "number",
-                        "remarks": "Maximum bonus amount across all months"
+                        "remarks": "The highest bonus amount recorded across all months of the queried year"
                     }
                 ]
             },
