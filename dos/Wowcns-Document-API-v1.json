@@ -599,26 +599,28 @@
                     "type": "text",
                     "required": "required",
                     "length": 8,
-                    "remarks": "Company ID for the query",
-                    "example": "REIZ"
+                    "remarks": "Company ID for the query"
                 },
                 {
                     "name": "lang",
                     "type": "text",
                     "required": "required",
                     "length": 2,
-                    "remarks": "Language code (e.g., EN, KR)",
-                    "example": "KR"
+                    "remarks": "Language code (e.g., EN, KR)"
                 },
                 {
                     "name": "userid",
                     "type": "text",
                     "required": "required",
                     "length": 10,
-                    "remarks": "User ID for whom the data is retrieved",
-                    "example": "0124080002"
+                    "remarks": "User ID for whom the data is retrieved"
                 }
-            ]
+            ],
+            "example": {
+                "comId": "REIZ",
+                "lang": "KR",
+                "userid": "0124080002"
+            }
         },
         "output": {
             "description": "The API returns a JSON object containing detailed member information.",
@@ -790,160 +792,164 @@
             "url": "api/member/update-infor",
             "method": "POST",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID associated with the member",
-                    "example": "REIZ"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID of the member",
-                    "example": "0124080002"
-                },
-                {
-                    "name": "updDate",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Update date in YYYYMMDD format",
-                    "example": "20240324"
-                },
-                {
-                    "name": "updReason",
-                    "type": "text",
-                    "required": "required",
-                    "length": 255,
-                    "remarks": "Reason for updating information",
-                    "example": "User requested change of address"
-                },
-                {
-                    "name": "tel",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 20,
-                    "remarks": "Updated telephone number",
-                    "example": "+82-2-1234-5678"
-                },
-                {
-                    "name": "mobile",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 20,
-                    "remarks": "Updated mobile number",
-                    "example": "+82-10-9876-5432"
-                },
-                {
-                    "name": "email",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 60,
-                    "remarks": "Updated email address",
-                    "example": "user@example.com"
-                },
-                {
-                    "name": "birthday",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 8,
-                    "remarks": "Birthday in YYYYMMDD format",
-                    "example": "19900101"
-                },
-                {
-                    "name": "post",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 8,
-                    "remarks": "Postal code",
-                    "example": "04547"
-                },
-                {
-                    "name": "state",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 30,
-                    "remarks": "State of residence",
-                    "example": "Seoul"
-                },
-                {
-                    "name": "city",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 30,
-                    "remarks": "City of residence",
-                    "example": "Gangnam"
-                },
-                {
-                    "name": "country",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 2,
-                    "remarks": "Country of residence",
-                    "example": "KR"
-                },
-                {
-                    "name": "addr1",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 90,
-                    "remarks": "Primary address line",
-                    "example": "123 Gangnam-daero"
-                },
-                {
-                    "name": "addr2",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 90,
-                    "remarks": "Secondary address line",
-                    "example": "Apt 304"
-                },
-                {
-                    "name": "okDateSMS",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 8,
-                    "remarks": "Date of SMS consent",
-                    "example": "20230101"
-                },
-                {
-                    "name": "okDateEmail",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 8,
-                    "remarks": "Date of Email consent",
-                    "example": "20230215"
-                },
-                {
-                    "name": "notice",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 300,
-                    "remarks": "Additional notes",
-                    "example": "User prefers communication via email."
-                },
-                {
-                    "name": "workUser",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 50,
-                    "remarks": "User who performed the update",
-                    "example": "admin_01"
-                },
-                {
-                    "name": "logIpAddr",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 50,
-                    "remarks": "IP address of the user",
-                    "example": "192.168.1.100"
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID associated with the member"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID of the member"
+                    },
+                    {
+                        "name": "updDate",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Update date in YYYYMMDD format"
+                    },
+                    {
+                        "name": "updReason",
+                        "type": "text",
+                        "required": "required",
+                        "length": 255,
+                        "remarks": "Reason for updating information"
+                    },
+                    {
+                        "name": "tel",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 20,
+                        "remarks": "Updated telephone number"
+                    },
+                    {
+                        "name": "mobile",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 20,
+                        "remarks": "Updated mobile number"
+                    },
+                    {
+                        "name": "email",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 60,
+                        "remarks": "Updated email address"
+                    },
+                    {
+                        "name": "birthday",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 8,
+                        "remarks": "Birthday in YYYYMMDD format"
+                    },
+                    {
+                        "name": "post",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 8,
+                        "remarks": "Postal code"
+                    },
+                    {
+                        "name": "state",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 30,
+                        "remarks": "State of residence"
+                    },
+                    {
+                        "name": "city",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 30,
+                        "remarks": "City of residence"
+                    },
+                    {
+                        "name": "country",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 2,
+                        "remarks": "Country of residence"
+                    },
+                    {
+                        "name": "addr1",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 90,
+                        "remarks": "Primary address line"
+                    },
+                    {
+                        "name": "addr2",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 90,
+                        "remarks": "Secondary address line"
+                    },
+                    {
+                        "name": "okDateSMS",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 8,
+                        "remarks": "Date of SMS consent"
+                    },
+                    {
+                        "name": "okDateEmail",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 8,
+                        "remarks": "Date of Email consent"
+                    },
+                    {
+                        "name": "notice",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 300,
+                        "remarks": "Additional notes"
+                    },
+                    {
+                        "name": "workUser",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 50,
+                        "remarks": "User who performed the update"
+                    },
+                    {
+                        "name": "logIpAddr",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 50,
+                        "remarks": "IP address of the user"
+                    }
+                ],
+                "example": {
+                    "comId": "REIZ",
+                    "userid": "0124080002",
+                    "updDate": "20240324",
+                    "updReason": "User requested change of address",
+                    "tel": "+82-2-1234-5678",
+                    "mobile": "+82-10-9876-5432",
+                    "email": "user@example.com",
+                    "birthday": "19900101",
+                    "post": "04547",
+                    "state": "Seoul",
+                    "city": "Gangnam",
+                    "country": "KR",
+                    "addr1": "123 Gangnam-daero",
+                    "addr2": "Apt 304",
+                    "okDateSMS": "20230101",
+                    "okDateEmail": "20230215",
+                    "notice": "User prefers communication via email.",
+                    "workUser": "admin_01",
+                    "logIpAddr": "192.168.1.100"
                 }
-            ]
+            }
         },
         "output": {
             "description": "The API returns a JSON object indicating the success or failure of the operation.",
@@ -997,88 +1003,92 @@
             "url": "api/member/changeBankAccount",
             "method": "POST",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID associated with the member",
-                    "example": "REIZ"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID of the member",
-                    "example": "0124080002"
-                },
-                {
-                    "name": "updDate",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Update date in YYYYMMDD format",
-                    "example": "20240324"
-                },
-                {
-                    "name": "updReason",
-                    "type": "text",
-                    "required": "required",
-                    "length": 255,
-                    "remarks": "Reason for updating the bank details",
-                    "example": "Bank account changed due to new payroll requirements"
-                },
-                {
-                    "name": "bankCd",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "Bank Code",
-                    "example": "KDB"
-                },
-                {
-                    "name": "accNo",
-                    "type": "text",
-                    "required": "required",
-                    "length": 20,
-                    "remarks": "Account Number",
-                    "example": "123456789012"
-                },
-                {
-                    "name": "depositor",
-                    "type": "text",
-                    "required": "required",
-                    "length": 50,
-                    "remarks": "Name of the account holder",
-                    "example": "John Doe"
-                },
-                {
-                    "name": "accDate",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Account registration date in YYYYMMDD format",
-                    "example": "20240101"
-                },
-                {
-                    "name": "workUser",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 50,
-                    "remarks": "User performing the update",
-                    "example": "admin123"
-                },
-                {
-                    "name": "logIpAddr",
-                    "type": "text",
-                    "required": "optional",
-                    "length": 50,
-                    "remarks": "IP address of the user",
-                    "example": "192.168.1.100"
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID associated with the member"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID of the member"
+                    },
+                    {
+                        "name": "updDate",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Update date in YYYYMMDD format"
+                    },
+                    {
+                        "name": "updReason",
+                        "type": "text",
+                        "required": "required",
+                        "length": 255,
+                        "remarks": "Reason for updating the bank details"
+                    },
+                    {
+                        "name": "bankCd",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "Bank Code"
+                    },
+                    {
+                        "name": "accNo",
+                        "type": "text",
+                        "required": "required",
+                        "length": 20,
+                        "remarks": "Account Number"
+                    },
+                    {
+                        "name": "depositor",
+                        "type": "text",
+                        "required": "required",
+                        "length": 50,
+                        "remarks": "Name of the account holder"
+                    },
+                    {
+                        "name": "accDate",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Account registration date in YYYYMMDD format"
+                    },
+                    {
+                        "name": "workUser",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 50,
+                        "remarks": "User performing the update"
+                    },
+                    {
+                        "name": "logIpAddr",
+                        "type": "text",
+                        "required": "optional",
+                        "length": 50,
+                        "remarks": "IP address of the user"
+                    }
+                ],
+                "example": {
+                    "comId": "REIZ",
+                    "userid": "0124080002",
+                    "updDate": "20240324",
+                    "updReason": "Bank account changed due to new payroll requirements",
+                    "bankCd": "KDB",
+                    "accNo": "123456789012",
+                    "depositor": "John Doe",
+                    "accDate": "20240101",
+                    "workUser": "admin123",
+                    "logIpAddr": "192.168.1.100"
                 }
-            ]
+            }
         },
         "output": {
             "description": "The API returns a JSON object indicating the success or failure of the operation.",
@@ -1132,32 +1142,36 @@
             "url": "api/member/update-pass",
             "method": "POST",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the update",
-                    "example": "REIZ"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the password is updated",
-                    "example": "0124080002"
-                },
-                {
-                    "name": "passwd",
-                    "type": "text",
-                    "required": "required",
-                    "length": 50,
-                    "remarks": "New password to be set",
-                    "example": "NewSecureP@ssw0rd"
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the update"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the password is updated"
+                    },
+                    {
+                        "name": "passwd",
+                        "type": "text",
+                        "required": "required",
+                        "length": 50,
+                        "remarks": "New password to be set"
+                    }
+                ],
+                "example": {
+                    "comId": "REIZ",
+                    "userid": "0124080002",
+                    "passwd": "NewSecureP@ssw0rd"
                 }
-            ]
+            }
         },
         "output": {
             "description": "The API returns a JSON object indicating the success or failure of the operation.",
@@ -1211,32 +1225,36 @@
             "url": "api/member/update-pin",
             "method": "POST",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the query",
-                    "example": "REIZ"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the PIN is updated",
-                    "example": "0124080002"
-                },
-                {
-                    "name": "nickname",
-                    "type": "text",
-                    "required": "required",
-                    "length": 50,
-                    "remarks": "New nickname to be updated",
-                    "example": "newNickname"
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the PIN is updated"
+                    },
+                    {
+                        "name": "nickname",
+                        "type": "text",
+                        "required": "required",
+                        "length": 50,
+                        "remarks": "New nickname to be updated"
+                    }
+                ],
+                "example": {
+                    "comId": "REIZ",
+                    "userid": "0124080002",
+                    "nickname": "newNickname"
                 }
-            ]
+            }
         },
         "output": {
             "description": "The API returns a JSON object indicating the success or failure of the operation.",
