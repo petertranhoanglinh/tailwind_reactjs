@@ -4,7 +4,7 @@
         "menu-name": "SearchBonusDetail",
         "menu-desc": "Retrieves bonus benefit details based on the given criteria.",
         "input": {
-            "description": "User must be authenticated to search for bonus benefit details.",
+            "description": "This API retrieves bonus summaries based on the specified criteria, including company ID, user ID, summary type (monthly or yearly), and optional date range.",
             "url": "api/bonus/BenefitDetailInquiry/search",
             "method": "POST",
             "content-type": "application/json",
@@ -39,7 +39,7 @@
                         "type": "text",
                         "required": "optional",
                         "length": 10,
-                        "remarks": "Start date for search with format YYYYMMDD (Ex: 20251230)",
+                        "remarks": "Start date for search with format YYYYMMDD",
                         "example": "20251230"
                     },
                     {
@@ -47,7 +47,7 @@
                         "type": "text",
                         "required": "optional",
                         "length": 10,
-                        "remarks": "End date for search with format YYYYMMDD (Ex: 20251230)",
+                        "remarks": "End date for search with format YYYYMMDD",
                         "example": "20251230"
                     },
                     {
@@ -70,7 +70,7 @@
             }
         },
         "output": {
-            "description": "Information about the bonus benefit details.",
+            "description": "This API returns a JSON object containing bonus benefit details, including payment date, user rank, and total amount. The response is structured as a JSON object with success and error handling.",
             "success": {
                 "status": "Ok",
                 "message": "BenefitDetailInquiryDto []",
@@ -103,7 +103,7 @@
         "menu-name": "BonusMonthlySearch",
         "menu-desc": "Displays bonus payment details by month based on the selected criteria for a specific user",
         "input": {
-            "description": "The screen displays a 'Bonus Monthly Search' page where users can filter and search for bonus payments by selecting a date range and step type (Monthly or Yearly).",
+            "description": "This API allows users to search for bonus payment records by specifying a company ID, user ID, and date range. Users can filter results based on monthly or yearly summaries. The response supports pagination for efficient data retrieval.",
             "url": "api/bonus/accountingInquiry/search",
             "method": "POST",
             "content-type": "application/json",
@@ -231,7 +231,7 @@
             ]
         },
         "output": {
-            "description": "The getBenefitCalendar API is a JSON object containing benefit-related information for a specific user, company, and month. ",
+            "description": "This API returns a JSON string containing benefit-related details for a specific user, company, and month. The response includes payment date, total amount, tax deductions.",
             "success": {
                 "status": "Ok",
                 "message": "BenefitCalendarDto []",
@@ -271,7 +271,7 @@
         "menu-name": "BonusAnalysis",
         "menu-desc": "Retrieves bonus analysis details for a specific company, user, and year.",
         "input": {
-            "description": "The bonusAnalysicGird API retrieves a detailed breakdown of bonuses received by a user for a given year, categorized by different bonus types.",
+            "description": "The bonusAnalysicGird API retrieves a detailed analysis of bonuses received by a user within a specified year. The data is aggregated by month and categorized by different bonus types, providing a comprehensive view of total earnings for each period.",
             "url": "api/bonus/bonusAnalysicGird",
             "method": "GET",
             "content-type": "application/json",
@@ -311,7 +311,7 @@
             ]
         },
         "output": {
-            "description": "The bonusAnalysicGird API returns a JSON object containing bonus-related information for a specific user and year, grouped by month.",
+            "description": "This API returns a JSON string containing benefit-related details for a specific user, company, and month. The response includes payment date, total amount, tax deductions, and the actual amount received after tax.",
             "success": {
                 "status": "success",
                 "message": "BenefitDetailInquiryDto []",
