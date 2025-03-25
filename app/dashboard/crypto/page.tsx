@@ -7,14 +7,23 @@ import { mdiBitcoin, mdiCalendarAlert, mdiCashMultiple } from "@mdi/js";
 import CardBox from "../../_components/CardBox";
 import SectionMain from "../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../_components/Section/TitleLineWithButton";
-import GenericTable from "../../_components/Table/Table";
+import GenericTable, { TableColumn } from "../../_components/Table/Table";
 import FormSearch from "../../_components/FormField/FormSearch";
 import FormField from "../../_components/FormField";
 import { Field } from "formik";
 import FormGrid from "../../_components/FormField/FormGrid";
 import { formatNumber , toUpperLower } from "../../_utils/formatUtils";
 
-const columns = [
+interface CryptoData {
+  name: string;
+  image: string;
+  symbol: string;
+  current_price: number;
+  market_cap: number;
+  total_volume: number;
+}
+
+const columns: TableColumn<CryptoData>[] = [
   { key: "name", label: "Name" },
   { key: "image", label: "Icon", kind: "image" },
   { key: "symbol", label: "Symbol" },
@@ -22,6 +31,7 @@ const columns = [
   { key: "market_cap", label: "Market Cap ($)" },
   { key: "total_volume", label: "Total Volume ($)" },
 ];
+
 
 export default function CryptoPage() {
   const dispatch = useDispatch<AppDispatch>();

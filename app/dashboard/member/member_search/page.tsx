@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../_stores/store";
 import { searchMemberAction } from "../../../_stores/member/memberSearchSlice";
@@ -7,25 +7,30 @@ import { mdiAccount, mdiCalendarAlert, mdiEmber } from "@mdi/js";
 import CardBox from "../../../_components/CardBox";
 import SectionMain from "../../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
-import GenericTable from "../../../_components/Table/Table";
+import GenericTable, { TableColumn } from "../../../_components/Table/Table";
 import FormSearch from "../../../_components/FormField/FormSearch";
 import FormField from "../../../_components/FormField";
 import { Field } from "formik";
 import FormGrid from "../../../_components/FormField/FormGrid";
+import { MemberModel } from "../../../_models/member.model";
 
-const columns = [
+
+
+
+const columns : TableColumn<MemberModel>[] = [
   { key: "userid", label: "ID" },
   { key: "username", label: "Name" },
   { key: "email", label: "Email" },
   { key: "regDate", label: "Registration Date" },
   { key: "mobile", label: "Mobile" },
   { key: "rName", label: "Sponsor" },
-  { key: "pName", label: "Placement" },
+ 
 ];
 
 export default function MemberSearchPage() {
   const dispatch = useDispatch<AppDispatch>();
-  const [page, setPage] = useState(1); // Lưu trạng thái trang hiện tại
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [page, setPage] = useState(1); 
   const { items, loading } = useSelector((state: RootState) => state.searchMember);
   const initdata = { name: "", email: "", regDate: "" };
   const [hideFields] = useState<Record<string, boolean>>({
@@ -65,9 +70,9 @@ export default function MemberSearchPage() {
     };
     dispatch(searchMemberAction(params));
   }
-  useEffect(() => {
-    search("" , 1)
-  }, [dispatch]);
+  // useEffect(() => {
+  //   search("" , 1)
+  // }, [dispatch]);
 
   return (
     <SectionMain>

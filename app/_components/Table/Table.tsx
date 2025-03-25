@@ -5,7 +5,7 @@ import CardBox from "../CardBox";
 import CardBoxComponentEmpty from "../CardBox/Component/Empty";
 import Image from "next/image";
 
-interface TableColumn<T> {
+export interface TableColumn<T> {
   key: keyof T;
   label: string;
   kind?: string;

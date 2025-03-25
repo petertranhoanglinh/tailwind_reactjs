@@ -14,8 +14,10 @@ const initialState: MemberSearchState = {
   loading: false,
   error: null
 };
+
 export const searchMemberAction = createAsyncThunk(
   "searchMember",
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async (query : any, { rejectWithValue }) => {
     try {
       const response = await memberService.searchMember(query);

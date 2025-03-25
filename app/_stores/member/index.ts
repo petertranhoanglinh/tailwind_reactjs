@@ -1,5 +1,7 @@
-import memberSearchSlice from './memberSearchSlice'
+import memberSearchSlice from './memberSearchSlice';
 
-export default {
+const memberStore = {
     searchMember: memberSearchSlice,
 };
+
+export default memberStore;

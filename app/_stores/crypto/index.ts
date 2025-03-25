@@ -1,6 +1,7 @@
-import cryptoSlice from "./cryptoSlice"
+import cryptoSlice from "./cryptoSlice";
 
-export default {
+const cryptoStore = {
     crypto: cryptoSlice
 };
-  
+
+export default cryptoStore;
