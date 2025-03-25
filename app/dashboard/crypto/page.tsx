@@ -90,7 +90,7 @@ export default function CryptoPage() {
           columns={columns}
           showPaging={true}
           perPage={5}
-          loading={!loading}
+          loading={loading}
         />
       </CardBox>
     </SectionMain>

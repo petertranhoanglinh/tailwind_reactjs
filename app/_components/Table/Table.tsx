@@ -28,12 +28,12 @@ const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5 , load
 
   return (
     <>
-     {!loading && (
+     {loading && (
         <CardBox>
          <CardBoxComponentEmpty />
         </CardBox>
      )}
-    {loading && (<table>
+    {!loading && (<table>
         <thead>
           <tr>
             {columns.map((column) => (
