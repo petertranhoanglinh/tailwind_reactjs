@@ -18,15 +18,22 @@ interface TableProps<T> {
   showPaging?: boolean;
   perPage?: number;
   loading: boolean;
-  total :number;
-  onPageChange: (page: number) => void; 
+  total: number;
+  onPageChange: (page: number) => void;
 }
 
-const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5, loading  , total , onPageChange}: TableProps<T>) => {
+const GenericTable = <T,>({ 
+  data, 
+  columns, 
+  showPaging = true, 
+  perPage = 5, 
+  loading, 
+  total, 
+  onPageChange 
+}: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalCount = total;
 
-  
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     onPageChange(page);
@@ -35,44 +42,86 @@ const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5, loadi
   const paginatedData = data.slice(perPage * (currentPage - 1), perPage * currentPage);
 
   return (
-    <>
+    <div className="w-full">
       {loading && (
         <CardBox>
           <CardBoxComponentEmpty />
         </CardBox>
       )}
       {!loading && (
-        <table>
-          <thead>
-            <tr>
-              {columns.map((column) => (
-                <th key={String(column.key)} scope="col">{column.label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedData.map((item, index) => (
-              <tr key={index}>
+        <div className="overflow-x-auto">
+          {/* Desktop view */}
+          <table className="w-full hidden md:table">
+            <thead>
+              <tr className="bg-gray-50">
                 {columns.map((column) => (
-                  <td key={String(column.key)}>
-                    {column.kind === "image" && typeof item[column.key] === "string" ? (
-                      <Image src={item[column.key] as string} alt="crypto" width={40} height={40} />
-                    ) : column.render ? (
-                      column.render(item)
-                    ) : (
-                      item[column.key] as React.ReactNode
-                    )}
-                  </td>
+                  <th 
+                    key={String(column.key)} 
+                    scope="col"
+                    className="px-4 py-3 text-left text-sm font-semibold text-gray-900"
+                  >
+                    {column.label}
+                  </th>
                 ))}
               </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {paginatedData.map((item, index) => (
+                <tr key={index}>
+                  {columns.map((column) => (
+                    <td key={String(column.key)} className="px-4 py-3">
+                      {column.kind === "image" && typeof item[column.key] === "string" ? (
+                        <Image src={item[column.key] as string} alt="crypto" width={40} height={40} />
+                      ) : column.render ? (
+                        column.render(item)
+                      ) : (
+                        item[column.key] as React.ReactNode
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          {/* Mobile view */}
+          <div className="md:hidden space-y-4">
+            {paginatedData.map((item, index) => (
+              <div key={index} className="bg-white shadow rounded-lg p-4 space-y-3">
+                {columns.map((column) => (
+                  <div key={String(column.key)} className="flex items-start">
+                    <span className="text-sm font-medium text-gray-500 w-1/3">
+                      {column.label}:
+                    </span>
+                    <div className="w-2/3">
+                      {column.kind === "image" && typeof item[column.key] === "string" ? (
+                        <Image src={item[column.key] as string} alt="crypto" width={40} height={40} />
+                      ) : column.render ? (
+                        column.render(item)
+                      ) : (
+                        <span className="text-sm text-gray-900">
+                          {item[column.key] as React.ReactNode}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+        </div>
       )}
       {showPaging && totalCount > perPage && (
-        <Pagination totalCount={totalCount} itemsPerPage={perPage} currentPage={currentPage} onPageChange={handlePageChange} />
+        <div className="mt-4">
+          <Pagination 
+            totalCount={totalCount} 
+            itemsPerPage={perPage} 
+            currentPage={currentPage} 
+            onPageChange={handlePageChange} 
+          />
+        </div>
       )}
-    </>
+    </div>
   );
 };
 
