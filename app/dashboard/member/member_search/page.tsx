@@ -22,6 +22,7 @@ const columns = [
 
 export default function MemberSearchPage() {
   const dispatch = useDispatch<AppDispatch>();
+  const [page, setPage] = useState(1); // Lưu trạng thái trang hiện tại
   const { items, loading } = useSelector((state: RootState) => state.searchMember);
   const initdata = { name: "", email: "", regDate: "" };
   const [hideFields] = useState<Record<string, boolean>>({
@@ -29,12 +30,14 @@ export default function MemberSearchPage() {
     isName: false,
     isEmail: false,
   });
-
   const handleSubmit = (values) => {
-    search(values.name);
+    search(values.name , 1 );
   };
-
-  const search = (username : string) =>{
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage)
+    search("", newPage)
+  };
+  const search = (username : string , page : number) =>{
     const params = {
       comId: "REIZ",
       lang: "KR",
@@ -54,14 +57,13 @@ export default function MemberSearchPage() {
       chkValue: 0,
       value: username,
       workUser: "",
-      page: 0,
+      page: page -1,
       len: 10,
     };
     dispatch(searchMemberAction(params));
   }
-
   useEffect(() => {
-    search("")
+    search("" , 1)
   }, [dispatch]);
 
   return (
@@ -107,6 +109,11 @@ export default function MemberSearchPage() {
           showPaging={true}
           perPage={5}
           loading={loading}
+          total={
+            items.length
+          } 
+
+          onPageChange={handlePageChange} 
         />
       </CardBox>
     </SectionMain>

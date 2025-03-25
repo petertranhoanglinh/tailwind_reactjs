@@ -19,15 +19,17 @@ interface TableProps<T> {
   perPage?: number;
   loading: boolean;
   total :number;
+  onPageChange: (page: number) => void; 
 }
 
-const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5, loading  , total}: TableProps<T>) => {
+const GenericTable = <T,>({ data, columns, showPaging = true, perPage = 5, loading  , total , onPageChange}: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalCount = total;
 
   
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    onPageChange(page);
   };
 
   const paginatedData = data.slice(perPage * (currentPage - 1), perPage * currentPage);
