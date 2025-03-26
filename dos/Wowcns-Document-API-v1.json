@@ -59,16 +59,16 @@
                         "length": 100,
                         "remarks": "number of length of list(default 10)"
                     }
-                ],
-                "example": {
-                    "comId": "REIZ",
-                    "userid": "0124080002",
-                    "type": "1",
-                    "date1": "20251230",
-                    "date2": "20251230",
-                    "page": 0,
-                    "len": 10
-                }
+                ]
+            },
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "type": "1",
+                "date1": "20251230",
+                "date2": "20251230",
+                "page": 0,
+                "len": 10
             }
         },
         "output": {
@@ -81,7 +81,7 @@
                         "name": "paydate",
                         "type": "text",
                         "required": "required",
-                        "remarks": "Payment date with format YYYYMMDD (Ex: 20251230)"
+                        "remarks": "Payment date"
                     },
                     {
                         "name": "rankName",
@@ -97,7 +97,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -160,16 +160,16 @@
                         "length": 100,
                         "remarks": "number of length of list(default 10)"
                     }
-                ],
-                "example": {
-                    "comId": "REIZ",
-                    "userid": "0124080002",
-                    "date1": "20250531",
-                    "date2": "20250531",
-                    "chkDate": 1,
-                    "page": 0,
-                    "len": 10
-                }
+                ]
+            },
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "date1": "20250531",
+                "date2": "20250531",
+                "chkDate": 1,
+                "page": 0,
+                "len": 10
             }
         },
         "output": {
@@ -195,7 +195,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -204,32 +204,34 @@
         "menu-desc": "Retrieves benefit calendar details for a specific company and user.",
         "input": {
             "description": "The getBenefitCalendar API retrieves benefit-related data for a user based on the specified company, user ID, and month. This API is used to populate the benefit calendar with relevant information.",
-            "url": "api/bonus/getBenefitCalendar",
+            "url": "api/bonus/getBenefitCalendar?comId={comId}&userid={userid}&yyyymm={yyyymm}",
             "method": "GET",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the query"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
-                },
-                {
-                    "name": "yyyymm",
-                    "type": "text",
-                    "required": "required",
-                    "length": 6,
-                    "remarks": "Year and month in YYYYMM format"
-                }
-            ],
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the data is retrieved"
+                    },
+                    {
+                        "name": "yyyymm",
+                        "type": "text",
+                        "required": "required",
+                        "length": 6,
+                        "remarks": "Year and month in YYYYMM format"
+                    }
+                ]
+            },
             "example": {
                 "comId": "REIZ",
                 "userid": "0124080002",
@@ -269,7 +271,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -278,39 +280,41 @@
         "menu-desc": "Retrieves bonus analysis details for a specific company, user, and year.",
         "input": {
             "description": "The bonusAnalysicGird API retrieves a detailed analysis of bonuses received by a user within a specified year. The data is aggregated by month and categorized by different bonus types, providing a comprehensive view of total earnings for each period.",
-            "url": "api/bonus/bonusAnalysicGird",
+            "url": "api/bonus/bonusAnalysicGird?comId={comId}&lang={lang}&userid={userid}&year={year}",
             "method": "GET",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID associated with the user."
-                },
-                {
-                    "name": "lang",
-                    "type": "text",
-                    "required": "required",
-                    "length": 3,
-                    "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP')."
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the bonus data is retrieved."
-                },
-                {
-                    "name": "year",
-                    "type": "text",
-                    "required": "required",
-                    "length": 4,
-                    "remarks": "The year for which the bonus analysis is retrieved (format: YYYY)."
-                }
-            ],
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID associated with the user."
+                    },
+                    {
+                        "name": "lang",
+                        "type": "text",
+                        "required": "required",
+                        "length": 3,
+                        "remarks": "Language code (e.g., 'US', 'VN', 'KR' , 'JP')."
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the bonus data is retrieved."
+                    },
+                    {
+                        "name": "year",
+                        "type": "text",
+                        "required": "required",
+                        "length": 4,
+                        "remarks": "The year for which the bonus analysis is retrieved (format: YYYY)."
+                    }
+                ]
+            },
             "example": {
                 "comId": "REIZ",
                 "lang": "US",
@@ -341,7 +345,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -350,32 +354,34 @@
         "menu-desc": "Retrieves a summary of bonus amounts for a specific company and user.",
         "input": {
             "description": "The bonusAnalysicGirdSum API retrieves the total bonus amounts categorized by different types for a user in a given year.",
-            "url": "api/bonus/bonusAnalysicGirdSum",
+            "url": "api/bonus/bonusAnalysicGirdSum?comId={comId}&userid={userid}&year={year}",
             "method": "GET",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the query"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
-                },
-                {
-                    "name": "year",
-                    "type": "text",
-                    "required": "required",
-                    "length": 4,
-                    "remarks": "Year in YYYY format"
-                }
-            ],
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the data is retrieved"
+                    },
+                    {
+                        "name": "year",
+                        "type": "text",
+                        "required": "required",
+                        "length": 4,
+                        "remarks": "Year in YYYY format"
+                    }
+                ]
+            },
             "example": {
                 "comId": "REIZ",
                 "userid": "0124080002",
@@ -400,7 +406,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -409,32 +415,34 @@
         "menu-desc": "Retrieves a summary of bonus payments for a specific company and user in a given year, including payment types, total amounts, highest received payment, and percentage distribution.",
         "input": {
             "description": "The bonusAnalysicChart1 API retrieves the distribution of bonus amounts for a specific user in a given year, categorized by payment types. It provides total amounts, the highest received payment, and percentage distribution of each bonus type.",
-            "url": "api/bonus/bonusAnalysicChart1",
+            "url": "api/bonus/bonusAnalysicChart1?comId={comId}&userid={userid}&year={year}",
             "method": "GET",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the query"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
-                },
-                {
-                    "name": "year",
-                    "type": "text",
-                    "required": "required",
-                    "length": 4,
-                    "remarks": "Year in YYYY format"
-                }
-            ],
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the data is retrieved"
+                    },
+                    {
+                        "name": "year",
+                        "type": "text",
+                        "required": "required",
+                        "length": 4,
+                        "remarks": "Year in YYYY format"
+                    }
+                ]
+            },
             "example": {
                 "comId": "REIZ",
                 "userid": "0124080002",
@@ -469,7 +477,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -478,32 +486,34 @@
         "menu-desc": "Retrieves the highest monthly bonus amount for a specific company and user in a given year, ensuring all months are represented.",
         "input": {
             "description": "The bonusAnalysicChart3 API retrieves the highest bonus amount distributed per month for a user in a given year, ensuring all months are included in the response.",
-            "url": "api/bonus/bonusAnalysicChart3",
+            "url": "api/bonus/bonusAnalysicChart3?comId={comId}&userid={userid}&year={year}",
             "method": "GET",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the query"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
-                },
-                {
-                    "name": "year",
-                    "type": "text",
-                    "required": "required",
-                    "length": 4,
-                    "remarks": "Year in YYYY format"
-                }
-            ],
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the data is retrieved"
+                    },
+                    {
+                        "name": "year",
+                        "type": "text",
+                        "required": "required",
+                        "length": 4,
+                        "remarks": "Year in YYYY format"
+                    }
+                ]
+            },
             "example": {
                 "comId": "REIZ",
                 "userid": "0124080002",
@@ -533,7 +543,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -542,18 +552,20 @@
         "menu-desc": "Retrieves the list of available pay titles for a given company.",
         "input": {
             "description": "The TitlePay API fetches the pay names and codes associated with a company.",
-            "url": "api/bonus/titlePay",
+            "url": "api/bonus/titlePay?comId={comId}",
             "method": "GET",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the query"
-                }
-            ],
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    }
+                ]
+            },
             "example": {
                 "comId": "REIZ"
             }
@@ -581,7 +593,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -590,32 +602,34 @@
         "menu-desc": "Retrieves member details based on company ID and user ID.",
         "input": {
             "description": "This API retrieves detailed member information based on company ID and user ID.",
-            "url": "api/member/find-id",
+            "url": "api/member/find-id?comid={comid}&lang={lang}&userid={userid}",
             "method": "GET",
             "content-type": "application/json",
-            "parameters": [
-                {
-                    "name": "comId",
-                    "type": "text",
-                    "required": "required",
-                    "length": 8,
-                    "remarks": "Company ID for the query"
-                },
-                {
-                    "name": "lang",
-                    "type": "text",
-                    "required": "required",
-                    "length": 2,
-                    "remarks": "Language code (e.g., EN, KR)"
-                },
-                {
-                    "name": "userid",
-                    "type": "text",
-                    "required": "required",
-                    "length": 10,
-                    "remarks": "User ID for whom the data is retrieved"
-                }
-            ],
+            "body": {
+                "fields": [
+                    {
+                        "name": "comId",
+                        "type": "text",
+                        "required": "required",
+                        "length": 8,
+                        "remarks": "Company ID for the query"
+                    },
+                    {
+                        "name": "lang",
+                        "type": "text",
+                        "required": "required",
+                        "length": 2,
+                        "remarks": "Language code (e.g., EN, KR)"
+                    },
+                    {
+                        "name": "userid",
+                        "type": "text",
+                        "required": "required",
+                        "length": 10,
+                        "remarks": "User ID for whom the data is retrieved"
+                    }
+                ]
+            },
             "example": {
                 "comId": "REIZ",
                 "lang": "KR",
@@ -780,7 +794,7 @@
                     }
                 ]
             },
-            "error": "Null"
+            "error": "null"
         }
     },
     {
@@ -927,28 +941,28 @@
                         "length": 50,
                         "remarks": "IP address of the user"
                     }
-                ],
-                "example": {
-                    "comId": "REIZ",
-                    "userid": "0124080002",
-                    "updDate": "20240324",
-                    "updReason": "User requested change of address",
-                    "tel": "+82-2-1234-5678",
-                    "mobile": "+82-10-9876-5432",
-                    "email": "user@example.com",
-                    "birthday": "19900101",
-                    "post": "04547",
-                    "state": "Seoul",
-                    "city": "Gangnam",
-                    "country": "KR",
-                    "addr1": "123 Gangnam-daero",
-                    "addr2": "Apt 304",
-                    "okDateSMS": "20230101",
-                    "okDateEmail": "20230215",
-                    "notice": "User prefers communication via email.",
-                    "workUser": "admin_01",
-                    "logIpAddr": "192.168.1.100"
-                }
+                ]
+            },
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "updDate": "20240324",
+                "updReason": "User requested change of address",
+                "tel": "+82-2-1234-5678",
+                "mobile": "+82-10-9876-5432",
+                "email": "user@example.com",
+                "birthday": "19900101",
+                "post": "04547",
+                "state": "Seoul",
+                "city": "Gangnam",
+                "country": "KR",
+                "addr1": "123 Gangnam-daero",
+                "addr2": "Apt 304",
+                "okDateSMS": "20230101",
+                "okDateEmail": "20230215",
+                "notice": "User prefers communication via email.",
+                "workUser": "admin_01",
+                "logIpAddr": "192.168.1.100"
             }
         },
         "output": {
@@ -1075,19 +1089,19 @@
                         "length": 50,
                         "remarks": "IP address of the user"
                     }
-                ],
-                "example": {
-                    "comId": "REIZ",
-                    "userid": "0124080002",
-                    "updDate": "20240324",
-                    "updReason": "Bank account changed due to new payroll requirements",
-                    "bankCd": "KDB",
-                    "accNo": "123456789012",
-                    "depositor": "John Doe",
-                    "accDate": "20240101",
-                    "workUser": "admin123",
-                    "logIpAddr": "192.168.1.100"
-                }
+                ]
+            },
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "updDate": "20240324",
+                "updReason": "Bank account changed due to new payroll requirements",
+                "bankCd": "KDB",
+                "accNo": "123456789012",
+                "depositor": "John Doe",
+                "accDate": "20240101",
+                "workUser": "admin123",
+                "logIpAddr": "192.168.1.100"
             }
         },
         "output": {
@@ -1165,12 +1179,12 @@
                         "length": 50,
                         "remarks": "New password to be set"
                     }
-                ],
-                "example": {
-                    "comId": "REIZ",
-                    "userid": "0124080002",
-                    "passwd": "NewSecureP@ssw0rd"
-                }
+                ]
+            },
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "passwd": "NewSecureP@ssw0rd"
             }
         },
         "output": {
@@ -1248,12 +1262,12 @@
                         "length": 50,
                         "remarks": "New nickname to be updated"
                     }
-                ],
-                "example": {
-                    "comId": "REIZ",
-                    "userid": "0124080002",
-                    "nickname": "newNickname"
-                }
+                ]
+            },
+            "example": {
+                "comId": "REIZ",
+                "userid": "0124080002",
+                "nickname": "newNickname"
             }
         },
         "output": {
