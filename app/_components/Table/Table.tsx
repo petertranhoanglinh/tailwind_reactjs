@@ -50,7 +50,6 @@ const GenericTable = <T,>({
       )}
       {!loading && (
         <div className="overflow-x-auto">
-          {/* PC view (chỉ hiển thị trên PC) */}
           <table className="w-full hidden lg:table">
             <thead>
               <tr className="bg-gray-50">
@@ -83,8 +82,6 @@ const GenericTable = <T,>({
               ))}
             </tbody>
           </table>
-
-          {/* Mobile & Tablet view (hiển thị trên tất cả thiết bị ngoại trừ PC) */}
           <div className="lg:hidden space-y-4">
             {paginatedData.map((item, index) => (
               <div key={index} className="bg-white shadow rounded-lg p-4 space-y-3">
