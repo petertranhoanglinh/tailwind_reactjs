@@ -26,24 +26,21 @@ export default function FormSearch({ initdata, handleSubmit, hideFields = {}, ch
           <div className="flex justify-end">
             <Button icon={mdiCog} color="whiteDark" onClick={toggleOptions} />
           </div>
-
           {children && children(values)}
-
           {showOptions && (
             <FormCheckRadioGroup>
               {Object.keys(hideFields).map((key) => (
-                <FormCheckRadio key={key} type="switch" label={key} isGrouped>
+                <FormCheckRadio key={key} type="switch" label={key.slice(2).replaceAll("_" , " ")} isGrouped>
                   <Field
                     type="checkbox"
                     name={key}
-                    checked={!values[key]} // Đảo ngược vì hideFields là boolean
+                    checked={!values[key]} 
                     onChange={() => setFieldValue(key, !values[key])}
                   />
                 </FormCheckRadio>
               ))}
             </FormCheckRadioGroup>
           )}
-
           <div className="flex justify-end mt-4">
             <Buttons>
               <Button type="submit" color="info" label="Search" isGrouped />

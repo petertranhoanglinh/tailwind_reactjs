@@ -42,11 +42,11 @@ const menuAside: MenuAsideItem[] = [
     icon: mdiViewList,
     menu: [
       {
-        label: "Member_register",
+        label: "Member Register",
         href: "/dashboard/member/member_form",
       },
       {
-        label: "Member_search",
+        label: "Member Search",
         href: "/dashboard/member/member_search",
       },
     ],

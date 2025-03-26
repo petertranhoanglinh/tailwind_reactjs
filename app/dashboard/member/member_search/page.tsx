@@ -13,9 +13,7 @@ import FormField from "../../../_components/FormField";
 import { Field } from "formik";
 import FormGrid from "../../../_components/FormField/FormGrid";
 import { MemberModel } from "../../../_models/member.model";
-
-
-
+import { stepKindConstantSearchUser } from "../../../_utils/_constant";
 
 const columns: TableColumn<MemberModel>[] = [
   { key: "userid", label: "ID" },
@@ -26,19 +24,20 @@ const columns: TableColumn<MemberModel>[] = [
   { key: "rName", label: "Sponsor" },
 
 ];
-
 export default function MemberSearchPage() {
   const dispatch = useDispatch<AppDispatch>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(1);
   const { items, loading } = useSelector((state: RootState) => state.searchMember);
-  const initdata = { name: "", email: "", startDate: "" };
+  const initdata = { name: "", email: "", startDate: ""  , endDate : "" , chkValue : "5"};
   const [hideFields] = useState<Record<string, boolean>>({
-    isRegDate: false,
-    isName: false,
-    isEmail: false,
+    is_Reg_Date: false,
+    is_Name: false,
+    is_Email: false,
+    is_Step: false
   });
   const handleSubmit = (values) => {
+    console.log(values);
     search(values.name, 1);
   };
   const handlePageChange = (newPage: number) => {
@@ -73,7 +72,6 @@ export default function MemberSearchPage() {
   useEffect(() => {
     search("", 1)
   }, [dispatch]);
-
   return (
     <SectionMain>
       <SectionTitleLineWithButton icon={mdiAccount} title="Member Search" main />
@@ -86,42 +84,51 @@ export default function MemberSearchPage() {
           {(hiddenFields) => (
             <>
               <FormGrid columns={3}>
-                {!hiddenFields.isName && (
+                {!hiddenFields.is_Name && (
                   <FormField label="Name" labelFor="name" icon={mdiEmber}>
                     {({ className }) => (
                       <Field name="name" id="name" placeholder="Name search ..." className={className} />
                     )}
                   </FormField>
                 )}
-                {!hiddenFields.isRegDate && (
+                {!hiddenFields.is_Reg_Date && (
                   <>
                     <FormField label="Start Date" labelFor="startDate" icon={mdiCalendarAlert}>
                       {({ className }) => (
                         <Field name="startDate" id="startDate" type="date" className={className} />
                       )}
                     </FormField>
-                    <FormField label="engDate" labelFor="endDate" icon={mdiCalendarAlert}>
+                    <FormField label="End Date" labelFor="endDate" icon={mdiCalendarAlert}>
                       {({ className }) => (
                         <Field name="endDate" id="endDate" type="date" className={className} />
                       )}
                     </FormField>
                   </>
-
                 )}
-
-
-
               </FormGrid>
 
               <FormGrid columns={3}>
 
-                {!hiddenFields.isEmail && (
+                {!hiddenFields.is_Email && (
                   <FormField label="Email" labelFor="email" icon={mdiEmber}>
                     {({ className }) => (
                       <Field name="email" id="email" placeholder="Email search ..." className={className} />
                     )}
                   </FormField>
                 )}
+                {!hiddenFields.is_Step && (
+                  <FormField label="Step" labelFor="chkValue" icon={mdiAccount}>
+                    {({ className }) => (
+                      <Field name="chkValue" id="chkValue" component="select" className={className}>
+                        {stepKindConstantSearchUser.map((option, index) => (
+                          <option key={index} value={option.value}>{option.label}</option>
+                        ))}
+                      </Field>
+                    )}
+                  </FormField>
+
+                )}
+
               </FormGrid>
 
 
