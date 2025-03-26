@@ -80,7 +80,7 @@ export default function FormsPage() {
                                                 type="date"
                                                 name="birthday"
                                                 id="birthday"
-                                                placeholder="Birthday"
+                                                placeholder="Birthday..."
                                                 className={className}
                                             />
                                         )}
