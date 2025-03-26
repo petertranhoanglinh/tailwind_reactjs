@@ -13,6 +13,7 @@ type Props = {
   buttonLabel: string;
   isActive: boolean;
   children: ReactNode;
+  isAction?:boolean
   onConfirm: () => void;
   onCancel?: () => void;
 };
@@ -23,6 +24,7 @@ const CardBoxModal = ({
   buttonLabel,
   isActive,
   children,
+  isAction = true,
   onConfirm,
   onCancel,
 }: Props) => {
@@ -30,7 +32,7 @@ const CardBoxModal = ({
     return null;
   }
 
-  const footer = (
+  const footer = isAction ? (
     <Buttons>
       <Button
         label={buttonLabel}
@@ -48,7 +50,8 @@ const CardBoxModal = ({
         />
       )}
     </Buttons>
-  );
+  ) : null;
+  
 
   return (
     <OverlayLayer

@@ -1,5 +1,5 @@
 "use client";
-import { mdiAccount, mdiMail, mdiWalletMembership, mdiCalendarAccount, mdiGenderNonBinary, mdiCellphone , mdiAccountGroup, mdiHandshake} from "@mdi/js";
+import { mdiAccount, mdiMail, mdiWalletMembership, mdiCalendarAccount, mdiGenderNonBinary, mdiCellphone, mdiAccountGroup, mdiHandshake } from "@mdi/js";
 import { Field, Form, Formik } from "formik";
 import Head from "next/head";
 import Button from "../../../_components/Button";
@@ -10,18 +10,22 @@ import SectionMain from "../../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
 import { getPageTitle } from "../../../_lib/config";
 import FormGrid from "../../../_components/FormField/FormGrid";
-
+import {  useState } from "react";
+import CardBoxModal from "../../../_components/CardBox/Modal";
+import { _initCardBoxModel } from "../../../_models/cardbox.model";
 export default function FormsPage() {
+    const commonmessage = "Do you want to save member"
     const handleSubmit = (values, { setSubmitting }) => {
         try {
             console.log("Form submitted:", values);
+            setInitCardBoxModel({..._initCardBoxModel , message :commonmessage , isActive : true});
         } catch (error) {
             console.error("Error submitting form:", error);
         } finally {
             setSubmitting(false);
         }
     };
-
+    const [initCardBoxModel, setInitCardBoxModel] = useState(_initCardBoxModel);
     const initdata = {
         firstname: "John",
         lastname: "Doe",
@@ -32,9 +36,32 @@ export default function FormsPage() {
         sponsor: "",
         placement: "",
     }
-
+    const handleModalActionConfirm = () => {
+        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+        setTimeout(() => {
+            setInitCardBoxModel(prev => ({ ...prev, isActive: true , message : "Save OK" , isAction : false , buttonColor : "success" })); 
+        }, 1000);
+        
+    };
+    const handleModalActionCancel = () => {
+        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+     
+    };
     return (
         <>
+            <CardBoxModal
+                title= "Save Member"
+                buttonColor={initCardBoxModel.buttonColor}
+                buttonLabel={initCardBoxModel.buttonLabel}
+                isActive={initCardBoxModel.isActive}
+                onConfirm={handleModalActionConfirm}
+                onCancel={handleModalActionCancel}
+                isAction = {initCardBoxModel.isAction}
+            >
+                <p>
+                   {initCardBoxModel.message}
+                </p>
+            </CardBoxModal>
             <Head>
                 <title>{getPageTitle("Forms")}</title>
             </Head>
