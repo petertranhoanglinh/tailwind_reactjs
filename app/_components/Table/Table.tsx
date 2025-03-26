@@ -22,14 +22,14 @@ interface TableProps<T> {
   onPageChange: (page: number) => void;
 }
 
-const GenericTable = <T,>({ 
-  data, 
-  columns, 
-  showPaging = true, 
-  perPage = 5, 
-  loading, 
-  total, 
-  onPageChange 
+const GenericTable = <T,>({
+  data,
+  columns,
+  showPaging = true,
+  perPage = 5,
+  loading,
+  total,
+  onPageChange,
 }: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalCount = total;
@@ -50,13 +50,13 @@ const GenericTable = <T,>({
       )}
       {!loading && (
         <div className="overflow-x-auto">
-          {/* Desktop view */}
-          <table className="w-full hidden md:table">
+          {/* PC view (chỉ hiển thị trên PC) */}
+          <table className="w-full hidden lg:table">
             <thead>
               <tr className="bg-gray-50">
                 {columns.map((column) => (
-                  <th 
-                    key={String(column.key)} 
+                  <th
+                    key={String(column.key)}
                     scope="col"
                     className="px-4 py-3 text-left text-sm font-semibold text-gray-900"
                   >
@@ -84,8 +84,8 @@ const GenericTable = <T,>({
             </tbody>
           </table>
 
-          {/* Mobile view */}
-          <div className="md:hidden space-y-4">
+          {/* Mobile & Tablet view (hiển thị trên tất cả thiết bị ngoại trừ PC) */}
+          <div className="lg:hidden space-y-4">
             {paginatedData.map((item, index) => (
               <div key={index} className="bg-white shadow rounded-lg p-4 space-y-3">
                 {columns.map((column) => (
@@ -113,11 +113,11 @@ const GenericTable = <T,>({
       )}
       {showPaging && totalCount > perPage && (
         <div className="mt-4">
-          <Pagination 
-            totalCount={totalCount} 
-            itemsPerPage={perPage} 
-            currentPage={currentPage} 
-            onPageChange={handlePageChange} 
+          <Pagination
+            totalCount={totalCount}
+            itemsPerPage={perPage}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
           />
         </div>
       )}
