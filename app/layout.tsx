@@ -3,14 +3,14 @@ import "../css/main.css";
 import StoreProvider from "./_stores/StoreProvider";
 import Script from "next/script";
 
-const title = `Admin One React Tailwind free`;
+const title = `Myoffice wowcns demo`;
 
 const description =
-  "Admin One - free React Next Tailwind dashboard with TypeScript and dark mode";
+  "WOWCNS Vietnam Co., Ltd. là công ty chuyên phát triển giải pháp chuyên nghiệp trong lĩnh vực Network Marketing Sales (MLM), có trụ sở chính tại Hàn Quốc. Công ty cung cấp hệ thống cho hơn 40% các công ty MLM tại Hàn Quốc và đã mở rộng hoạt động sang nhiều quốc gia như Mỹ, Nhật Bản, Đài Loan, Malaysia, Việt Nam, Philippines và Thái Lan. ​ITviec | Top IT Jobs for You Chi nhánh tại Việt Nam được thành lập vào tháng 7 năm 2019 với 100% vốn đầu tư từ Hàn Quốc. Ưu điểm nổi bật của WOWCNS là đội ngũ nhân viên tư vấn và phát triển chuyên nghiệp, bao gồm các quản lý và chuyên gia có kinh nghiệm trong ngành bán hàng tiếp thị mạng lưới. Công ty cam kết đáp ứng nhanh chóng và cung cấp các giải pháp phù hợp với nhu cầu luôn thay đổi của khách hàng.";
 
-const url = "https://justboil.github.io/admin-one-react-tailwind/";
+const url = "https://myofficedemoversion7.web.app";
 
-const image = `https://static.justboil.me/templates/one/repo-tailwind-react.png`;
+const image = `https://myofficedemoversion7.web.app/img/logo.svg`;
 
 const imageWidth = "1920";
 
@@ -19,7 +19,7 @@ const imageHeight = "960";
 export const metadata: Metadata = {
   title,
   description,
-  icons: "/admin-one-react-tailwind/favicon.png",
+  icons: "/img/logo.svg",
   twitter: {
     card: "summary_large_image",
     title,
