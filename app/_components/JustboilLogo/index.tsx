@@ -5,7 +5,6 @@ import Image from "next/image";
 type Props = {
   className?: string;
 };
-
 export default function JustboilLogo({ className = "" }: Props) {
   return (
     <svg
@@ -19,8 +18,16 @@ export default function JustboilLogo({ className = "" }: Props) {
     </svg>
   );
 }
+
+// WowcnsLogo sử dụng next/image đúng cách
 export function WowcnsLogo({ className = "" }: Props) {
   return (
-    <Image src="http://www.wowcns.net/img/logo.svg" width={30} height={30} alt="Wowcns Logo" className={className} />
+    <Image   // Truyền nguyên hàm
+    src="/img/logo.svg" 
+      width={30} 
+      height={30} 
+      alt="Wowcns Logo" 
+      className={className} 
+    />
   );
 }

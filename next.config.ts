@@ -1,13 +1,12 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: process.env.IS_OUTPUT_EXPORT ? "export" : "standalone",
-  basePath: "", // Đặt về gốc
+  basePath: "",
   async redirects() {
     return [];
   },
   images: {
-    unoptimized: true,
+    unoptimized: true, // ✅ Bỏ qua tối ưu hóa ảnh khi export
     remotePatterns: [
       {
         protocol: "https",
@@ -17,4 +16,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
