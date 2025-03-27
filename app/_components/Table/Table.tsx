@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Pagination from "./_component/Pagination";
 import CardBox from "../CardBox";
 import CardBoxComponentEmpty from "../CardBox/Component/Empty";
@@ -38,64 +38,90 @@ const GenericTable = <T,>({
     onPageChange(page);
   };
   const paginatedData = data.slice(perPage * (currentPage - 1), perPage * currentPage);
-  return (
-    <>
-      {loading && (
-        <CardBox>
-          <CardBoxComponentEmpty title="loading ..." />
-        </CardBox>
-      )}
-      {!loading && (
-        <>
-          <table>
-            <thead>
-              <tr>
-                {columns.map((column) => (
-                  <th
-                    key={String(column.key)}
-                  >
-                    {column.label}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {paginatedData.map((item, index) => (
-                <tr key={index}>
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+
+    const handleMouseDown = (e: React.MouseEvent) => {
+      if (!scrollRef.current) return;
+      setIsDragging(true);
+      setStartX(e.pageX - scrollRef.current.offsetLeft);
+      setScrollLeft(scrollRef.current.scrollLeft);
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+      if (!isDragging || !scrollRef.current) return;
+      e.preventDefault();
+      const x = e.pageX - scrollRef.current.offsetLeft;
+      const walk = (x - startX) * 1.5; // Điều chỉnh tốc độ kéo
+      scrollRef.current.scrollLeft = scrollLeft - walk;
+    };
+
+    const handleMouseUp = () => setIsDragging(false);
+    return (
+      <>
+        {loading && (
+          <CardBox>
+            <CardBoxComponentEmpty title="loading ..." />
+          </CardBox>
+        )}
+        {!loading && (
+          <div ref={scrollRef}
+            className="overflow-x-auto cursor-grab"
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp} >
+            <table className="w-full border-collapse">
+              <thead>
+                <tr>
                   {columns.map((column) => (
-                    <td key={String(column.key)} data-label={String(column.label)}>
-                      {column.kind === "image" && typeof item[column.key] === "string" ? (
-                        <Image src={item[column.key] as string} alt={"img_" + column.label} width={40} height={40} />
-                      ) : column.render ? (
-                        column.render(item)
-                      ) : (
-                        item[column.key] as React.ReactNode
-                      )}
-                    </td>
+                    <th
+                      key={String(column.key)}
+                    >
+                      {column.label}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-          {data.length == 0 && (
-            <CardBox>
-              <CardBoxComponentEmpty title="Empty Data" />
-            </CardBox>
-          )}
-        </>
-      )}
-      {showPaging && totalCount > perPage && (
-        <div className="mt-4">
-          <Pagination
-            totalCount={totalCount}
-            itemsPerPage={perPage}
-            currentPage={currentPage}
-            onPageChange={handlePageChange}
-          />
-        </div>
-      )}
-    </>
-  );
-};
+              </thead>
+              <tbody>
+                {paginatedData.map((item, index) => (
+                  <tr key={index}>
+                    {columns.map((column) => (
+                      <td key={String(column.key)} data-label={String(column.label)}>
+                        {column.kind === "image" && typeof item[column.key] === "string" ? (
+                          <Image src={item[column.key] as string} alt={"img_" + column.label} width={40} height={40} />
+                        ) : column.render ? (
+                          column.render(item)
+                        ) : (
+                          item[column.key] as React.ReactNode
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {data.length == 0 && (
+              <CardBox>
+                <CardBoxComponentEmpty title="Empty Data" />
+              </CardBox>
+            )}
+          </div>
+        )}
+        {showPaging && totalCount > perPage && (
+          <div className="mt-4">
+            <Pagination
+              totalCount={totalCount}
+              itemsPerPage={perPage}
+              currentPage={currentPage}
+              onPageChange={handlePageChange}
+            />
+          </div>
+        )}
+      </>
+    );
+  };
 
-export default GenericTable;
+  export default GenericTable ;
