@@ -13,7 +13,7 @@ type Props = {
   buttonLabel: string;
   isActive: boolean;
   children: ReactNode;
-  isAction?:boolean
+  isAction?:boolean;
   onConfirm: () => void;
   onCancel?: () => void;
 };

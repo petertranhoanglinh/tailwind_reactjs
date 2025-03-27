@@ -71,4 +71,5 @@ export interface MemberModel {
 	picture: string;
     pName:string;
     edit:string;
+    delete:string;
 }

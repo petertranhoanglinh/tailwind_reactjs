@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../_stores/store";
 import { searchMemberAction } from "../../../_stores/member/memberSearchSlice";
-import { mdiAccount, mdiCalendarAlert, mdiEmber, mdiPencil } from "@mdi/js";
+import { mdiAccount, mdiCalendarAlert, mdiDelete, mdiEmber, mdiPencil } from "@mdi/js";
 import CardBox from "../../../_components/CardBox";
 import SectionMain from "../../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
@@ -19,6 +19,7 @@ import CardBoxModal from "../../../_components/CardBox/Modal";
 
 const columns: TableColumn<MemberModel>[] = [
   { key: "edit", label: "Edit", kind: 'action', icon: mdiPencil },
+  { key: "delete", label: "Delete", kind: 'action', icon: mdiDelete },
   { key: "userid", label: "Member ID" },
   { key: "username", label: "Member Name" },
   { key: "regDate", label: "Reg Date" },
@@ -77,9 +78,15 @@ export default function MemberSearchPage() {
     setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
   }
 
-  const handleClickRow = (row: MemberModel) => {
-    setInitCardBoxModel({..._initCardBoxModel , message :"Do you want to edit " + row.username , isActive : true});
-    console.log(row);
+  const handleClickRow = (row: MemberModel , kind :  string) => {
+    if(kind == "edit"){
+      setInitCardBoxModel({..._initCardBoxModel , message :"Do you want to edit " + row.username , isActive : true});
+      console.log(row);
+    }
+    if(kind == "delete"){
+      setInitCardBoxModel({..._initCardBoxModel , buttonColor : "danger" ,  message :"Do you want to delete " + row.username , isActive : true});
+      console.log(row);
+    }
   }
   const searchparams = (values) => {
     const params = {
@@ -190,7 +197,7 @@ export default function MemberSearchPage() {
             total={
               items.length
             }
-            onClickRow={handleClickRow}
+            onClickAction={handleClickRow}
             onPageChange={handlePageChange}
           />
         </CardBox>

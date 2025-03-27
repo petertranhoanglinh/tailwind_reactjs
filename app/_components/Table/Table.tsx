@@ -22,7 +22,7 @@ interface TableProps<T> {
   loading: boolean;
   total: number;
   onPageChange: (page: number) => void;
-  onClickRow?: (row: T) => void;
+  onClickAction?: (row: T , key : string) => void;
 }
 
 const GenericTable = <T,>({
@@ -33,7 +33,7 @@ const GenericTable = <T,>({
   loading,
   total,
   onPageChange,
-  onClickRow,
+  onClickAction,
 }: TableProps<T>) => {
   const [currentPage, setCurrentPage] = useState(1);
   const totalCount = total;
@@ -98,7 +98,7 @@ const GenericTable = <T,>({
                       {column.kind === "image" && typeof item[column.key] === "string" ? (
                         <Image src={item[column.key] as string} alt={"img_" + column.label} width={40} height={40} />
                       ) : column.kind === "action" ? (
-                        <button onClick={() => onClickRow?.(item)}>  {column.render ? (
+                        <button onClick={() => onClickAction?.(item,String(column.key))}>  {column.render ? (
                           column.render(item)
                         ) : (
                            column.icon&&<IconRounded icon ={column.icon } color="light" className="mr-3 cursor-pointer" bg />

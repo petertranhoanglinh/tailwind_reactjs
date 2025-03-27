@@ -69,7 +69,7 @@ export default function UiPage() {
         />
 
         <CardBox>
-          <CardBoxComponentEmpty />
+          <CardBoxComponentEmpty title=""/>
         </CardBox>
       </SectionMain>
     </>

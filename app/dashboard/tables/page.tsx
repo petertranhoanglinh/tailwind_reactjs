@@ -49,7 +49,7 @@ export default function TablesPage() {
       </NotificationBar>
 
       <CardBox>
-        <CardBoxComponentEmpty  />
+        <CardBoxComponentEmpty title=""  />
       </CardBox>
     </SectionMain>
   );
