@@ -13,7 +13,6 @@ import FooterBar from "./_components/FooterBar";
 import FormField from "../_components/FormField";
 import { Field, Form, Formik } from "formik";
 import { MenuAsideItem } from "../_interfaces";
-import Link from "next/link";
 
 type Props = {
   children: ReactNode;
@@ -95,6 +94,7 @@ export default function LayoutAuthenticated({ children }: Props) {
               </Formik>
             </NavBarItemPlain>
           </NavBar>
+
           <AsideMenu
             isAsideMobileExpanded={isAsideMobileExpanded}
             isAsideLgActive={isAsideLgActive}
@@ -102,23 +102,21 @@ export default function LayoutAuthenticated({ children }: Props) {
             onAsideLgClose={() => setIsAsideLgActive(false)}
             onRouteChange={handleRouteChange}
           />
+
+          {/* Hiển thị danh sách itemsMenuSearch */}
           {itemsMenuSearch.length > 0 && (
             <div className="p-4 bg-white dark:bg-gray-800 shadow-md rounded-md">
               <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                 {itemsMenuSearch.map((item) => (
                   <li key={item.label} className="p-2 rounded-md hover:bg-blue-100 dark:hover:bg-gray-700 transition">
-                    <Link href={item.href ?? "#"} className="flex items-center space-x-2" onClick={(e) => {
-                      if (!item.href) e.preventDefault();
-                    }}>
+                    <a href={item.href} className="flex items-center space-x-2">
                       <span>{item.label}</span>
-                    </Link>
+                    </a>
                     {item.menu && item.menu.length > 0 && (
                       <ul className="ml-4 mt-1 space-y-1 border-l-2 border-gray-300 dark:border-gray-600 pl-2">
                         {item.menu.map((subItem) => (
                           <li key={subItem.label} className="p-1 hover:text-blue-500">
-                            <Link href={item.href ?? "#"} onClick={(e) => {
-                              if (!item.href) e.preventDefault();
-                            }}>{subItem.label}</Link>
+                            <a href={subItem.href}> <span>{subItem.label}</span></a>
                           </li>
                         ))}
                       </ul>
@@ -128,12 +126,18 @@ export default function LayoutAuthenticated({ children }: Props) {
               </ul>
             </div>
           )}
+
+
           {children}
+
           <FooterBar>
             <></>
           </FooterBar>
         </div>
       </div>
+
+
     </>
+
   );
 }
