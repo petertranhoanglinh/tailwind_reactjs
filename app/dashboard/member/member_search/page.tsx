@@ -23,7 +23,6 @@ const columns: TableColumn<MemberModel>[] = [
   { key: "mobile", label: "Mobile" },
   { key: "rName", label: "Sponsor" },
   { key: "pName", label: "Placement" },
-
 ];
 const initparams = {
   comId: "REIZ",
