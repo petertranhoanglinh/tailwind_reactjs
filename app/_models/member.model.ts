@@ -69,4 +69,5 @@ export interface MemberModel {
 	id: string;
 	familyName: string;
 	picture: string;
+    pName:string;
 }
