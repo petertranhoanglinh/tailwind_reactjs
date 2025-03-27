@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../_stores/store";
 import { searchMemberAction } from "../../../_stores/member/memberSearchSlice";
-import { mdiAccount, mdiCalendarAlert, mdiEmber } from "@mdi/js";
+import { mdiAccount, mdiCalendarAlert, mdiEmber, mdiPencil } from "@mdi/js";
 import CardBox from "../../../_components/CardBox";
 import SectionMain from "../../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
@@ -14,8 +14,11 @@ import { Field } from "formik";
 import FormGrid from "../../../_components/FormField/FormGrid";
 import { MemberModel } from "../../../_models/member.model";
 import { formatDateToYYYYMMDD, rankConstant, removeKeysContainingIs, stepKindConstantSearchUser } from "../../../_utils/_constant";
+import { _initCardBoxModel } from "../../../_models/cardbox.model";
+import CardBoxModal from "../../../_components/CardBox/Modal";
 
 const columns: TableColumn<MemberModel>[] = [
+  { key: "edit", label: "Edit", kind: 'action', icon: mdiPencil },
   { key: "userid", label: "Member ID" },
   { key: "username", label: "Member Name" },
   { key: "regDate", label: "Reg Date" },
@@ -52,10 +55,11 @@ export default function MemberSearchPage() {
   const [page, setPage] = useState(1);
   const { items, loading } = useSelector((state: RootState) => state.searchMember);
   const initdata = { username: "", startDate: "", endDate: "", chkuserid: "0" };
+  const [initCardBoxModel, setInitCardBoxModel] = useState(_initCardBoxModel);
   const [hideFields] = useState<Record<string, boolean>>({
     is_Reg_Date: false,
     is_User_Name: false,
-    is_Step: false ,
+    is_Step: false,
     is_Rank: false
   });
   const handleSubmit = (values) => {
@@ -66,99 +70,132 @@ export default function MemberSearchPage() {
     search("", newPage)
   };
   const search = (username: string, page: number) => {
-    dispatch(searchMemberAction( {...initparams , value : username , page : page - 1 }));
+    dispatch(searchMemberAction({ ...initparams, value: username, page: page - 1 }));
   }
-  const searchparams = (values) =>{
+
+  const handleModalActionCancel = () =>{
+    setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+  }
+
+  const handleClickRow = (row: MemberModel) => {
+    setInitCardBoxModel({..._initCardBoxModel , message :"Do you want to edit " + row.username , isActive : true});
+    console.log(row);
+  }
+  const searchparams = (values) => {
     const params = {
-      ...initparams ,
-      ... values ,
-      value : values.username,
-      username : '' , 
-      startDate : formatDateToYYYYMMDD(values.startDate),
-      endDate   : formatDateToYYYYMMDD(values.endDate)
+      ...initparams,
+      ...values,
+      value: values.username,
+      username: '',
+      startDate: formatDateToYYYYMMDD(values.startDate),
+      endDate: formatDateToYYYYMMDD(values.endDate)
     }
     dispatch(searchMemberAction(removeKeysContainingIs(params)));
   }
+  const handleModalActionConfirm = () => {
+    setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+    setTimeout(() => {
+        setInitCardBoxModel(prev => ({ ...prev, isActive: true , message : "Update member suscess" , isAction : false , buttonColor : "success" })); 
+    }, 1000);
+    
+  };
   useEffect(() => {
     search("", 1)
   }, [dispatch]);
   return (
-    <SectionMain>
-      <SectionTitleLineWithButton icon={mdiAccount} title="Member Search" main />
-      <CardBox>
-        <FormSearch
-          initdata={initdata}
-          handleSubmit={handleSubmit}
-          hideFields={hideFields}
-        >
-          {(hiddenFields) => (
-            <>
-              <FormGrid columns={3}>
-                {!hiddenFields.is_User_Name && (
-                  <FormField label="User Name" labelFor="username" icon={mdiEmber}>
-                    {({ className }) => (
-                      <Field name="username" id="username" placeholder="Name search ..." className={className} />
-                    )}
-                  </FormField>
-                )}
-                {!hiddenFields.is_Reg_Date && (
-                  <>
-                    <FormField label="Start Date" labelFor="startDate" icon={mdiCalendarAlert}>
+    <>
+      <CardBoxModal
+        title="Save Member"
+        buttonColor={initCardBoxModel.buttonColor}
+        buttonLabel={initCardBoxModel.buttonLabel}
+        isActive={initCardBoxModel.isActive}
+        onConfirm={handleModalActionConfirm}
+        onCancel={handleModalActionCancel}
+        isAction={initCardBoxModel.isAction}
+      >
+        <p>
+          {initCardBoxModel.message}
+        </p>
+      </CardBoxModal>
+      <SectionMain>
+        <SectionTitleLineWithButton icon={mdiAccount} title="Member Search" main />
+        <CardBox>
+          <FormSearch
+            initdata={initdata}
+            handleSubmit={handleSubmit}
+            hideFields={hideFields}
+          >
+            {(hiddenFields) => (
+              <>
+                <FormGrid columns={3}>
+                  {!hiddenFields.is_User_Name && (
+                    <FormField label="User Name" labelFor="username" icon={mdiEmber}>
                       {({ className }) => (
-                        <Field name="startDate" id="startDate" type="date" className={className} />
+                        <Field name="username" id="username" placeholder="Name search ..." className={className} />
                       )}
                     </FormField>
-                    <FormField label="End Date" labelFor="endDate" icon={mdiCalendarAlert}>
+                  )}
+                  {!hiddenFields.is_Reg_Date && (
+                    <>
+                      <FormField label="Start Date" labelFor="startDate" icon={mdiCalendarAlert}>
+                        {({ className }) => (
+                          <Field name="startDate" id="startDate" type="date" className={className} />
+                        )}
+                      </FormField>
+                      <FormField label="End Date" labelFor="endDate" icon={mdiCalendarAlert}>
+                        {({ className }) => (
+                          <Field name="endDate" id="endDate" type="date" className={className} />
+                        )}
+                      </FormField>
+                    </>
+                  )}
+                </FormGrid>
+                <FormGrid columns={3}>
+                  {!hiddenFields.is_Step && (
+                    <FormField label="Step" labelFor="chkuserid" icon={mdiAccount}>
                       {({ className }) => (
-                        <Field name="endDate" id="endDate" type="date" className={className} />
+                        <Field name="chkuserid" id="chkuserid" component="select" className={className}>
+                          {stepKindConstantSearchUser.map((option, index) => (
+                            <option key={index} value={option.value}>{option.label}</option>
+                          ))}
+                        </Field>
                       )}
                     </FormField>
-                  </>
-                )}
-              </FormGrid>
-              <FormGrid columns={3}>
-                {!hiddenFields.is_Step && (
-                  <FormField label="Step" labelFor="chkuserid" icon={mdiAccount}>
-                    {({ className }) => (
-                      <Field name="chkuserid" id="chkuserid" component="select" className={className}>
-                        {stepKindConstantSearchUser.map((option, index) => (
-                          <option key={index} value={option.value}>{option.label}</option>
-                        ))}
-                      </Field>
-                    )}
-                  </FormField>
 
-                )}
+                  )}
 
-                {!hiddenFields.is_Rank && (
-                  <FormField label="Rank" labelFor="rankCd" icon={mdiAccount}>
-                    {({ className }) => (
-                      <Field name="rankCd" id="rankCd" component="select" className={className}>
-                        {rankConstant.map((option, index) => (
-                          <option key={index} value={option.value}>{option.label}</option>
-                        ))}
-                      </Field>
-                    )}
-                  </FormField>
-                )}
-              </FormGrid>
-            </>
-          )}
-        </FormSearch>
-      </CardBox>
-      <CardBox className="mb-6" hasTable>
-        <GenericTable
-          data={items}
-          columns={columns}
-          showPaging={true}
-          perPage={10}
-          loading={loading}
-          total={
-            items.length
-          }
-          onPageChange={handlePageChange}
-        />
-      </CardBox>
-    </SectionMain>
+                  {!hiddenFields.is_Rank && (
+                    <FormField label="Rank" labelFor="rankCd" icon={mdiAccount}>
+                      {({ className }) => (
+                        <Field name="rankCd" id="rankCd" component="select" className={className}>
+                          {rankConstant.map((option, index) => (
+                            <option key={index} value={option.value}>{option.label}</option>
+                          ))}
+                        </Field>
+                      )}
+                    </FormField>
+                  )}
+                </FormGrid>
+              </>
+            )}
+          </FormSearch>
+        </CardBox>
+        <CardBox className="mb-6" hasTable>
+          <GenericTable
+            data={items}
+            columns={columns}
+            showPaging={true}
+            perPage={10}
+            loading={loading}
+            total={
+              items.length
+            }
+            onClickRow={handleClickRow}
+            onPageChange={handlePageChange}
+          />
+        </CardBox>
+      </SectionMain>
+    </>
+
   );
 }

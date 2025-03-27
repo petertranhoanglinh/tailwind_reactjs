@@ -70,4 +70,5 @@ export interface MemberModel {
 	familyName: string;
 	picture: string;
     pName:string;
+    edit:string;
 }
