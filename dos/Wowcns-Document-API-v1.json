@@ -1,7 +1,7 @@
 [
     {
         "menu-parent": "Bonus",
-        "menu-name": "SearchBonusDetail",
+        "menu-name": "SearchBonusDetailByUser",
         "menu-desc": "Retrieves bonus benefit details based on the given criteria.",
         "input": {
             "description": "This API retrieves bonus summaries based on the specified criteria, including company ID, user ID, summary type (monthly or yearly), and optional date range.",
@@ -102,7 +102,7 @@
     },
     {
         "menu-parent": "Bonus",
-        "menu-name": "BonusMonthlySearch",
+        "menu-name": "SearchBonusAccountingInquiry",
         "menu-desc": "Displays bonus payment details by month based on the selected criteria for a specific user",
         "input": {
             "description": "This API allows users to search for bonus payment records by specifying a company ID, user ID, and date range. Users can filter results based on monthly or yearly summaries. The response supports pagination for efficient data retrieval.",
@@ -200,7 +200,7 @@
     },
     {
         "menu-parent": "Bonus",
-        "menu-name": "BonusCalendar",
+        "menu-name": "GetBonusCalendar",
         "menu-desc": "Retrieves benefit calendar details for a specific company and user.",
         "input": {
             "description": "The getBenefitCalendar API retrieves benefit-related data for a user based on the specified company, user ID, and month. This API is used to populate the benefit calendar with relevant information.",
@@ -276,7 +276,7 @@
     },
     {
         "menu-parent": "Bonus",
-        "menu-name": "BonusAnalysis",
+        "menu-name": "GetBonusAnalysisGrid",
         "menu-desc": "Retrieves bonus analysis details for a specific company, user, and year.",
         "input": {
             "description": "The bonusAnalysicGird API retrieves a detailed analysis of bonuses received by a user within a specified year. The data is aggregated by month and categorized by different bonus types, providing a comprehensive view of total earnings for each period.",
@@ -350,7 +350,7 @@
     },
     {
         "menu-parent": "Bonus",
-        "menu-name": "BonusAnalysis",
+        "menu-name": "GetBonusAnalysicGirdSum",
         "menu-desc": "Retrieves a summary of bonus amounts for a specific company and user.",
         "input": {
             "description": "The bonusAnalysicGirdSum API retrieves the total bonus amounts categorized by different types for a user in a given year.",
@@ -411,7 +411,7 @@
     },
     {
         "menu-parent": "Bonus",
-        "menu-name": "BonusAnalysis",
+        "menu-name": "GetBonusAnalysisChart",
         "menu-desc": "Retrieves a summary of bonus payments for a specific company and user in a given year, including payment types, total amounts, highest received payment, and percentage distribution.",
         "input": {
             "description": "The bonusAnalysicChart1 API retrieves the distribution of bonus amounts for a specific user in a given year, categorized by payment types. It provides total amounts, the highest received payment, and percentage distribution of each bonus type.",
@@ -482,7 +482,7 @@
     },
     {
         "menu-parent": "Bonus",
-        "menu-name": "BonusAnalysis",
+        "menu-name": "GetMonthlyBonusSummary",
         "menu-desc": "Retrieves the highest monthly bonus amount for a specific company and user in a given year, ensuring all months are represented.",
         "input": {
             "description": "The bonusAnalysicChart3 API retrieves the highest bonus amount distributed per month for a user in a given year, ensuring all months are included in the response.",
@@ -548,7 +548,7 @@
     },
     {
         "menu-parent": "Bonus",
-        "menu-name": "TitlePay",
+        "menu-name": "GetTitlePayBonus",
         "menu-desc": "Retrieves the list of available pay titles for a given company.",
         "input": {
             "description": "The TitlePay API fetches the pay names and codes associated with a company.",
@@ -597,7 +597,7 @@
         }
     },
     {
-        "menu-parent": "Member",
+        "menu-parent": "User Profile",
         "menu-name": "FindMember",
         "menu-desc": "Retrieves member details based on company ID and user ID.",
         "input": {
@@ -798,7 +798,7 @@
         }
     },
     {
-        "menu-parent": "Member",
+        "menu-parent": "User Profile",
         "menu-name": "ChangeInformation",
         "menu-desc": "Updates member information including contact details, address, and important dates.",
         "input": {
@@ -966,11 +966,11 @@
             }
         },
         "output": {
-            "description": "The API returns a JSON object indicating the success or failure of the operation.",
+            "description": "information about the created member",
             "success": {
                 "status": "Ok",
-                "message": "SUCCESS",
-                "fields ": [
+                "message": "Members created successfully",
+                "fields": [
                     {
                         "name": "retCode",
                         "type": "text",
@@ -982,9 +982,10 @@
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Return message of the operation",
-                        "length": 200,
-                        "example": ""
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Success message",
+                        "example": "Update member success"
                     }
                 ]
             },
@@ -1009,7 +1010,7 @@
         }
     },
     {
-        "menu-parent": "Member",
+        "menu-parent": "User Profile",
         "menu-name": "ChangeBankAccount",
         "menu-desc": "Changes the bank account details of a member.",
         "input": {
@@ -1105,11 +1106,11 @@
             }
         },
         "output": {
-            "description": "The API returns a JSON object indicating the success or failure of the operation.",
+            "description": "information about the created member",
             "success": {
                 "status": "Ok",
-                "message": "SUCCESS",
-                "fields ": [
+                "message": "Members created successfully",
+                "fields": [
                     {
                         "name": "retCode",
                         "type": "text",
@@ -1121,9 +1122,10 @@
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Return message of the operation",
-                        "length": 200,
-                        "example": ""
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Success message",
+                        "example": "Update member success"
                     }
                 ]
             },
@@ -1148,7 +1150,7 @@
         }
     },
     {
-        "menu-parent": "Member",
+        "menu-parent": "User Profile",
         "menu-name": "UpdatePassword",
         "menu-desc": "Updates the password of a member in the system.",
         "input": {
@@ -1188,11 +1190,11 @@
             }
         },
         "output": {
-            "description": "The API returns a JSON object indicating the success or failure of the operation.",
+            "description": "information about the created member",
             "success": {
                 "status": "Ok",
-                "message": "SUCCESS",
-                "fields ": [
+                "message": "Members created successfully",
+                "fields": [
                     {
                         "name": "retCode",
                         "type": "text",
@@ -1204,9 +1206,10 @@
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Return message of the operation",
-                        "length": 200,
-                        "example": "Save success"
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Success message",
+                        "example": "Update member success"
                     }
                 ]
             },
@@ -1231,7 +1234,7 @@
         }
     },
     {
-        "menu-parent": "Member",
+        "menu-parent": "User Profile",
         "menu-name": "UpdatePin",
         "menu-desc": "Updates the PIN of a member based on company ID and user ID.",
         "input": {
@@ -1271,11 +1274,11 @@
             }
         },
         "output": {
-            "description": "The API returns a JSON object indicating the success or failure of the operation.",
+            "description": "information about the created member",
             "success": {
                 "status": "Ok",
-                "message": "SUCCESS",
-                "fields ": [
+                "message": "Members created successfully",
+                "fields": [
                     {
                         "name": "retCode",
                         "type": "text",
@@ -1287,9 +1290,10 @@
                     {
                         "name": "retStr",
                         "type": "text",
-                        "remarks": "Return message of the operation",
-                        "length": 200,
-                        "example": ""
+                        "required": "",
+                        "length": 50,
+                        "remarks": "Success message",
+                        "example": "Update member success"
                     }
                 ]
             },
