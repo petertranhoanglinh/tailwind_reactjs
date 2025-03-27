@@ -15,7 +15,7 @@ import {
 } from "@mdi/js";
 import { MenuAsideItem } from "../../_interfaces";
 
-const menuAside: MenuAsideItem[] = [
+export const menuAside: MenuAsideItem[] = [
   {
     href: "/dashboard",
     icon: mdiMonitor,
