@@ -13,8 +13,7 @@ import FooterBar from "./_components/FooterBar";
 import FormField from "../_components/FormField";
 import { Field, Form, Formik } from "formik";
 import { MenuAsideItem } from "../_interfaces";
-import CardBoxModal from "../_components/CardBox/Modal";
-import { _initCardBoxModel } from "../_models/cardbox.model";
+import Link from "next/link";
 
 type Props = {
   children: ReactNode;
@@ -24,7 +23,6 @@ export default function LayoutAuthenticated({ children }: Props) {
   const [isAsideMobileExpanded, setIsAsideMobileExpanded] = useState(false);
   const [isAsideLgActive, setIsAsideLgActive] = useState(false);
   const [itemsMenuSearch, setItemsMenuSearch] = useState<MenuAsideItem[]>([]);
-  const [initCardBoxModel, setInitCardBoxModel] = useState(_initCardBoxModel);
 
   const handleRouteChange = () => {
     setIsAsideMobileExpanded(false);
@@ -37,23 +35,9 @@ export default function LayoutAuthenticated({ children }: Props) {
     const items = searchMenu(key, menuAside)
     if (items.length > 0) {
       setItemsMenuSearch(items);
-      setInitCardBoxModel(prev => ({ ...prev, isActive: true, isAction: false }));
-    }else{
+    } else {
       alert("No information menu")
     }
-  }
-
-  const handleModalActionConfirm = () => {
-    setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
-    setTimeout(() => {
-      setInitCardBoxModel(prev => ({ ...prev, isActive: true, message: "Update member suscess", isAction: false, buttonColor: "success" }));
-    }, 1000);
-
-  };
-
-
-  const handleModalActionCancel = () => {
-    setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
   }
 
   const searchMenu = (key: string, menuItems: MenuAsideItem[]): MenuAsideItem[] => {
@@ -67,7 +51,7 @@ export default function LayoutAuthenticated({ children }: Props) {
           if (matched || filteredSubMenu.length > 0) {
             return {
               ...item,
-              menu: filteredSubMenu.length > 0 ? filteredSubMenu : undefined, 
+              menu: filteredSubMenu.length > 0 ? filteredSubMenu : undefined,
             };
           }
           return null;
@@ -80,75 +64,31 @@ export default function LayoutAuthenticated({ children }: Props) {
 
   return (
     <>
-      <CardBoxModal
-        title=""
-        buttonColor={initCardBoxModel.buttonColor}
-        buttonLabel={initCardBoxModel.buttonLabel}
-        isActive={initCardBoxModel.isActive}
-        onConfirm={handleModalActionConfirm}
-        onCancel={handleModalActionCancel}
-        isAction={initCardBoxModel.isAction}
-      >
-        <ul>
-          {itemsMenuSearch.map((item) => (
-            <li key={item.label}>
-              <a href={item.href} className="hover:text-blue-500">
-                {item.label}
-              </a>
-              {item.menu && item.menu.length > 0 && (
-                <ul className="ml-4">
-                  {item.menu.map((subItem) => (
-                    <li key={subItem.label}>
-                      <a href={subItem.href} className="hover:text-blue-500">
-                        {subItem.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
-          ))}
-        </ul>
-      </CardBoxModal>
-      <div className={`overflow-hidden lg:overflow-visible`}>
+      <div className="overflow-hidden lg:overflow-visible">
         <div
           className={`${layoutAsidePadding} ${isAsideMobileExpanded ? "ml-60 lg:ml-0" : ""
             } pt-14 min-h-screen w-screen transition-position lg:w-auto bg-gray-50 dark:bg-slate-800 dark:text-slate-100`}
         >
           <NavBar
             menu={menuNavBar}
-            className={`${layoutAsidePadding} ${isAsideMobileExpanded ? "ml-60 lg:ml-0" : ""}`}
+            className={`${layoutAsidePadding} ${isAsideMobileExpanded ? "ml-60 lg:ml-0" : ""
+              }`}
           >
             <NavBarItemPlain
               display="flex lg:hidden"
               onClick={() => setIsAsideMobileExpanded(!isAsideMobileExpanded)}
             >
-              <Icon
-                path={isAsideMobileExpanded ? mdiBackburger : mdiForwardburger}
-                size="24"
-              />
+              <Icon path={isAsideMobileExpanded ? mdiBackburger : mdiForwardburger} size="24" />
             </NavBarItemPlain>
-            <NavBarItemPlain
-              display="hidden lg:flex xl:hidden"
-              onClick={() => setIsAsideLgActive(true)}
-            >
+            <NavBarItemPlain display="hidden lg:flex xl:hidden" onClick={() => setIsAsideLgActive(true)}>
               <Icon path={mdiMenu} size="24" />
             </NavBarItemPlain>
             <NavBarItemPlain useMargin>
-              <Formik
-                initialValues={{
-                  search: "",
-                }}
-                onSubmit={(values) => search(values.search)}
-              >
+              <Formik initialValues={{ search: "" }} onSubmit={(values) => search(values.search)}>
                 <Form>
                   <FormField isBorderless isTransparent>
                     {({ className }) => (
-                      <Field
-                        name="search"
-                        placeholder="Search"
-                        className={className}
-                      />
+                      <Field name="search" placeholder="Search" className={className} />
                     )}
                   </FormField>
                 </Form>
@@ -162,6 +102,32 @@ export default function LayoutAuthenticated({ children }: Props) {
             onAsideLgClose={() => setIsAsideLgActive(false)}
             onRouteChange={handleRouteChange}
           />
+          {itemsMenuSearch.length > 0 && (
+            <div className="p-4 bg-white dark:bg-gray-800 shadow-md rounded-md">
+              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+                {itemsMenuSearch.map((item) => (
+                  <li key={item.label} className="p-2 rounded-md hover:bg-blue-100 dark:hover:bg-gray-700 transition">
+                    <Link href={item.href ?? "#"} className="flex items-center space-x-2" onClick={(e) => {
+                      if (!item.href) e.preventDefault();
+                    }}>
+                      <span>{item.label}</span>
+                    </Link>
+                    {item.menu && item.menu.length > 0 && (
+                      <ul className="ml-4 mt-1 space-y-1 border-l-2 border-gray-300 dark:border-gray-600 pl-2">
+                        {item.menu.map((subItem) => (
+                          <li key={subItem.label} className="p-1 hover:text-blue-500">
+                            <Link href={item.href ?? "#"} onClick={(e) => {
+                              if (!item.href) e.preventDefault();
+                            }}>{subItem.label}</Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           {children}
           <FooterBar>
             <></>
@@ -169,6 +135,5 @@ export default function LayoutAuthenticated({ children }: Props) {
         </div>
       </div>
     </>
-
   );
 }
