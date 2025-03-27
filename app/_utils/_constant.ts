@@ -2,7 +2,6 @@ import { SelectDropDownModel } from "../_models/selectdropdown.model";
 
 
 export const stepKindConstantSearchUser: SelectDropDownModel[] = [
-    { label: "Selected", value: "0" },
     { label: "Direct Placement", value: "2" },
     { label: "Placement Group", value: "3" },
     { label: "Direct Sponsor", value: "5" },
@@ -10,7 +9,6 @@ export const stepKindConstantSearchUser: SelectDropDownModel[] = [
 ];
 
 export const rankConstant: SelectDropDownModel[] = [
-    { label: "All", value: "" },
     { label: "Distributor", value: "0120" },
     { label: "Exclusive Distributor", value: "0130" },
     { label: "Director", value: "0140" },

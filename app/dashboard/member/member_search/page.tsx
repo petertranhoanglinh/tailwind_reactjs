@@ -33,7 +33,7 @@ const initparams = {
   lang: "KR",
   startDate: "",
   endDate: "",
-  chkuserid: "",
+  chkuserid: "2",
   userid: "0124090003",
   status: "",
   userKind: "",
@@ -55,7 +55,7 @@ export default function MemberSearchPage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(1);
   const { items, loading } = useSelector((state: RootState) => state.searchMember);
-  const initdata = { username: "", startDate: "", endDate: "", chkuserid: "0" };
+  const initdata = { username: "", startDate: "", endDate: "", chkuserid: "2" , rankCd : "0120" };
   const [initCardBoxModel, setInitCardBoxModel] = useState(_initCardBoxModel);
   const [hideFields] = useState<Record<string, boolean>>({
     is_Reg_Date: false,
