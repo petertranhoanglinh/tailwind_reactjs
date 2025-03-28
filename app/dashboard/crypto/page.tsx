@@ -14,6 +14,15 @@ import { Field } from "formik";
 import FormGrid from "../../_components/FormField/FormGrid";
 import { formatNumber , toUpperLower } from "../../_utils/formatUtils";
 
+import styled from 'styled-components'
+
+const Wrapper = styled.div`
+  color: red;
+  text-align: center;
+`
+
+
+
 interface CryptoData {
   name: string;
   image: string;
@@ -34,6 +43,8 @@ const columns: TableColumn<CryptoData>[] = [
 
 
 export default function CryptoPage() {
+  const Red = () => <Wrapper>Home Pages</Wrapper>;
+
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.crypto);
   const  totalCount = items.length;
@@ -62,6 +73,7 @@ export default function CryptoPage() {
 
   return (
     <SectionMain>
+      <Red /> {/* Gọi component Red tại đây */}
       <SectionTitleLineWithButton icon={mdiBitcoin} title="Crypto Price" main />
       <CardBox>
         <FormSearch
