@@ -116,9 +116,8 @@ export default function MemberSearchPage() {
         buttonColor={initCardBoxModel.buttonColor}
         buttonLabel={initCardBoxModel.buttonLabel}
         isActive={initCardBoxModel.isActive}
-        onConfirm={handleModalActionConfirm}
-        onCancel={handleModalActionCancel}
         isAction={initCardBoxModel.isAction}
+        onClose={initCardBoxModel.onClose}
       >
         <p>
           {initCardBoxModel.message}
@@ -198,7 +197,6 @@ export default function MemberSearchPage() {
               items.length
             }
             onClickAction={handleClickRow}
-            onPageChange={handlePageChange}
           />
         </CardBox>
       </SectionMain>

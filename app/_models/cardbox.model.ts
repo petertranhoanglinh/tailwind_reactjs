@@ -6,6 +6,7 @@ export interface CardBoxModel{
     buttonLabel:string;
     isActive:boolean;
     isAction : boolean ;
+    onClose : (confirmed: boolean) => void; 
 }
 
   
@@ -15,5 +16,6 @@ export const _initCardBoxModel : CardBoxModel = {
     buttonColor : "info",
     isActive : false,
     buttonLabel : "Save",
-    isAction : true 
+    isAction : true ,
+    onClose: () => {}
 }

@@ -14,8 +14,7 @@ type Props = {
   isActive: boolean;
   children: ReactNode;
   isAction?:boolean;
-  onConfirm: () => void;
-  onCancel?: () => void;
+  onClose: (confirmed: boolean) => void;
 };
 
 const CardBoxModal = ({
@@ -25,54 +24,51 @@ const CardBoxModal = ({
   isActive,
   children,
   isAction = true,
-  onConfirm,
-  onCancel,
+  onClose,
 }: Props) => {
-  if (!isActive) {
-    return null;
-  }
+  if (!isActive) return null;
+
+  const handleConfirm = () => {
+    onClose(true); // ✅ Confirm → true
+  };
+
+  const handleCancel = () => {
+    onClose(false); // ✅ Cancel → false
+  };
 
   const footer = isAction ? (
     <Buttons>
       <Button
         label={buttonLabel}
         color={buttonColor}
-        onClick={onConfirm}
+        onClick={handleConfirm}
         isGrouped
       />
-      {!!onCancel && (
-        <Button
-          label="Cancel"
-          color={buttonColor}
-          outline
-          onClick={onCancel}
-          isGrouped
-        />
-      )}
+      <Button
+        label="Cancel"
+        color={buttonColor}
+        outline
+        onClick={handleCancel}
+        isGrouped
+      />
     </Buttons>
   ) : null;
-  
 
   return (
-    <OverlayLayer
-      onClick={onCancel}
-      className={onCancel ? "cursor-pointer" : ""}
-    >
+    <OverlayLayer onClick={handleCancel} className="cursor-pointer">
       <CardBox
         className={`transition-transform shadow-lg max-h-modal w-11/12 md:w-3/5 lg:w-2/5 xl:w-4/12 z-50`}
         isModal
         footer={footer}
       >
         <CardBoxComponentTitle title={title}>
-          {!!onCancel && (
-            <Button
-              icon={mdiClose}
-              color="whiteDark"
-              onClick={onCancel}
-              small
-              roundedFull
-            />
-          )}
+          <Button
+            icon={mdiClose}
+            color="whiteDark"
+            onClick={handleCancel}
+            small
+            roundedFull
+          />
         </CardBoxComponentTitle>
 
         <div className="space-y-3">{children}</div>
@@ -82,3 +78,4 @@ const CardBoxModal = ({
 };
 
 export default CardBoxModal;
+

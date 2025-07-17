@@ -5,24 +5,35 @@ import CardBox from "../CardBox";
 import CardBoxComponentEmpty from "../CardBox/Component/Empty";
 import Image from "next/image";
 import IconRounded from "../Icon/Rounded";
+import Icon from "../Icon";
+import { mdiChevronDown, mdiChevronUp } from "@mdi/js";
 
 export interface TableColumn<T> {
   key: keyof T;
   label: string;
   kind?: string;
-  icon?:string;
+  icon?: string;
   render?: (item: T) => React.ReactNode;
+  isSort?: boolean;
+
 }
 
-interface TableProps<T> {
+export interface Filter {
+  filter: any
+  page: number,
+  skip: number,
+  sort: any
+}
+
+interface GenericTableProps<T> {
   data: T[];
   columns: TableColumn<T>[];
   showPaging?: boolean;
   perPage?: number;
   loading: boolean;
   total: number;
-  onPageChange: (page: number) => void;
-  onClickAction?: (row: T , key : string) => void;
+  onClickAction?: (row: T, key: string) => void;
+  onChangeFilter?: (filter: Filter) => void;
 }
 
 const GenericTable = <T,>({
@@ -32,37 +43,54 @@ const GenericTable = <T,>({
   perPage = 5,
   loading,
   total,
-  onPageChange,
   onClickAction,
-}: TableProps<T>) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalCount = total;
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    onPageChange(page);
-  };
+  onChangeFilter
 
-  const paginatedData = data.slice(perPage * (currentPage - 1), perPage * currentPage);
+}: GenericTableProps<T>) => {
+  const totalCount = total;
+  const defaultFilter: Filter = {
+    filter: {},
+    skip: 20,
+    page: 1,
+    sort: {}
+  }
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-
+  const [sortState, setSortState] = useState({ key: '', direction: 'asc' });
+  const [filter, setFilter] = useState(defaultFilter)
+  const handlePageChange = (page: number) => {
+    setFilter({
+      ...filter,
+      page: page
+    });
+    const newFilter = {
+      ...filter,
+      page: page
+    };
+    onChangeFilter?.(newFilter);
+  };
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
     setIsDragging(true);
     setStartX(e.pageX - scrollRef.current.offsetLeft);
     setScrollLeft(scrollRef.current.scrollLeft);
   };
-
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !scrollRef.current) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 1.5; // Điều chỉnh tốc độ kéo
+    const walk = (x - startX) * 1.5;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
-
+  const descByFields = (key) => {
+    setSortState((prev) => {
+      const direction = prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc';
+      alert("sort " + key +  "  " + direction)
+      return { key, direction };
+    });
+  };
   const handleMouseUp = () => setIsDragging(false);
   return (
     <>
@@ -82,26 +110,42 @@ const GenericTable = <T,>({
             <thead>
               <tr>
                 {columns.map((column) => (
-                  <th
-                    key={String(column.key)}
-                  >
-                    {column.label}
+                  <th key={String(column.key)}>
+                    {column.isSort ? (
+                      <button
+                        type="button"
+                        onClick={() => descByFields(column.key)}
+                        className="flex items-center justify-center w-full h-full p-2 cursor-pointer"
+                      >
+                        {column.label}
+
+                        <Icon
+                          path={sortState.direction === 'asc' ? mdiChevronUp : mdiChevronDown}
+                          w="w-10"
+                          h={"h-12"}
+                          className="ml-2"
+                        />
+
+                      </button>
+                    ) : (
+                      column.label
+                    )}
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {paginatedData.map((item, index) => (
+              {data.map((item, index) => (
                 <tr key={index}>
                   {columns.map((column) => (
                     <td key={String(column.key)} data-label={String(column.label)}>
                       {column.kind === "image" && typeof item[column.key] === "string" ? (
                         <Image src={item[column.key] as string} alt={"img_" + column.label} width={40} height={40} />
                       ) : column.kind === "action" ? (
-                        <button onClick={() => onClickAction?.(item,String(column.key))}>  {column.render ? (
+                        <button onClick={() => onClickAction?.(item, String(column.key))}>  {column.render ? (
                           column.render(item)
                         ) : (
-                           column.icon&&<IconRounded icon ={column.icon } color="light" className="mr-3 cursor-pointer" bg />
+                          column.icon && <IconRounded icon={column.icon} color="light" className="mr-3 cursor-pointer" bg />
                         )} </button>
                       )
                         : column.render ? (
@@ -125,9 +169,9 @@ const GenericTable = <T,>({
       {showPaging && totalCount > perPage && (
         <div className="mt-4">
           <Pagination
-            totalCount={totalCount}
-            itemsPerPage={perPage}
-            currentPage={currentPage}
+            totalCount={500}
+            itemsPerPage={filter.skip}
+            currentPage={filter.page}
             onPageChange={handlePageChange}
           />
         </div>

@@ -3,18 +3,21 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../_stores/store";
 import { fetchCryptoAction } from "../../_stores/crypto/cryptoSlice";
-import { mdiBitcoin, mdiCalendarAlert, mdiCashMultiple } from "@mdi/js";
+import { mdiBitcoin, mdiCalendarAlert, mdiCashMultiple, mdiUpdate } from "@mdi/js";
 import CardBox from "../../_components/CardBox";
 import SectionMain from "../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../_components/Section/TitleLineWithButton";
-import GenericTable, { TableColumn } from "../../_components/Table/Table";
+import GenericTable, { Filter, TableColumn } from "../../_components/Table/Table";
 import FormSearch from "../../_components/FormField/FormSearch";
-import FormField from "../../_components/FormField";
-import { Field } from "formik";
-import FormGrid from "../../_components/FormField/FormGrid";
-import { formatNumber , toUpperLower } from "../../_utils/formatUtils";
+import { formatNumber, toUpperLower } from "../../_utils/formatUtils";
 
 import styled from 'styled-components'
+import Icon from "../../_components/Icon";
+import { _initCardBoxModel } from "../../_models/cardbox.model";
+import CardBoxModal from "../../_components/CardBox/Modal";
+import DynamicFormFields, { FieldConfig } from "../../_components/Table/_component/DynamicFormFields";
+import { Form, Formik } from "formik";
+import cryptoService from "../../_services/crypto.service";
 
 const Wrapper = styled.div`
   color: red;
@@ -30,83 +33,125 @@ interface CryptoData {
   current_price: number;
   market_cap: number;
   total_volume: number;
+  action: string;
 }
 
-const columns: TableColumn<CryptoData>[] = [
-  { key: "name", label: "Name" },
-  { key: "image", label: "Icon", kind: "image" },
-  { key: "symbol", label: "Symbol" },
-  { key: "current_price", label: "Current Price ($)" },
-  { key: "market_cap", label: "Market Cap ($)" },
-  { key: "total_volume", label: "Total Volume ($)" },
-];
+
 
 
 export default function CryptoPage() {
   const Red = () => <Wrapper>Home Pages</Wrapper>;
-
+  const [initCardBoxModel, setInitCardBoxModel] = useState(_initCardBoxModel);
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.crypto);
-  const  totalCount = items.length;
+  const totalCount = items.length;
   const formattedItems = items.map((item) => ({
     ...item,
     price: formatNumber(item.current_price),
-    total_volume : formatNumber(item.total_volume) ,
-    market_cap : formatNumber(item.market_cap),
-    symbol : toUpperLower(item.symbol , "upper"),
+    total_volume: formatNumber(item.total_volume),
+    market_cap: formatNumber(item.market_cap),
+    symbol: toUpperLower(item.symbol, "upper"),
   }));
-  const initdata = { symbol: "", volume: "", regDate: "" };
-  const [hideFields] = useState<Record<string, boolean>>({
-    isRegDate: false,
-    isSymbol: false,
-    isVolume: false,
-  });
+  const initdata = { symbol: "", volume: "", regDate: "" , agree: false};
   const handleSubmit = (values) => {
     console.log("Submitted values:", values);
   };
-  const handlePageChange = (newPage: number) => {
-    console.log(newPage);
+  const handelOnchangeFilter = (filter: Filter) => {
+    dispatch(fetchCryptoAction({ currency: "usd", per_page: filter.skip, page: filter.page }));
   };
   useEffect(() => {
-    dispatch(fetchCryptoAction({ currency: "usd", per_page: 200, page: 1 }));
+    dispatch(fetchCryptoAction({ currency: "usd", per_page: 20, page: 1 }));
   }, [dispatch]);
+  
+  const handleUpdate = (row: CryptoData) => {
+    setInitCardBoxModel({
+      ..._initCardBoxModel,
+      message: "Do you want to edit " + row.name,
+      isActive: true,
+      onClose: (confirmed: boolean) => {
+        if (confirmed) {
+          setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+          alert(row.name)
+        } else {
+          setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+        }
+      }
+    });
+  }
+  const renderUpdateColumn = (row: CryptoData) => {
+    return (
+      <button onClick={() => handleUpdate(row)} className="cursor-pointer">
+        <Icon path={mdiUpdate}></Icon>
+      </button>
+    );
+  };
+
+  const columns: TableColumn<CryptoData>[] = [
+    { key: "name", label: "Name", isSort: true },
+    { key: "image", label: "Icon", kind: "image" },
+    { key: "symbol", label: "Symbol" },
+    { key: "current_price", label: "Current Price ($)" },
+    { key: "market_cap", label: "Market Cap ($)" },
+    { key: "total_volume", label: "Total Volume ($)" },
+    { key: "action", label: "Action", render: renderUpdateColumn },
+  ];
+
+  const formFieldsConfig: FieldConfig[] = [
+    {
+      name: 'regDate',
+      label: 'Reg Date',
+      type: 'date',
+      icon: 'mdiCalendarAlert',
+    },
+    {
+      name: 'symbol',
+      label: 'Symbol',
+      type: 'text',
+      placeholder: 'Symbol search ...',
+      icon: 'mdiBitcoin',
+    },
+    {
+      name: 'volume',
+      label: 'Volume',
+      type: 'text',
+      placeholder: 'Volume search ...',
+      icon: 'mdiCashMultiple'
+    },
+    {
+      name: 'status',
+      label: 'Status',
+      type: 'select',
+      options: [
+        { label: 'All', value: '' },
+        { label: 'Active', value: 'active' },
+        { label: 'Inactive', value: 'inactive' }
+      ]
+    },
+    {
+      name: 'agree',
+      label: 'Agree?',
+      type: 'checkbox'
+    }
+  ];
 
   return (
     <SectionMain>
+      <CardBoxModal
+        title="Save Member"
+        buttonColor={initCardBoxModel.buttonColor}
+        buttonLabel={initCardBoxModel.buttonLabel}
+        isActive={initCardBoxModel.isActive}
+        isAction={initCardBoxModel.isAction}
+        onClose={initCardBoxModel.onClose} // <--- Cần có dòng này
+      >
+        <p>
+          {initCardBoxModel.message}
+        </p>
+      </CardBoxModal>
       <Red /> {/* Gọi component Red tại đây */}
       <SectionTitleLineWithButton icon={mdiBitcoin} title="Crypto Price" main />
       <CardBox>
-        <FormSearch
-          initdata={initdata}
-          handleSubmit={handleSubmit}
-          hideFields={hideFields}
-        >
-          {(hiddenFields) => (
-            <FormGrid columns={3}>
-              {!hiddenFields.isRegDate && (
-                <FormField label="Reg Date" labelFor="regDate" icon={mdiCalendarAlert}>
-                  {({ className }) => (
-                    <Field name="regDate" id="regDate" type="date" className={className} />
-                  )}
-                </FormField>
-              )}
-              {!hiddenFields.isSymbol && (
-                <FormField label="Symbol" labelFor="symbol" icon={mdiBitcoin}>
-                  {({ className }) => (
-                    <Field name="symbol" id="symbol" placeholder="Symbol search ..." className={className} />
-                  )}
-                </FormField>
-              )}
-              {!hiddenFields.isVolume && (
-                <FormField label="Volume" labelFor="volume" icon={mdiCashMultiple}>
-                  {({ className }) => (
-                    <Field name="volume" id="volume" placeholder="Volume search ..." className={className} />
-                  )}
-                </FormField>
-              )}
-            </FormGrid>
-          )}
-        </FormSearch>
+      <DynamicFormFields config={formFieldsConfig} onSubmit={handleSubmit} />
       </CardBox>
       <CardBox className="mb-6" hasTable>
         <GenericTable
@@ -116,7 +161,7 @@ export default function CryptoPage() {
           perPage={5}
           loading={loading}
           total={totalCount}
-          onPageChange={handlePageChange} 
+          onChangeFilter={handelOnchangeFilter}
         />
       </CardBox>
     </SectionMain>
