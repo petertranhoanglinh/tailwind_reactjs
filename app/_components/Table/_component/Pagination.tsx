@@ -69,23 +69,18 @@ const Pagination: React.FC<PaginationProps> = ({
     const pageNumbers: (number | string)[] = [];
     const siblingCount = 1;
     const totalPageNumbers = siblingCount + 5;
-
     if (numPages <= totalPageNumbers) {
       return Array.from({ length: numPages }, (_, i) => i + 1);
     }
-
     const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
     const rightSiblingIndex = Math.min(currentPage + siblingCount, numPages);
-
     const shouldShowLeftDots = leftSiblingIndex > 2;
     const shouldShowRightDots = rightSiblingIndex < numPages - 2;
-
     if (!shouldShowLeftDots && shouldShowRightDots) {
       const leftItemCount = 3 + 2 * siblingCount;
       const leftRange = Array.from({ length: leftItemCount }, (_, i) => i + 1);
       return [...leftRange, "...", numPages];
     }
-
     if (shouldShowLeftDots && !shouldShowRightDots) {
       const rightItemCount = 3 + 2 * siblingCount;
       const rightRange = Array.from(
@@ -94,7 +89,6 @@ const Pagination: React.FC<PaginationProps> = ({
       );
       return [1, "...", ...rightRange];
     }
-
     if (shouldShowLeftDots && shouldShowRightDots) {
       const middleRange = Array.from(
         { length: rightSiblingIndex - leftSiblingIndex + 1 },
@@ -102,10 +96,8 @@ const Pagination: React.FC<PaginationProps> = ({
       );
       return [1, "...", ...middleRange, "...", numPages];
     }
-
     return pageNumbers;
   };
-
   return (
     <div className="p-3 border-t border-gray-100 dark:border-slate-800 flex justify-center items-center gap-2">
       <Button

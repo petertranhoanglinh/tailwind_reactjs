@@ -10,7 +10,7 @@ import SectionMain from "../../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
 import { getPageTitle } from "../../../_lib/config";
 import FormGrid from "../../../_components/FormField/FormGrid";
-import {  useState } from "react";
+import { useState } from "react";
 import CardBoxModal from "../../../_components/CardBox/Modal";
 import { _initCardBoxModel } from "../../../_models/cardbox.model";
 export default function FormsPage() {
@@ -18,7 +18,19 @@ export default function FormsPage() {
     const handleSubmit = (values, { setSubmitting }) => {
         try {
             console.log("Form submitted:", values);
-            setInitCardBoxModel({..._initCardBoxModel , message :commonmessage , isActive : true});
+            setInitCardBoxModel({
+                ..._initCardBoxModel, message: commonmessage, isActive: true,
+                onClose: (confirmed: boolean) => {
+                    if (confirmed) {
+                        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+                        alert("save sussces")
+                    } else {
+                        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
+                    }
+                }
+            }
+
+            );
         } catch (error) {
             console.error("Error submitting form:", error);
         } finally {
@@ -36,30 +48,19 @@ export default function FormsPage() {
         sponsor: "",
         placement: "",
     }
-    const handleModalActionConfirm = () => {
-        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
-        setTimeout(() => {
-            setInitCardBoxModel(prev => ({ ...prev, isActive: true , message : "Save OK" , isAction : false , buttonColor : "success" })); 
-        }, 1000);
-        
-    };
-    const handleModalActionCancel = () => {
-        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
-     
-    };
+
     return (
         <>
             <CardBoxModal
-                title= "Save Member"
+                title="Save Member"
                 buttonColor={initCardBoxModel.buttonColor}
                 buttonLabel={initCardBoxModel.buttonLabel}
                 isActive={initCardBoxModel.isActive}
-                onConfirm={handleModalActionConfirm}
-                onCancel={handleModalActionCancel}
-                isAction = {initCardBoxModel.isAction}
+                onClose={initCardBoxModel.onClose}
+                isAction={initCardBoxModel.isAction}
             >
                 <p>
-                   {initCardBoxModel.message}
+                    {initCardBoxModel.message}
                 </p>
             </CardBoxModal>
             <Head>

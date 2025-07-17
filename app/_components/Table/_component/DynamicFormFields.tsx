@@ -37,20 +37,16 @@ export default function DynamicFormFields({ config, columns = 3, onSubmit }: Pro
     return (
         <Formik initialValues={generateInitialValues(config)} onSubmit={onSubmit}>
             <Form>
-
                 <FormGrid columns={columns}>
                     {config.map((field) => {
                         if (field.hiddenKey) return null;
-
                         const IconPath = field.icon ? (mdi as any)[field.icon] : undefined;
-
                         return (
                             <FormField key={field.name} label={field.label} labelFor={field.name} icon={IconPath}>
                                 {({ className }) => {
                                     if (field.type === 'custom' && field.renderCustom) {
                                         return field.renderCustom(className);
                                     }
-
                                     if (field.type === 'select') {
                                         return (
                                             <Field as="select" name={field.name} id={field.name} className={className}>
@@ -62,7 +58,6 @@ export default function DynamicFormFields({ config, columns = 3, onSubmit }: Pro
                                             </Field>
                                         );
                                     }
-
                                     if (field.type === 'checkbox' || field.type === 'switch') {
                                         return (
                                             <label className="flex items-center space-x-2">
@@ -77,7 +72,6 @@ export default function DynamicFormFields({ config, columns = 3, onSubmit }: Pro
 
                                         );
                                     }
-
                                     return (
                                         <Field
                                             name={field.name}
