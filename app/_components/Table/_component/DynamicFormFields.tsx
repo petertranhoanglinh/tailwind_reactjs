@@ -23,6 +23,7 @@ type Props = {
 };
 
 export default function DynamicFormFields({ config, columns = 3, onSubmit }: Props) {
+    if(config == null) return <></>
     const generateInitialValues = (config: FieldConfig[]) => {
         const initialValues: Record<string, any> = {};
         config.forEach((field) => {

@@ -24,7 +24,7 @@ const girdService = {
       }
 
       return apiService.get<GridDataResponse>(
-        `/data/${configId}`,
+        `/grid/data/${configId}`,
         params ? { params } : undefined
       );
     } catch (error) {
