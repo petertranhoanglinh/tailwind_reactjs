@@ -31,6 +31,7 @@ export default function LoginForm() {
       });
       if (result?.jwt) {
         Cookies.set('jwt', result?.jwt, { expires: 10/24 }); // expires = 1 day
+        localStorage.setItem('authToken' , result?.jwt)
         router.push("/dashboard");
       } else {
         setErrorMessage("Login failed: No token received.");

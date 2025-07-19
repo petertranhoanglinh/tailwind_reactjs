@@ -1,184 +1,169 @@
 "use client";
-import { mdiAccount, mdiMail, mdiWalletMembership, mdiCalendarAccount, mdiGenderNonBinary, mdiCellphone, mdiAccountGroup, mdiHandshake } from "@mdi/js";
-import { Field, Form, Formik } from "formik";
-import Head from "next/head";
-import Button from "../../../_components/Button";
-import Buttons from "../../../_components/Buttons";
-import CardBox from "../../../_components/CardBox";
-import FormField from "../../../_components/FormField";
-import SectionMain from "../../../_components/Section/Main";
-import SectionTitleLineWithButton from "../../../_components/Section/TitleLineWithButton";
-import { getPageTitle } from "../../../_lib/config";
-import FormGrid from "../../../_components/FormField/FormGrid";
-import { useState } from "react";
-import CardBoxModal from "../../../_components/CardBox/Modal";
-import { _initCardBoxModel } from "../../../_models/cardbox.model";
-export default function FormsPage() {
-    const commonmessage = "Do you want to save member"
-    const handleSubmit = (values, { setSubmitting }) => {
-        try {
-            console.log("Form submitted:", values);
-            setInitCardBoxModel({
-                ..._initCardBoxModel, message: commonmessage, isActive: true,
-                onClose: (confirmed: boolean) => {
-                    if (confirmed) {
-                        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
-                        alert("save sussces")
-                    } else {
-                        setInitCardBoxModel(prev => ({ ...prev, isActive: false }));
-                    }
-                }
-            }
+import React, { useEffect, useState } from 'react';
+import { GridConfig } from '../../../_type/types';
+import girdService from '../../../_services/gird.service';
+import DynamicFormFields from '../../../_components/Table/_component/DynamicFormFields';
+import GenericTable from '../../../_components/Table/Table';
+import { options } from 'numeral';
 
-            );
-        } catch (error) {
-            console.error("Error submitting form:", error);
-        } finally {
-            setSubmitting(false);
-        }
+// Type cho dữ liệu mẫu
+type SampleData = {
+  id: string;
+  name: string;
+  email: string;
+  status: string;
+  createdAt: Date;
+};
+
+// Hàm ánh xạ kiểu dữ liệu sang loại input - DI CHUYỂN LÊN TRÊN
+const mapDataTypeToInputType = (dataType: string): 
+  'text' | 'date' | 'select' | 'checkbox' | 'number' | 'email' => {
+  switch (dataType) {
+    case 'date': return 'date';
+    case 'boolean': return 'checkbox';
+    case 'number': return 'number';
+    case 'email': return 'email';
+    case 'select': return 'select';
+    default: return 'text';
+  }
+};
+
+const ConfigurableTableForm = () => {
+  const [gridConfigs, setGridConfigs] = useState<GridConfig[]>([]);
+  const [selectedConfig, setSelectedConfig] = useState<GridConfig | null>(null);
+  const [data, setData] = useState<SampleData[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loadConfigs = async () => {
+      setLoading(true);
+      try {
+        const configs = await girdService.loadGridConfig();
+        setGridConfigs(configs);
+      } catch (error) {
+        console.error('Error loading configs:', error);
+      } finally {
+        setLoading(false);
+      }
     };
-    const [initCardBoxModel, setInitCardBoxModel] = useState(_initCardBoxModel);
-    const initdata = {
-        firstname: "John",
-        lastname: "Doe",
-        email: "john.doe@example.com",
-        phone: "",
-        gender: "",
-        birthday: "",
-        sponsor: "",
-        placement: "",
+    loadConfigs();
+  }, []);
+
+  useEffect(() => {
+    if (selectedConfig) {
+      loadData();
     }
+  }, [selectedConfig]);
 
-    return (
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const mockData: SampleData[] = [
+        {
+          id: '1',
+          name: 'John Doe',
+          email: 'john@example.com',
+          status: 'Active',
+          createdAt: new Date(),
+        },
+        {
+          id: '2',
+          name: 'Jane Smith',
+          email: 'jane@example.com',
+          status: 'Inactive',
+          createdAt: new Date(),
+        },
+      ];
+      setData(mockData);
+    } catch (error) {
+      console.error('Error loading data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = async (values: any) => {
+    try {
+      console.log('Form submitted:', values);
+      await loadData();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
+  };
+
+  const handleActionClick = (row: SampleData, action: string) => {
+    console.log(`Action ${action} clicked for row:`, row);
+  };
+  const tableColumns = selectedConfig?.columns.map(column => ({
+    key: column.fieldName as keyof SampleData,
+    label: column.fieldName || column.fieldName,
+    kind: column.dataType,
+    isSort: true,
+  })) || [];
+  const formFields = selectedConfig?.filters.map(filter => ({
+    name: filter.fieldName,
+    label: filter.displayName || filter.fieldName,
+    type: mapDataTypeToInputType(filter.filterType),
+    placeholder: `Enter ${filter.displayName || filter.fieldName}`,
+    required: true,
+    options: filter.options
+  })) || [];
+
+  return (
+     <div className="p-4">
+      <div className="flex items-center gap-4 mb-6">
+        <select
+          className="w-72 px-3 py-2 border border-gray-300 rounded-md shadow-sm"
+          onChange={(e) => {
+            const config = gridConfigs.find(c => c.id === e.target.value);
+            setSelectedConfig(config || null);
+          }}
+          value={selectedConfig?.id || ''}
+          disabled={loading}
+        >
+          <option value="">Select a configuration</option>
+          {gridConfigs.map(config => (
+            <option key={config.id} value={config.id}>
+              {config.module || `Config ${config.id}`}
+            </option>
+          ))}
+        </select>
+
+        <button
+          onClick={() => setSelectedConfig(null)}
+          className="px-4 py-2 bg-gray-100 rounded-md hover:bg-gray-200"
+        >
+          Reset
+        </button>
+      </div>
+
+      {selectedConfig && (
         <>
-            <CardBoxModal
-                title="Save Member"
-                buttonColor={initCardBoxModel.buttonColor}
-                buttonLabel={initCardBoxModel.buttonLabel}
-                isActive={initCardBoxModel.isActive}
-                onClose={initCardBoxModel.onClose}
-                isAction={initCardBoxModel.isAction}
-            >
-                <p>
-                    {initCardBoxModel.message}
-                </p>
-            </CardBoxModal>
-            <Head>
-                <title>{getPageTitle("Forms")}</title>
-            </Head>
-            <SectionMain>
-                <SectionTitleLineWithButton
-                    icon={mdiWalletMembership}
-                    title="Member Register Form WOWCNS"
-                    main
-                ></SectionTitleLineWithButton>
-                <CardBox>
-                    <Formik
-                        initialValues={initdata}
-                        onSubmit={handleSubmit}
-                    >
-                        {({ isSubmitting }) => (
-                            <Form>
-                                <FormGrid>
-                                    <FormField label="First Name" labelFor="firstname" icon={mdiAccount}>
-                                        {({ className }) => (
-                                            <Field
-                                                name="firstname"
-                                                id="firstname"
-                                                placeholder="First name"
-                                                className={className}
-                                            />
-                                        )}
-                                    </FormField>
-                                    <FormField label="Last Name" labelFor="lastname" icon={mdiAccount}>
-                                        {({ className }) => (
-                                            <Field
-                                                name="lastname"
-                                                id="lastname"
-                                                placeholder="Last name"
-                                                className={className}
-                                            />
-                                        )}
-                                    </FormField>
-                                </FormGrid>
-                                <FormGrid>
-                                    <FormField label="Birthday" labelFor="birthday" help="Please enter Birthday" icon={mdiCalendarAccount}>
-                                        {({ className }) => (
-                                            <Field
-                                                type="date"
-                                                name="birthday"
-                                                id="birthday"
-                                                placeholder="Birthday..."
-                                                className={className}
-                                            />
-                                        )}
-                                    </FormField>
-                                    <FormField label="Gender" labelFor="gender" icon={mdiGenderNonBinary}>
-                                        {({ className }) => (
-                                            <Field name="gender" id="gender" component="select" className={className}>
-                                                <option value="">Select Gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                            </Field>
-                                        )}
-                                    </FormField>
-                                </FormGrid>
-                                <FormGrid>
-                                    <FormField label="Email" labelFor="email" icon={mdiMail}>
-                                        {({ className }) => (
-                                            <Field
-                                                type="email"
-                                                name="email"
-                                                id="email"
-                                                placeholder="Email"
-                                                className={className}
-                                            />
-                                        )}
-                                    </FormField>
-                                    <FormField label="Phone" labelFor="phone" help="Help line comes here" icon={mdiCellphone}>
-                                        {({ className }) => (
-                                            <Field
-                                                name="phone"
-                                                id="phone"
-                                                placeholder="Phone"
-                                                className={className}
-                                            />
-                                        )}
-                                    </FormField>
-                                </FormGrid>
+          <div className="p-6 bg-white rounded-lg shadow">
+            <h2 className="mb-4 text-xl font-semibold">Form</h2>
+            <DynamicFormFields
+              config={formFields}
+              onSubmit={handleSubmit}
+              columns={2}
+            />
+          </div>
 
-                                <FormGrid>
-                                    <FormField label="Sponsor" labelFor="sponsor" help="Sponsor ID" icon={mdiAccountGroup}>
-                                        {({ className }) => (
-                                            <Field
-                                                name="sponsor"
-                                                id="sponsor"
-                                                placeholder="sponsor"
-                                                className={className}
-                                            />
-                                        )}
-                                    </FormField>
-                                    <FormField label="Placement" labelFor="placement" help="Placement ID" icon={mdiHandshake}>
-                                        {({ className }) => (
-                                            <Field
-                                                name="placement"
-                                                id="placement"
-                                                placeholder="placement"
-                                                className={className}
-                                            />
-                                        )}
-                                    </FormField>
-                                </FormGrid>
-
-                                <Buttons>
-                                    <Button type="submit" color="info" label="Submit" isGrouped disabled={isSubmitting} />
-                                    <Button type="reset" color="info" outline label="Reset" isGrouped />
-                                </Buttons>
-                            </Form>
-                        )}
-                    </Formik>
-                </CardBox>
-            </SectionMain>
+          <div className="p-6 bg-white rounded-lg shadow">
+            <h2 className="mb-4 text-xl font-semibold">Data Table</h2>
+            <GenericTable<SampleData>
+              data={data}
+              columns={tableColumns}
+              loading={loading}
+              total={data.length}
+              onClickAction={handleActionClick}
+              showPaging={true}
+              perPage={10}
+            />
+          </div>
         </>
-    );
-}
+      )}
+    </div>
+  );
+};
+
+export default ConfigurableTableForm;
