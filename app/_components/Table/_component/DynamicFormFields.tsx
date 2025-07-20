@@ -4,7 +4,7 @@ import { Field, Formik, Form } from 'formik';
 import * as mdi from '@mdi/js';
 import FormField from '../../FormField';
 import FormGrid from '../../FormField/FormGrid';
-import { FilterType } from '../../../_type/types';
+import { FilterOption, FilterType } from '../../../_type/types';
 
 export type FieldConfig = {
     name: string;
@@ -12,13 +12,13 @@ export type FieldConfig = {
     type: FilterType;
     placeholder?: string;
     icon?: string;
-    options?: { label: string; value: any }[];
+    options?: FilterOption[];
     hiddenKey?: string;
     renderCustom?: (className: string) => React.ReactNode;
 };
 
 type Props = {
-    config: FieldConfig[];
+    config: FieldConfig[] | null;
     columns?: number;
     onSubmit: (values: any) => void;
 };

@@ -1,8 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { GridConfig } from '../../../_type/types';
+import { FilterType, GridConfig } from '../../../_type/types';
 import girdService from '../../../_services/gird.service';
-import DynamicFormFields from '../../../_components/Table/_component/DynamicFormFields';
+import DynamicFormFields, { FieldConfig } from '../../../_components/Table/_component/DynamicFormFields';
 import GenericTable from '../../../_components/Table/Table';
 import CardBox from '../../../_components/CardBox';
 import SectionMain from '../../../_components/Section/Main';
@@ -11,7 +11,7 @@ import type { ColorButtonKey } from '../../../_interfaces';
 import Button from '../../../_components/Button';
 
 const mapDataTypeToInputType = (dataType: string):
-  'text' | 'date' | 'select' | 'checkbox' | 'number' | 'email' => {
+ FilterType => {
   switch (dataType) {
     case 'date': return 'date';
     case 'date-range': return 'date';
@@ -36,7 +36,6 @@ const ConfigurableTableForm = () => {
   const [filters, setFilters] = useState<Record<string, any>>({});
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMode, setModalMode] = useState<'view' | 'edit' | 'add'>('view');
-  const [currentRow, setCurrentRow] = useState<any>(null);
   const [formValues, setFormValues] = useState<Record<string, any>>({});
 
   // Set default modal button properties based on mode
@@ -113,7 +112,6 @@ const ConfigurableTableForm = () => {
 
   const handleActionClick = (row: any, action: string) => {
     if (action === 'edit') {
-      setCurrentRow(row);
       setModalMode('edit');
       const initialValues: Record<string, any> = {};
       selectedConfig?.columns.forEach(column => {
@@ -122,14 +120,12 @@ const ConfigurableTableForm = () => {
       setFormValues(initialValues);
       setModalOpen(true);
     } else if (action === 'view') {
-      setCurrentRow(row);
       setModalMode('view');
       setModalOpen(true);
     }
   };
 
   const handleAddNew = () => {
-    setCurrentRow(null);
     setModalMode('add');
     const initialValues: Record<string, any> = {};
     selectedConfig?.columns.forEach(column => {
@@ -180,17 +176,13 @@ const ConfigurableTableForm = () => {
     isSort: true,
   })) || [];
 
-  const formFields = selectedConfig?.filters?.length
-    ? selectedConfig.filters.map(filter => ({
+  const formFields = selectedConfig?.filters.map(filter => ({
       name: filter.fieldName,
       label: filter.displayName || filter.fieldName,
       type: mapDataTypeToInputType(filter.filterType),
       placeholder: `Enter ${filter.displayName || filter.fieldName}`,
-      required: true,
-      options: filter.options,
-      defaultValue: filters[filter.fieldName] || ''
-    }))
-    : null;
+      options: filter.options
+    } as FieldConfig))
 
   const modalFormFields = selectedConfig?.columns.map(column => {
     // Lấy filter tương ứng nếu có

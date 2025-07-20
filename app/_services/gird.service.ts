@@ -1,4 +1,3 @@
-import axios from "axios";
 import { ERPData, GridConfig, GridDataResponse } from "../_type/types";
 import { apiService } from "./apiClient";
 const girdService = {

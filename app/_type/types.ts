@@ -7,7 +7,8 @@ export type GridColumn = {
 
 export type FilterType 
 = 'text' | 'select' | 'date-range' | 'number-range' 
-| 'boolean' | 'checkbox' | 'switch' | 'custom' | 'date';
+| 'boolean' | 'checkbox' | 'switch' | 'custom' | 'date' |
+'number' | 'email';
 
 export type FilterOption = {
   value: string;

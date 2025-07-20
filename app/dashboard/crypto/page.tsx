@@ -3,12 +3,11 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../_stores/store";
 import { fetchCryptoAction } from "../../_stores/crypto/cryptoSlice";
-import { mdiBitcoin, mdiCalendarAlert, mdiCashMultiple, mdiUpdate } from "@mdi/js";
+import { mdiBitcoin, mdiUpdate } from "@mdi/js";
 import CardBox from "../../_components/CardBox";
 import SectionMain from "../../_components/Section/Main";
 import SectionTitleLineWithButton from "../../_components/Section/TitleLineWithButton";
 import GenericTable, { Filter, TableColumn } from "../../_components/Table/Table";
-import FormSearch from "../../_components/FormField/FormSearch";
 import { formatNumber, toUpperLower } from "../../_utils/formatUtils";
 
 import styled from 'styled-components'
@@ -16,8 +15,7 @@ import Icon from "../../_components/Icon";
 import { _initCardBoxModel } from "../../_models/cardbox.model";
 import CardBoxModal from "../../_components/CardBox/Modal";
 import DynamicFormFields, { FieldConfig } from "../../_components/Table/_component/DynamicFormFields";
-import { Form, Formik } from "formik";
-import cryptoService from "../../_services/crypto.service";
+
 
 const Wrapper = styled.div`
   color: red;
@@ -52,7 +50,6 @@ export default function CryptoPage() {
     market_cap: formatNumber(item.market_cap),
     symbol: toUpperLower(item.symbol, "upper"),
   }));
-  const initdata = { symbol: "", volume: "", regDate: "" , agree: false};
   const handleSubmit = (values) => {
     console.log("Submitted values:", values);
   };

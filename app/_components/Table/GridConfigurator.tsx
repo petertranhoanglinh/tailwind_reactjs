@@ -141,6 +141,7 @@ const GridConfigurator = ({
     }
 
     onSave({
+      id:"",
       module,
       columns,
       filters
