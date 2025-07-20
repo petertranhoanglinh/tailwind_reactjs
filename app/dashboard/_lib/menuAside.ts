@@ -38,15 +38,15 @@ export const menuAside: MenuAsideItem[] = [
   },
 
   {
-    label: "Member",
+    label: "Gird",
     icon: mdiViewList,
     menu: [
       {
-        label: "Member Register",
+        label: "Show Gird Data",
         href: "/dashboard/member/member_form",
       },
       {
-        label: "Member Search",
+        label: "Config Gird",
         href: "/dashboard/member/member_search",
       },
     ],

@@ -17,7 +17,7 @@ const GridConfigurator = ({
   const [module, setModule] = useState<string>('');
   const [columns, setColumns] = useState<GridColumn[]>([]);
   const [filters, setFilters] = useState<GridFilter[]>([]);
-  const [tempOptionInputs, setTempOptionInputs] = useState<{[key: number]: string}>({});
+  const [tempOptionInputs, setTempOptionInputs] = useState<{ [key: number]: string }>({});
 
   // Initialize with default values
   useEffect(() => {
@@ -69,15 +69,22 @@ const GridConfigurator = ({
     value: GridFilter[K]
   ) => {
     const newFilters = [...filters];
+    const column = columns?.find(col => col.fieldName === newFilters[index].fieldName);
+
+    // Cập nhật giá trị filter
     newFilters[index][key] = value;
-    
-    if (key === 'filterType' && value !== 'select') {
-      newFilters[index].options = [];
+   
+
+    // Xử lý khi thay đổi filterType
+    if (key === 'filterType') {
+      if (value !== 'select') {
+        newFilters[index].options = [{label : "selected" , value : ''}];
+      }
+       newFilters[index].filterType = value;
     }
-    
+
     setFilters(newFilters);
   };
-
   const removeFilter = (index: number) => {
     setFilters(filters.filter((_, i) => i !== index));
   };
@@ -109,7 +116,7 @@ const GridConfigurator = ({
     ];
 
     updateFilter(filterIndex, 'options', newOptions);
-    setTempOptionInputs({...tempOptionInputs, [filterIndex]: ''});
+    setTempOptionInputs({ ...tempOptionInputs, [filterIndex]: '' });
   };
 
   // Get suitable filter types based on column data type
@@ -164,14 +171,14 @@ pending:Đang chờ xử lý`}
       >
         Thêm Options
       </button>
-      
+
       <div className="mt-2">
         <label className="block text-sm text-gray-500 mb-1">Options đã thêm:</label>
         <div className="flex flex-wrap gap-2">
           {filters[filterIndex].options?.length ? (
             filters[filterIndex].options?.map((option, i) => (
-              <span 
-                key={i} 
+              <span
+                key={i}
                 className="inline-flex items-center px-2 py-1 bg-gray-100 rounded-full text-sm"
               >
                 {option.label} ({option.value})
@@ -343,13 +350,16 @@ pending:Đang chờ xử lý`}
                       className="w-full p-2 border border-gray-300 rounded-md"
                       disabled={!filter.fieldName}
                     >
+                        <option key='' value={""}>
+                          Select type
+                        </option>
                       {filterTypes.map(type => (
                         <option key={type} value={type}>
-                          {type === 'text' ? 'Text' : 
-                           type === 'select' ? 'Select' : 
-                           type === 'date-range' ? 'Date Range' : 
-                           type === 'number-range' ? 'Number Range' : 
-                           'Boolean'}
+                          {type === 'text' ? 'Text' :
+                            type === 'select' ? 'Select' :
+                              type === 'date-range' ? 'Date Range' :
+                                type === 'number-range' ? 'Number Range' :
+                                  'Boolean'}
                         </option>
                       ))}
                     </select>

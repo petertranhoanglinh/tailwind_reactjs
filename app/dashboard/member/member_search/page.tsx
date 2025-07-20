@@ -28,8 +28,15 @@ export default function MemberSearchPage() {
 
   const handleSave = async (config: GridConfig) => {
     try {
-      const data = await girdService.createGridConfig(config);
-      console.log('Saved successfully:', data);
+       let data
+      if(selectedConfig){
+        data = await girdService.createGridConfig(config, selectedConfig.id);
+      }else{
+         data = await girdService.createGridConfig(config);
+      }
+      if(data){
+        alert("suscess save ok")
+      }
       // Refresh the config list after saving
       const updatedConfigs = await girdService.loadGridConfig();
       setGridConfigs(updatedConfigs);

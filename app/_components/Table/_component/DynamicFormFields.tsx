@@ -4,11 +4,12 @@ import { Field, Formik, Form } from 'formik';
 import * as mdi from '@mdi/js';
 import FormField from '../../FormField';
 import FormGrid from '../../FormField/FormGrid';
+import { FilterType } from '../../../_type/types';
 
 export type FieldConfig = {
     name: string;
     label: string;
-    type: 'text' | 'date' | 'select' | 'checkbox' | 'switch' | 'custom';
+    type: FilterType;
     placeholder?: string;
     icon?: string;
     options?: { label: string; value: any }[];
@@ -23,7 +24,7 @@ type Props = {
 };
 
 export default function DynamicFormFields({ config, columns = 3, onSubmit }: Props) {
-    if(config == null) return <></>
+    if (config == null) return <>    </>
     const generateInitialValues = (config: FieldConfig[]) => {
         const initialValues: Record<string, any> = {};
         config.forEach((field) => {
@@ -71,6 +72,17 @@ export default function DynamicFormFields({ config, columns = 3, onSubmit }: Pro
                                                 <span className="text-sm text-gray-700">{field.label}</span>
                                             </label>
 
+                                        );
+                                    }
+
+                                    if (field.type === 'date' ||  field.type === 'date-range') {
+                                        return (
+                                                    <Field
+                                                        type="date"
+                                                        name={field.name}
+                                                        id={field.name}
+                                                        className={className}
+                                                    />
                                         );
                                     }
                                     return (

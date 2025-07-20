@@ -1,10 +1,13 @@
 import axios from "axios";
-import { GridConfig, GridDataResponse } from "../_type/types";
+import { ERPData, GridConfig, GridDataResponse } from "../_type/types";
 import { apiService } from "./apiClient";
 const girdService = {
 
 
-  async createGridConfig(config: Omit<GridConfig, 'id'>): Promise<GridConfig> {
+  async createGridConfig(config: Omit<GridConfig, 'id'> ,  idConfig?: string | null): Promise<GridConfig> {
+    if(idConfig){
+      return apiService.put<GridConfig>(`/grid/config/${idConfig}`, config);
+    }
     return apiService.post<GridConfig>('/grid/config', config);
   },
 
@@ -32,6 +35,30 @@ const girdService = {
       throw error;
     }
   },
+
+async saveGridData(
+  configId: string,
+  fieldValues: Record<string, any>,
+  idData?: string | null
+): Promise<ERPData> {
+  try {
+    const params = new URLSearchParams();
+    if (idData) {
+      params.append('idData', idData);
+    }
+
+    const config = {
+      params,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    return apiService.post<ERPData>(`/grid/data/${configId}`, fieldValues, config);
+  } catch (error) {
+    console.error(idData ? 'Error updating grid data:' : 'Error creating grid data:', error);
+    throw error;
+  }
+},
 
 };
 
