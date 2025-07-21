@@ -1,13 +1,13 @@
 // utils/apiClient.ts
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const API_URL = "http://localhost:8080/api";
+
 
 const getAuthToken = (): string | null => {
   // Lấy token từ localStorage hoặc cookie
   return localStorage.getItem('authToken');
 };
-
+const API_URL = process.env.NEXT_PUBLIC_URL_API;
 // Tạo instance axios cơ bản
 const apiClient = axios.create({
   baseURL: API_URL,

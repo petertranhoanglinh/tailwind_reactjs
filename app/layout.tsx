@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "../css/main.css";
 import StoreProvider from "./_stores/StoreProvider";
 import Script from "next/script";
+import AuthGuard from "./providers/AuthGuard";
+import AuthInitializer from "./providers/AuthInitializer";
 
 const title = `Myoffice wowcns demo`;
 
@@ -65,7 +67,12 @@ export default function RootLayout({
         <body
           className={`bg-gray-50 dark:bg-slate-800 dark:text-slate-100 antialiased`}
         >
-          {children}
+          <AuthInitializer>
+            <AuthGuard>
+              {children}
+            </AuthGuard>
+          </AuthInitializer>
+
         </body>
       </html>
     </StoreProvider>

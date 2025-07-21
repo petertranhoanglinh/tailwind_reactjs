@@ -2,14 +2,16 @@
 
 import { Formik, Form, Field } from "formik";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
 import Button from "../../_components/Button";
 import Buttons from "../../_components/Buttons";
 import Divider from "../../_components/Divider";
 import FormField from "../../_components/FormField";
 import FormCheckRadio from "../../_components/FormField/CheckRadio";
-import authService from "../../_services/auth.service";
+import { loginStart, loginSuccess, loginFailure } from "../../_stores/auth/authSlice";
 import Cookies from 'js-cookie';
+import authService from "../../_services/auth.service";
+import { User } from "../../_models/types";
 
 type LoginForm = {
   login: string;
@@ -19,25 +21,34 @@ type LoginForm = {
 
 export default function LoginForm() {
   const router = useRouter();
-  const [errorMessage, setErrorMessage] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = async (formValues: LoginForm) => {
+    const { login, password, remember } = formValues;
+    
+    dispatch(loginStart());
+    
     try {
-      const { login, password } = formValues;
-
+      // Giả sử bạn có authService.authenticate để gọi API
       const result = await authService.authenticate({
         username: login,
         password: password,
       });
-      if (result?.jwt) {
-        Cookies.set('jwt', result?.jwt, { expires: 10/24 }); // expires = 1 day
-        localStorage.setItem('authToken' , result?.jwt)
-        router.push("/dashboard");
-      } else {
-        setErrorMessage("Login failed: No token received.");
+      if (!result?.jwt) {
+        throw new Error('No token received');
       }
+
+      // Lưu token vào cookie/localStorage
+      const expires = remember ? 1 : 1/24; // 1 ngày hoặc 1 giờ
+     
+      const user = result as User;
+      Cookies.set('jwt', user.jwt, { expires });
+      localStorage.setItem('authToken', user.jwt);
+      dispatch(loginSuccess({ user, token: result.jwt }));
+      router.push("/dashboard");
     } catch (error) {
-      setErrorMessage("Login failed: Invalid credentials.");
+      const message = error instanceof Error ? error.message : 'Login failed';
+      dispatch(loginFailure(message));
     }
   };
 
@@ -49,38 +60,53 @@ export default function LoginForm() {
 
   return (
     <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-      <Form>
-        <FormField label="Login" help="Please enter your login">
-          {({ className }) => <Field name="login" className={className} />}
-        </FormField>
+      {({ isSubmitting }) => (
+        <Form>
+          <FormField label="Login" help="Please enter your login">
+            {({ className }) => (
+              <Field 
+                name="login" 
+                className={className} 
+                disabled={isSubmitting}
+              />
+            )}
+          </FormField>
 
-        <FormField label="Password" help="Please enter your password">
-          {({ className }) => (
-            <Field name="password" type="password" className={className} />
-          )}
-        </FormField>
+          <FormField label="Password" help="Please enter your password">
+            {({ className }) => (
+              <Field 
+                name="password" 
+                type="password" 
+                className={className}
+                disabled={isSubmitting}
+              />
+            )}
+          </FormField>
 
-        <FormCheckRadio type="checkbox" label="Remember">
-          <Field type="checkbox" name="remember" />
-        </FormCheckRadio>
+          <FormCheckRadio type="checkbox" label="Remember me">
+            <Field type="checkbox" name="remember" disabled={isSubmitting} />
+          </FormCheckRadio>
 
-        {errorMessage && (
-          <div className="text-red-500 text-sm mt-2">{errorMessage}</div>
-        )}
+          <Divider />
 
-        <Divider />
-
-        <Buttons>
-          <Button type="submit" label="Login" color="info" isGrouped />
-          <Button
-            href="/dashboard"
-            label="Home"
-            color="info"
-            outline
-            isGrouped
-          />
-        </Buttons>
-      </Form>
+          <Buttons>
+            <Button 
+              type="submit" 
+              label={isSubmitting ? "Logging in..." : "Login"} 
+              color="info" 
+              isGrouped 
+              disabled={isSubmitting}
+            />
+            <Button
+              href="/"
+              label="Cancel"
+              color="info"
+              outline
+              isGrouped
+            />
+          </Buttons>
+        </Form>
+      )}
     </Formik>
   );
 }

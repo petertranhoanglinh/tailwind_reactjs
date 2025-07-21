@@ -6,7 +6,7 @@ import Button from "../../../_components/Button";
 import Buttons from "../../../_components/Buttons";
 import CardBox from "../../../_components/CardBox";
 import CardBoxComponentTitle from "../../../_components/CardBox/Component/Title";
-import CardBoxModal from "../../../_components/CardBox/Modal";
+// import CardBoxModal from "../../../_components/CardBox/Modal";
 import SectionMain from "../../../_components/Section/Main";
 
 export default function ModalExamples() {
