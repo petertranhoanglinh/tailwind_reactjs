@@ -53,7 +53,7 @@ export default function ModalExamples() {
 
   return (
     <>
-      <CardBoxModal
+      {/* <CardBoxModal
         title="Please confirm action"
         buttonColor="info"
         buttonLabel="Confirm"
@@ -62,9 +62,9 @@ export default function ModalExamples() {
         onCancel={handleModalAction}
       >
         {modalSampleContents}
-      </CardBoxModal>
+      </CardBoxModal> */}
 
-      <CardBoxModal
+      {/* <CardBoxModal
         title="Unhandled exception"
         buttonColor="danger"
         buttonLabel="Done"
@@ -72,9 +72,9 @@ export default function ModalExamples() {
         onConfirm={handleModalAction}
       >
         {modalSampleContents}
-      </CardBoxModal>
+      </CardBoxModal> */}
 
-      <CardBoxModal
+      {/* <CardBoxModal
         title="Success"
         buttonColor="success"
         buttonLabel="Done"
@@ -82,7 +82,7 @@ export default function ModalExamples() {
         onConfirm={handleModalAction}
       >
         {modalSampleContents}
-      </CardBoxModal>
+      </CardBoxModal> */}
 
       <SectionMain>
         <div className="space-y-12">

@@ -182,7 +182,7 @@ const ConfigurableTableForm = () => {
       type: mapDataTypeToInputType(filter.filterType),
       placeholder: `Enter ${filter.displayName || filter.fieldName}`,
       options: filter.options
-    } as FieldConfig))
+    } as FieldConfig)) ?? []
 
   const modalFormFields = selectedConfig?.columns.map(column => {
     // Lấy filter tương ứng nếu có
@@ -269,7 +269,6 @@ const ConfigurableTableForm = () => {
               config={formFields}
               onSubmit={handleSubmit}
               columns={2}
-              submitButtonText="Apply Filters"
             />
           </CardBox>
           <CardBox className="mb-6" hasTable>

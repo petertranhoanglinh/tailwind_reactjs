@@ -2,7 +2,6 @@ import { CryptoModel } from './../_models/crypto.model';
 import axios from "axios";
 const API_URL = "https://api.coingecko.com/api/v3/coins/markets";
 const cryptoService = {
-
   async searchCryto(query): Promise<CryptoModel[]> {
     try {
       const response = await axios.get<CryptoModel[]>(API_URL, {
@@ -20,7 +19,6 @@ const cryptoService = {
       throw error;
     }
   }
-  
 };
 
 export default cryptoService;

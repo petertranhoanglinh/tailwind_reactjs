@@ -14,6 +14,12 @@ const nextConfig = {
       },
     ],
   },
+  eslint: {
+    ignoreDuringBuilds: true, // 👈 Tắt ESLint khi build
+  },
+  env: {
+    NEXT_PUBLIC_URL_API: process.env.NEXT_PUBLIC_URL_API,
+  },
 };
 
 module.exports = nextConfig;

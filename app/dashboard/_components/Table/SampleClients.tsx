@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { Client } from "../../../_interfaces";
 import Button from "../../../_components/Button";
 import Buttons from "../../../_components/Buttons";
-import CardBoxModal from "../../../_components/CardBox/Modal";
+
 import UserAvatar from "../UserAvatar";
 
 type Props = {
@@ -30,44 +30,14 @@ const TableSampleClients = ({ clients , showPaging }: Props) => {
     perPage * (currentPage + 1),
   );
 
-  const [isModalInfoActive, setIsModalInfoActive] = useState(false);
-  const [isModalTrashActive, setIsModalTrashActive] = useState(false);
 
-  const handleModalAction = () => {
-    setIsModalInfoActive(false);
-    setIsModalTrashActive(false);
-  };
+
 
   return (
     <>
-      <CardBoxModal
-        title="Sample modal"
-        buttonColor="info"
-        buttonLabel="Done"
-        isActive={isModalInfoActive}
-        onConfirm={handleModalAction}
-        onCancel={handleModalAction}
-      >
-        <p>
-          Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-        </p>
-        <p>This is sample modal</p>
-      </CardBoxModal>
+     
 
-      <CardBoxModal
-        title="Please confirm"
-        buttonColor="danger"
-        buttonLabel="Confirm"
-        isActive={isModalTrashActive}
-        onConfirm={handleModalAction}
-        onCancel={handleModalAction}
-      >
-        <p>
-          Lorem ipsum dolor sit amet <b>adipiscing elit</b>
-        </p>
-        <p>This is sample modal</p>
-      </CardBoxModal>
-
+      
       <table>
         <thead>
           <tr>
@@ -106,24 +76,7 @@ const TableSampleClients = ({ clients , showPaging }: Props) => {
                   {client.created}
                 </small>
               </td>
-              <td className="before:hidden lg:w-1 whitespace-nowrap">
-                <Buttons type="justify-start lg:justify-end" noWrap>
-                  <Button
-                    color="info"
-                    icon={mdiEye}
-                    onClick={() => setIsModalInfoActive(true)}
-                    small
-                    isGrouped
-                  />
-                  <Button
-                    color="danger"
-                    icon={mdiTrashCan}
-                    onClick={() => setIsModalTrashActive(true)}
-                    small
-                    isGrouped
-                  />
-                </Buttons>
-              </td>
+             
             </tr>
           ))}
         </tbody>

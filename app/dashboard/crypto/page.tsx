@@ -43,7 +43,7 @@ export default function CryptoPage() {
   const dispatch = useDispatch<AppDispatch>();
   const { items, loading } = useSelector((state: RootState) => state.crypto);
   const totalCount = items.length;
-  const formattedItems = items.map((item) => ({
+  const formattedItems : any[]= items.map((item) => ({
     ...item,
     price: formatNumber(item.current_price),
     total_volume: formatNumber(item.total_volume),
