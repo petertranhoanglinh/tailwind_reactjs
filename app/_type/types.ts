@@ -1,7 +1,7 @@
 export type GridColumn = {
   fieldName: string;
   displayName: string;
-  dataType: 'string' | 'number' | 'date' | 'boolean';
+  dataType: 'string' | 'number' | 'date' | 'boolean' | 'select';
   visible?: boolean;
 };
 

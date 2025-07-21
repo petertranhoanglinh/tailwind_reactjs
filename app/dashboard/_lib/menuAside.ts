@@ -42,12 +42,12 @@ export const menuAside: MenuAsideItem[] = [
     icon: mdiViewList,
     menu: [
       {
-        label: "Show Gird Data",
-        href: "/dashboard/member/member_form",
-      },
-      {
         label: "Config Gird",
-        href: "/dashboard/member/member_search",
+        href: "/dashboard/gird/create_gird",
+      },
+       {
+        label: "Load Gird",
+        href: "/dashboard/gird/data_gird",
       },
     ],
   },

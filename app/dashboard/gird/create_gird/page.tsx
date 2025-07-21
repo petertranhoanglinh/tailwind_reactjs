@@ -4,6 +4,7 @@ import GridConfigurator from "../../../_components/Table/GridConfigurator";
 import { GridConfig } from "../../../_type/types";
 import girdService from "../../../_services/gird.service";
 import { useEffect, useState } from "react";
+import SectionMain from "../../../_components/Section/Main";
 
 export default function MemberSearchPage() {
   const [gridConfigs, setGridConfigs] = useState<GridConfig[]>([]);
@@ -56,7 +57,7 @@ export default function MemberSearchPage() {
   };
 
   return (
-    <div className="p-4">
+    <SectionMain>
       <div className="flex items-center gap-4 mb-4">
         <select
           className="w-72 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
@@ -85,6 +86,6 @@ export default function MemberSearchPage() {
         onSave={handleSave} 
         initialConfig={selectedConfig}
       />
-    </div>
+    </SectionMain>
   );
 }

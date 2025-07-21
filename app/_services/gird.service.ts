@@ -3,8 +3,8 @@ import { apiService } from "./apiClient";
 const girdService = {
 
 
-  async createGridConfig(config: Omit<GridConfig, 'id'> ,  idConfig?: string | null): Promise<GridConfig> {
-    if(idConfig){
+  async createGridConfig(config: Omit<GridConfig, 'id'>, idConfig?: string | null): Promise<GridConfig> {
+    if (idConfig) {
       return apiService.put<GridConfig>(`/grid/config/${idConfig}`, config);
     }
     return apiService.post<GridConfig>('/grid/config', config);
@@ -13,21 +13,53 @@ const girdService = {
   async loadGridConfig(): Promise<GridConfig[]> {
     return apiService.get<GridConfig[]>('/grid/config');
   },
-  async loadGridData(configId: string, filters?: Record<string, any>): Promise<GridDataResponse> {
+  // async loadGridData(configId: string, filters?: Record<string, any>): Promise<GridDataResponse> {
+  //   try {
+  //     // Convert filters to query params if they exist
+  //     const params = filters ? new URLSearchParams() : undefined;
+  //     if (filters) {
+  //       Object.entries(filters).forEach(([key, value]) => {
+  //         if (value !== undefined && value !== null) {
+  //           params?.append(key, String(value));
+  //         }
+  //       });
+  //     }
+
+  //     return apiService.get<GridDataResponse>(
+  //       `/grid/data/${configId}`,
+  //       params ? { params } : undefined
+  //     );
+  //   } catch (error) {
+  //     console.error('Error loading grid data:', error);
+  //     throw error;
+  //   }
+  // },
+
+  async loadGridData(
+    configId: string,
+    filters?: Record<string, any> | { filters: Array<{ field: string; operator: string; value: any }> }
+  ): Promise<GridDataResponse> {
     try {
-      // Convert filters to query params if they exist
-      const params = filters ? new URLSearchParams() : undefined;
-      if (filters) {
+      const isAdvancedFilter = filters && 'filters' in filters;
+
+      // Chuẩn bị query params
+      const params = new URLSearchParams();
+
+      if (isAdvancedFilter) {
+        // Encode filters array thành JSON string và gửi qua query param
+        params.append('filters', JSON.stringify(filters.filters));
+      } else if (filters) {
+        // Filter đơn giản
         Object.entries(filters).forEach(([key, value]) => {
           if (value !== undefined && value !== null) {
-            params?.append(key, String(value));
+            params.append(key, String(value));
           }
         });
       }
 
       return apiService.get<GridDataResponse>(
         `/grid/data/${configId}`,
-        params ? { params } : undefined
+        { params }
       );
     } catch (error) {
       console.error('Error loading grid data:', error);
@@ -35,29 +67,29 @@ const girdService = {
     }
   },
 
-async saveGridData(
-  configId: string,
-  fieldValues: Record<string, any>,
-  idData?: string | null
-): Promise<ERPData> {
-  try {
-    const params = new URLSearchParams();
-    if (idData) {
-      params.append('idData', idData);
-    }
-
-    const config = {
-      params,
-      headers: {
-        'Content-Type': 'application/json'
+  async saveGridData(
+    configId: string,
+    fieldValues: Record<string, any>,
+    idData?: string | null
+  ): Promise<ERPData> {
+    try {
+      const params = new URLSearchParams();
+      if (idData) {
+        params.append('idData', idData);
       }
-    };
-    return apiService.post<ERPData>(`/grid/data/${configId}`, fieldValues, config);
-  } catch (error) {
-    console.error(idData ? 'Error updating grid data:' : 'Error creating grid data:', error);
-    throw error;
-  }
-},
+
+      const config = {
+        params,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      };
+      return apiService.post<ERPData>(`/grid/data/${configId}`, fieldValues, config);
+    } catch (error) {
+      console.error(idData ? 'Error updating grid data:' : 'Error creating grid data:', error);
+      throw error;
+    }
+  },
 
 };
 
