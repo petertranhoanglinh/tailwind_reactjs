@@ -11,7 +11,8 @@ import {
   mdiResponsive,
   mdiPalette,
   mdiVuejs,
-  mdiBitcoin
+  mdiBitcoin,
+  mdiChat
 } from "@mdi/js";
 import { MenuAsideItem } from "../../_interfaces";
 
@@ -35,6 +36,12 @@ export const menuAside: MenuAsideItem[] = [
     href: "/dashboard/forms",
     label: "Forms",
     icon: mdiSquareEditOutline,
+  },
+
+  {
+    href: "/dashboard/chat",
+    label: "Chat",
+    icon: mdiChat,
   },
 
   {
