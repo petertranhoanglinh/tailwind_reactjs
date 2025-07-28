@@ -29,7 +29,6 @@ export default function LoginForm() {
     dispatch(loginStart());
     
     try {
-      // Giả sử bạn có authService.authenticate để gọi API
       const result = await authService.authenticate({
         username: login,
         password: password,
@@ -38,8 +37,7 @@ export default function LoginForm() {
         throw new Error('No token received');
       }
 
-      // Lưu token vào cookie/localStorage
-      const expires = remember ? 1 : 1/24; // 1 ngày hoặc 1 giờ
+      const expires = remember ? 1 : 1/24; 
      
       const user = result as User;
       Cookies.set('jwt', user.jwt, { expires });

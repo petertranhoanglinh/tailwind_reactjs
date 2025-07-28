@@ -6,7 +6,7 @@ const nextConfig = {
     return [];
   },
   images: {
-    unoptimized: true, // ✅ Bỏ qua tối ưu hóa ảnh khi export
+    unoptimized: true, 
     remotePatterns: [
       {
         protocol: "https",
@@ -15,7 +15,7 @@ const nextConfig = {
     ],
   },
   eslint: {
-    ignoreDuringBuilds: true, // 👈 Tắt ESLint khi build
+    ignoreDuringBuilds: true, 
   },
   env: {
     NEXT_PUBLIC_URL_API: process.env.NEXT_PUBLIC_URL_API,

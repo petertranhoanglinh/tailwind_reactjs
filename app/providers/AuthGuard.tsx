@@ -1,10 +1,10 @@
-// components/AuthGuard.tsx
 "use client";
-
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../_stores/store';
+import authService from '../_services/auth.service';
+import { getAuthToken } from '../_utils/common.util';
 
 const publicRoutes = ['/login', '/register', '/forgot-password'];
 
@@ -15,28 +15,32 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
 
   useEffect(() => {
-    const checkAuth = () => {
+    const  checkAuth = async () => {
       const isPublic = publicRoutes.some(route => pathname.startsWith(route));
       if (!token && !isPublic) {
-        router.replace('/login');
-        setIsAuthorized(false);
+        if(token == null &&  getAuthToken()){
+          const tokenExp = await authService.checkToken();
+          if(tokenExp.data){
+              setIsAuthorized(true);
+              return;
+          }
+        }
+          router.replace('/login');
+          setIsAuthorized(false);
       } else {
         setIsAuthorized(true);
       }
     };
-
     checkAuth();
-
     const handleRouteChange = () => checkAuth();
     window.addEventListener('routeChangeComplete', handleRouteChange);
-
     return () => {
       window.removeEventListener('routeChangeComplete', handleRouteChange);
     };
   }, [token, pathname, router]);
 
   if (isAuthorized === null) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   if (!isAuthorized) {
