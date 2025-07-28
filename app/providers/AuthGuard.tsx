@@ -19,11 +19,18 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       const isPublic = publicRoutes.some(route => pathname.startsWith(route));
       if (!token && !isPublic) {
         if(token == null &&  getAuthToken()){
-          const tokenExp = await authService.checkToken();
-          if(tokenExp.data){
+          try {
+            const tokenExp = await authService.checkToken();
+            if(tokenExp.data){
               setIsAuthorized(true);
               return;
+            }
+          } catch (error) {
+             router.replace('/login');
+             setIsAuthorized(false);
           }
+          
+          
         }
           router.replace('/login');
           setIsAuthorized(false);
